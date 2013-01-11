@@ -1,0 +1,130 @@
+#pragma once
+
+namespace inplace {
+
+struct prerotate {
+    int m_m, m_n, m_c;
+    __host__ __device__
+    prerotate(int m, int n, int c) : m_m(m), m_n(n), m_c(c) {}
+    __host__ __device__
+    int operator()(const int& j) {
+        return (j * m_c)/m_n;
+    }
+};
+
+struct postrotate {
+    int m_m;
+    __host__ __device__
+    postrotate(int m) : m_m(m) {}
+    __host__ __device__
+    int operator()(const int& j) {
+        return j % m_m;
+    }
+};
+
+template<typename F>
+struct rotator {
+    F m_f;
+    int m_a;
+    __host__ __device__
+    rotator(F f) : m_f(f) {}
+    __host__ __device__
+    void set_j(const int& j) {
+        m_a = m_f(j);
+    }
+    __host__ __device__
+    int operator()(const int& i) {
+        return (i + m_a) % m_f.m_m;
+    }
+};
+
+struct permuter {
+    int m_m, m_n, m_c;
+    __host__ __device__
+    permuter(int m, int n, int c) : m_m(m), m_n(n), m_c(c) {}
+    __host__ __device__
+    void set_j(const int& j) {}
+    __host__ __device__
+    int operator()(const int& i) {
+        return (i * m_n - (i*m_c)/m_m) % m_m;
+    }
+};
+
+    
+
+
+template<typename T, typename F>
+__global__ void rm_col_op(int m, int n, T* d, T* tmp, F fn) {
+    for(int j = blockIdx.x; j < n; j += gridDim.x) {
+        fn.set_j(j);
+        for(int i = threadIdx.x; i < m; i += blockDim.x) {
+            int src_idx = fn(i);
+            tmp[blockIdx.x * m + i] = d[j + src_idx * n];
+        }
+        __syncthreads();
+        for(int i = threadIdx.x; i < m; i += blockDim.x) {
+            d[j + i * n] = tmp[blockIdx.x * m + i];
+        }
+        __syncthreads();
+    }
+}
+
+struct shuffle {
+    int m_m, m_n, m_c, m_k;
+    __host__ __device__
+    shuffle(int m, int n, int c, int k) : m_m(m), m_n(n), m_c(c), m_k(k) {}
+
+    __host__ __device__
+    int f(const int& i, const int& j) {
+        int r = j + i *(m_n - 1);
+        if (i < (m_m + 1 - m_c + (j % m_c))) {
+            return r;
+        } else {
+            return r + m_m;
+        }
+    }
+    
+    __host__ __device__
+    int operator()(const int& i, const int& j) {
+        int fij = f(i, j);
+        int term1 = (m_k *(fij/m_c)) % (m_n/m_c);
+        int term2 = (fij % m_c) * (m_n/m_c);
+        return (term1 + term2) % m_n;
+    }
+};
+
+template<typename T>
+__global__ void rm_shuffle(int m, int n, T* d, T* tmp, shuffle s) {
+    for(int i = blockIdx.x; i < m; i += gridDim.x) {
+        for(int j = threadIdx.x; j < n; j+= blockDim.x) {
+            tmp[blockIdx.x * n + j] = d[i * n + s(i, j)];
+        }
+        __syncthreads();
+        for(int j = threadIdx.x; j < n; j+= blockDim.x) {
+            d[i * n + j] = tmp[blockIdx.x * n + j];
+        }
+        __syncthreads();
+    }        
+}
+
+
+
+template<typename T>
+void transpose_rm(int m, int n, T* data, T* tmp_in=0) {
+    temporary_storage<T> tmp(m, n, tmp_in);
+    int c, t, k;
+    extended_gcd(m, n, c, t);
+    extended_gcd(m/c, n/c, t, k);
+    int n_blocks = n_ctas();
+    int n_threads = 1024;
+    rm_col_op<<<n_blocks, n_threads>>>
+        (m, n, data, static_cast<T*>(tmp), rotator<prerotate>(prerotate(m, n, c)));
+    rm_shuffle<<<n_blocks, n_threads>>>
+        (m, n, data, static_cast<T*>(tmp), shuffle(m, n, c, k));
+    rm_col_op<<<n_blocks, n_threads>>>
+        (m, n, data, static_cast<T*>(tmp), rotator<postrotate>(postrotate(m)));
+    rm_col_op<<<n_blocks, n_threads>>>
+        (m, n, data, static_cast<T*>(tmp), permuter(m, n, c));
+}
+
+}
