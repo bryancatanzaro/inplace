@@ -1,12 +1,9 @@
 #pragma once
 
+#include "introspect.h"
+
 namespace inplace {
-
-int n_ctas() {
-    //XXX This should scale with GPU size
-    return 2 * 14;
-}
-
+ 
 template<typename T>
 struct temporary_storage {
     T* m_d;
