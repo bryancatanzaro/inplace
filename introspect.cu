@@ -23,5 +23,9 @@ int n_ctas() {
     return n_sms * blocks_per_sm;
 }
 
+size_t gpu_memory_size() {
+    return cached_properties.properties.totalGlobalMem;
+}
+
 
 }

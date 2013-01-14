@@ -1,6 +1,7 @@
 #pragma once
 
 #include "introspect.h"
+#include <new>
 
 namespace inplace {
  
@@ -11,7 +12,12 @@ struct temporary_storage {
     temporary_storage(int m, int n, T* tmp) {
         if (tmp == 0) {
             int max_size = max(m, n);
-            cudaMalloc(&m_d, n_ctas() * max_size * sizeof(T));
+            cudaError_t check =
+                cudaMalloc(&m_d, n_ctas() * max_size * sizeof(T));
+            if (check != cudaSuccess) {
+                std::cerr << "Couldn't create temporary storage" << std::endl;
+                throw std::bad_alloc();
+            }
             m_owned = true;
         } else {
             m_d = tmp;

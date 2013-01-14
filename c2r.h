@@ -2,7 +2,6 @@
 
 #include "introspect.h"
 
-
 namespace inplace {
 
 struct prerotate {
@@ -78,8 +77,8 @@ struct shuffle {
     shuffle(int m, int n, int c, int k) : m_m(m), m_n(n), m_c(c), m_k(k) {}
 
     __host__ __device__
-    int f(const int& i, const int& j) {
-        int r = j + i *(m_n - 1);
+    long long f(const int& i, const int& j) {
+        long long r = j + i *(m_n - 1);
         if (i < (m_m + 1 - m_c + (j % m_c))) {
             return r;
         } else {
@@ -89,7 +88,7 @@ struct shuffle {
     
     __host__ __device__
     int operator()(const int& i, const int& j) {
-        int fij = f(i, j);
+        long long fij = f(i, j);
         int term1 = (m_k *(fij/m_c)) % (m_n/m_c);
         int term2 = (fij % m_c) * (m_n/m_c);
         return (term1 + term2) % m_n;
@@ -110,6 +109,14 @@ __global__ void rm_shuffle(int m, int n, T* d, T* tmp, shuffle s) {
     }        
 }
 
+template<typename T>
+__global__ void shuffle_idxes(int m, int n, T* d, shuffle s) {
+    for(int i = blockIdx.x; i < m; i += gridDim.x) {
+        for(int j = threadIdx.x; j < n; j+= blockDim.x) {
+            d[i * n + j] = s(i, j);
+        }
+    }        
+}
 
 
 template<typename T>
@@ -120,9 +127,8 @@ void transpose_rm(int m, int n, T* data, T* tmp_in=0) {
     extended_gcd(m/c, n/c, t, k);
     int blockdim = n_ctas();
     int threaddim = n_threads();
-
-    std::cout << "blocks: " << blockdim << " threads: " << threaddim << std::endl;
-    
+    //std::cout << std::endl << "M: " << m << " N: " << n << " C: " << c
+    //          << " K: " << k << std::endl;
     rm_col_op<<<blockdim, threaddim>>>
         (m, n, data, static_cast<T*>(tmp), rotator<prerotate>(prerotate(m, n, c)));
     rm_shuffle<<<blockdim, threaddim>>>
