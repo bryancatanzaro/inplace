@@ -133,18 +133,16 @@ void transpose_rm(int m, int n, T* data, T* tmp_in=0) {
     int c, t, k;
     extended_gcd(m, n, c, t);
     extended_gcd(m/c, n/c, t, k);
+
     int blockdim = n_ctas();
     int threaddim = n_threads();
-    //std::cout << std::endl << "M: " << m << " N: " << n << " C: " << c
-    //          << " K: " << k << std::endl;
+
     rm_col_op<<<blockdim, threaddim>>>
         (m, n, data, static_cast<T*>(tmp), rotator<prerotate>(prerotate(m, n, c)), identity());
     rm_shuffle<<<blockdim, threaddim>>>
         (m, n, data, static_cast<T*>(tmp), shuffle(m, n, c, k));
     rm_col_op<<<blockdim, threaddim>>>
         (m, n, data, static_cast<T*>(tmp), rotator<postrotate>(postrotate(m)), permuter(m, n, c));
-    // rm_col_op<<<blockdim, threaddim>>>
-    //     (m, n, data, static_cast<T*>(tmp), permuter(m, n, c));
 }
 
 }
