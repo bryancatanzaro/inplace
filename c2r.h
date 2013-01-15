@@ -52,20 +52,28 @@ struct permuter {
     }
 };
 
-    
+struct identity {
+    __host__ __device__
+    void set_j(const int& j){}
+    __host__ __device__
+    int operator()(const int& i) {
+        return i;
+    }
+};
 
 
-template<typename T, typename F>
-__global__ void rm_col_op(int m, int n, T* d, T* tmp, F fn) {
+template<typename T, typename F0, typename F1>
+__global__ void rm_col_op(int m, int n, T* d, T* tmp, F0 fn0, F1 fn1=identity()) {
     for(int j = blockIdx.x; j < n; j += gridDim.x) {
-        fn.set_j(j);
+        fn0.set_j(j); fn1.set_j(j);
         for(int i = threadIdx.x; i < m; i += blockDim.x) {
-            int src_idx = fn(i);
+            int src_idx = fn0(i);
             tmp[blockIdx.x * m + i] = d[j + src_idx * n];
         }
         __syncthreads();
         for(int i = threadIdx.x; i < m; i += blockDim.x) {
-            d[j + i * n] = tmp[blockIdx.x * m + i];
+            int src_idx = fn1(i);
+            d[j + i * n] = tmp[blockIdx.x * m + src_idx];
         }
         __syncthreads();
     }
@@ -130,13 +138,13 @@ void transpose_rm(int m, int n, T* data, T* tmp_in=0) {
     //std::cout << std::endl << "M: " << m << " N: " << n << " C: " << c
     //          << " K: " << k << std::endl;
     rm_col_op<<<blockdim, threaddim>>>
-        (m, n, data, static_cast<T*>(tmp), rotator<prerotate>(prerotate(m, n, c)));
+        (m, n, data, static_cast<T*>(tmp), rotator<prerotate>(prerotate(m, n, c)), identity());
     rm_shuffle<<<blockdim, threaddim>>>
         (m, n, data, static_cast<T*>(tmp), shuffle(m, n, c, k));
     rm_col_op<<<blockdim, threaddim>>>
-        (m, n, data, static_cast<T*>(tmp), rotator<postrotate>(postrotate(m)));
-    rm_col_op<<<blockdim, threaddim>>>
-        (m, n, data, static_cast<T*>(tmp), permuter(m, n, c));
+        (m, n, data, static_cast<T*>(tmp), rotator<postrotate>(postrotate(m)), permuter(m, n, c));
+    // rm_col_op<<<blockdim, threaddim>>>
+    //     (m, n, data, static_cast<T*>(tmp), permuter(m, n, c));
 }
 
 }
