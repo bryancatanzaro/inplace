@@ -64,16 +64,19 @@ struct identity {
 
 template<typename T, typename F0, typename F1>
 __global__ void rm_col_op(int m, int n, T* d, T* tmp, F0 fn0, F1 fn1=identity()) {
+    column_major_index cm(m, n);
     for(int j = blockIdx.x; j < n; j += gridDim.x) {
         fn0.set_j(j); fn1.set_j(j);
         for(int i = threadIdx.x; i < m; i += blockDim.x) {
             int src_idx = fn0(i);
-            tmp[blockIdx.x * m + i] = d[j + src_idx * n];
+            tmp[cm(i, blockIdx.x)] = d[cm(src_idx, j)];
+            //tmp[blockIdx.x * m + i] = d[j + src_idx * n];
         }
         __syncthreads();
         for(int i = threadIdx.x; i < m; i += blockDim.x) {
             int src_idx = fn1(i);
-            d[j + i * n] = tmp[blockIdx.x * m + src_idx];
+            d[cm(i, j)] = tmp[cm(src_idx, blockIdx.x)];
+            //d[j + i * n] = tmp[blockIdx.x * m + src_idx];
         }
         __syncthreads();
     }
@@ -106,12 +109,16 @@ struct shuffle {
 template<typename T>
 __global__ void rm_shuffle(int m, int n, T* d, T* tmp, shuffle s) {
     for(int i = blockIdx.x; i < m; i += gridDim.x) {
+        column_major_index cm(m, n);
+        row_major_index rm(m, n);
         for(int j = threadIdx.x; j < n; j+= blockDim.x) {
-            tmp[blockIdx.x * n + j] = d[i * n + s(i, j)];
+            tmp[rm(blockIdx.x, j)] = d[cm(i, s(i, j))];
+            //tmp[blockIdx.x * n + j] = d[i * n + s(i, j)];
         }
         __syncthreads();
         for(int j = threadIdx.x; j < n; j+= blockDim.x) {
-            d[i * n + j] = tmp[blockIdx.x * n + j];
+            d[cm(i, j)] = tmp[rm(blockIdx.x, j)];
+            //d[i * n + j] = tmp[blockIdx.x * n + j];
         }
         __syncthreads();
     }        
