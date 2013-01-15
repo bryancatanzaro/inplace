@@ -118,16 +118,6 @@ __global__ void rm_shuffle(int m, int n, T* d, T* tmp, shuffle s) {
 }
 
 template<typename T>
-__global__ void shuffle_idxes(int m, int n, T* d, shuffle s) {
-    for(int i = blockIdx.x; i < m; i += gridDim.x) {
-        for(int j = threadIdx.x; j < n; j+= blockDim.x) {
-            d[i * n + j] = s(i, j);
-        }
-    }        
-}
-
-
-template<typename T>
 void transpose_rm(int m, int n, T* data, T* tmp_in=0) {
     temporary_storage<T> tmp(m, n, tmp_in);
     int c, t, k;
