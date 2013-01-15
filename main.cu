@@ -216,10 +216,13 @@ void generate_random_size(int& m, int &n) {
 int main() {
     cudaDeviceSetCacheConfig(cudaFuncCachePreferL1);
 
-    for(int i = 0; i < 1000; i++) {
-        int m, n;
-        generate_random_size(m, n);
-        time_test(m, n);
-    }
+    // for(int i = 0; i < 1000; i++) {
+    //     int m, n;
+    //     generate_random_size(m, n);
+    //     time_test(m, n);
+    // }
 
+    int m = 7053;
+    int n = 8217;
+    time_test(m, n);
 }
