@@ -63,7 +63,7 @@ struct identity {
 
 
 template<typename T, typename F0, typename F1>
-__global__ void rm_col_op(int m, int n, T* d, T* tmp, F0 fn0, F1 fn1=identity()) {
+__global__ void col_op(int m, int n, T* d, T* tmp, F0 fn0, F1 fn1) {
     column_major_index cm(m, n);
     for(int j = blockIdx.x; j < n; j += gridDim.x) {
         fn0.set_j(j); fn1.set_j(j);
@@ -85,6 +85,8 @@ struct shuffle {
     __host__ __device__
     shuffle(int m, int n, int c, int k) : m_m(m), m_n(n), m_c(c), m_k(k) {}
 
+    //This returns long long to avoid integer overflow in intermediate
+    //computation
     __host__ __device__
     long long f(const int& i, const int& j) {
         long long r = j + i *(m_n - 1);
@@ -105,7 +107,7 @@ struct shuffle {
 };
 
 template<typename T>
-__global__ void rm_shuffle(int m, int n, T* d, T* tmp, shuffle s) {
+__global__ void row_shuffle(int m, int n, T* d, T* tmp, shuffle s) {
     for(int i = blockIdx.x; i < m; i += gridDim.x) {
         column_major_index cm(m, n);
         row_major_index rm(m, n);
@@ -138,12 +140,12 @@ void transpose(bool row_major, int m, int n, T* data, T* tmp_in=0) {
     int blockdim = n_ctas();
     int threaddim = n_threads();
 
-    rm_col_op<<<blockdim, threaddim>>>
+    col_op<<<blockdim, threaddim>>>
         (m, n, data, static_cast<T*>(tmp),
          rotator<prerotate>(prerotate(m, n, c)), identity());
-    rm_shuffle<<<blockdim, threaddim>>>
+    row_shuffle<<<blockdim, threaddim>>>
         (m, n, data, static_cast<T*>(tmp), shuffle(m, n, c, k));
-    rm_col_op<<<blockdim, threaddim>>>
+    col_op<<<blockdim, threaddim>>>
         (m, n, data, static_cast<T*>(tmp),
          rotator<postrotate>(postrotate(m)), permuter(m, n, c));
 }
