@@ -70,13 +70,11 @@ __global__ void rm_col_op(int m, int n, T* d, T* tmp, F0 fn0, F1 fn1=identity())
         for(int i = threadIdx.x; i < m; i += blockDim.x) {
             int src_idx = fn0(i);
             tmp[cm(i, blockIdx.x)] = d[cm(src_idx, j)];
-            //tmp[blockIdx.x * m + i] = d[j + src_idx * n];
         }
         __syncthreads();
         for(int i = threadIdx.x; i < m; i += blockDim.x) {
             int src_idx = fn1(i);
             d[cm(i, j)] = tmp[cm(src_idx, blockIdx.x)];
-            //d[j + i * n] = tmp[blockIdx.x * m + src_idx];
         }
         __syncthreads();
     }
@@ -113,12 +111,10 @@ __global__ void rm_shuffle(int m, int n, T* d, T* tmp, shuffle s) {
         row_major_index rm(m, n);
         for(int j = threadIdx.x; j < n; j+= blockDim.x) {
             tmp[rm(blockIdx.x, j)] = d[cm(i, s(i, j))];
-            //tmp[blockIdx.x * n + j] = d[i * n + s(i, j)];
         }
         __syncthreads();
         for(int j = threadIdx.x; j < n; j+= blockDim.x) {
             d[cm(i, j)] = tmp[rm(blockIdx.x, j)];
-            //d[i * n + j] = tmp[blockIdx.x * n + j];
         }
         __syncthreads();
     }        
@@ -133,17 +129,23 @@ void transpose(bool row_major, int m, int n, T* data, T* tmp_in=0) {
     temporary_storage<T> tmp(m, n, tmp_in);
     int c, t, k;
     extended_gcd(m, n, c, t);
-    extended_gcd(m/c, n/c, t, k);
+    if (c > 1) {
+        extended_gcd(m/c, n/c, t, k);
+    } else {
+        k = t;
+    }
 
     int blockdim = n_ctas();
     int threaddim = n_threads();
 
     rm_col_op<<<blockdim, threaddim>>>
-        (m, n, data, static_cast<T*>(tmp), rotator<prerotate>(prerotate(m, n, c)), identity());
+        (m, n, data, static_cast<T*>(tmp),
+         rotator<prerotate>(prerotate(m, n, c)), identity());
     rm_shuffle<<<blockdim, threaddim>>>
         (m, n, data, static_cast<T*>(tmp), shuffle(m, n, c, k));
     rm_col_op<<<blockdim, threaddim>>>
-        (m, n, data, static_cast<T*>(tmp), rotator<postrotate>(postrotate(m)), permuter(m, n, c));
+        (m, n, data, static_cast<T*>(tmp),
+         rotator<postrotate>(postrotate(m)), permuter(m, n, c));
 }
 
 }
