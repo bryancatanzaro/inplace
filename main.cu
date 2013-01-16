@@ -42,16 +42,22 @@ void visual_test(int m, int n) {
     thrust::device_vector<int> x(m*n);
     thrust::counting_iterator<int> c(0);
     thrust::transform(c, c+(m*n), x.begin(), thrust::identity<int>());
-    print_array(x, row_major_index(m, n));
-    transpose_rm(m, n, thrust::raw_pointer_cast(x.data()));
+    print_array(x, column_major_index(m, n));
+    transpose(false, m, n, thrust::raw_pointer_cast(x.data()));
     std::cout << std::endl;
-    print_array(x, row_major_index(n, m));
-
+    print_array(x, column_major_index(n, m));
 }
 
 void time_test(int m, int n) {
+    bool row_major = rand() & 2;
+
     std::cout << "Checking results for transpose of a " << m << " x " <<
-        n << " matrix...";
+        n << " matrix, in ";
+    if (row_major) {
+        std::cout << "row major order." << std::endl;
+    } else {
+        std::cout << "column major order." << std::endl;
+    }
     
     thrust::device_vector<int> x(m*n);
     thrust::counting_iterator<int> c(0);
@@ -65,9 +71,9 @@ void time_test(int m, int n) {
     cudaEventRecord(start, 0);
 
     
-    transpose_rm(m, n,
-                 thrust::raw_pointer_cast(x.data()),
-                 thrust::raw_pointer_cast(t.data()));
+    transpose(row_major, m, n,
+              thrust::raw_pointer_cast(x.data()),
+              thrust::raw_pointer_cast(t.data()));
 
 
     cudaEventRecord(stop, 0);
@@ -75,24 +81,19 @@ void time_test(int m, int n) {
     cudaEventElapsedTime(&time, start, stop);
     std::cout << "  Time: " << time << " ms" << std::endl;
     float gbs = (float)(m * n * sizeof(float)) / (time * 1000000);
-    std::cout << "  Throughput: " << gbs << " GB/s" << std::endl
-              << std::endl;
+    std::cout << "  Throughput: " << gbs << " GB/s" << std::endl;
 
     
-    bool correct = is_ordered(x, tx_row_major_order<int>(n, m));
-    if (correct) {
-        std::cout << "PASSES" << std::endl;
+    bool correct;
+    if (row_major) {
+        correct = is_ordered(x, tx_row_major_order<int>(n, m));
     } else {
-        std::cout << "FAILS" << std::endl;
-        std::ostream_iterator<int> os(std::cout, " ");
-        thrust::copy(x.begin(), x.end(), os);
-        std::cout << std::endl;
-        thrust::counting_iterator<int> c(0);
-        thrust::copy(
-            thrust::make_transform_iterator(c, tx_row_major_order<int>(n, m)),
-            thrust::make_transform_iterator(c+m*n, tx_row_major_order<int>(n, m)),
-            os);
-        std::cout << std::endl;
+        correct = is_ordered(x, tx_column_major_order<int>(n, m));
+    }
+    if (correct) {
+        std::cout << "PASSES" << std::endl << std::endl;
+    } else {
+        std::cout << "FAILS" << std::endl << std::endl;
         exit(2);
     }
 }
@@ -115,7 +116,7 @@ void generate_random_size(int& m, int &n) {
 
 int main() {
     cudaDeviceSetCacheConfig(cudaFuncCachePreferL1);
-
+  
     for(int i = 0; i < 1000; i++) {
         int m, n;
         generate_random_size(m, n);

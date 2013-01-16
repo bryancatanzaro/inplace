@@ -49,8 +49,8 @@ struct tx_column_major_order {
         m_m(m), m_n(n) {}
     
     __host__ __device__ T operator()(const int& idx) {
-        int row = idx % m_m;
-        int col = idx / m_m;
+        int row = idx / m_m;
+        int col = idx % m_m;
         return col * m_n + row;
     }
 };

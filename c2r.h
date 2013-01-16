@@ -125,7 +125,11 @@ __global__ void rm_shuffle(int m, int n, T* d, T* tmp, shuffle s) {
 }
 
 template<typename T>
-void transpose_rm(int m, int n, T* data, T* tmp_in=0) {
+void transpose(bool row_major, int m, int n, T* data, T* tmp_in=0) {
+    if (!row_major) {
+        std::swap(m, n);
+    }
+
     temporary_storage<T> tmp(m, n, tmp_in);
     int c, t, k;
     extended_gcd(m, n, c, t);
