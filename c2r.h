@@ -4,29 +4,17 @@
 
 namespace inplace {
 
-struct prerotate {
-    int m_m, m_n, m_c;
+struct prerotator {
+    int m_a, m_m, m_n, m_c;
     __host__ __device__
-    prerotate(int m, int n, int c) : m_m(m), m_n(n), m_c(c) {}
-    __host__ __device__
-    int operator()(const int& j) {
-        return (j * m_c)/m_n;
-    }
-};
-
-template<typename F>
-struct rotator {
-    F m_f;
-    int m_a;
-    __host__ __device__
-    rotator(F f) : m_f(f) {}
+    prerotator(int m, int n, int c) : m_m(m), m_n(n), m_c(c) {}
     __host__ __device__
     void set_j(const int& j) {
-        m_a = m_f(j);
+        m_a = (j * m_c)/m_n;
     }
     __host__ __device__
     int operator()(const int& i) {
-        return (i + m_a) % m_f.m_m;
+        return (i + m_a) % m_m;
     }
 };
 
@@ -123,7 +111,7 @@ void transpose(bool row_major, int m, int n, T* data, T* tmp_in=0) {
 
     col_op<<<blockdim, threaddim>>>
         (m, n, data, static_cast<T*>(tmp),
-         rotator<prerotate>(prerotate(m, n, c)));
+         prerotator(m, n, c));
     row_shuffle<<<blockdim, threaddim>>>
         (m, n, data, static_cast<T*>(tmp), shuffle(m, n, c, k));
     col_op<<<blockdim, threaddim>>>
