@@ -14,16 +14,6 @@ struct prerotate {
     }
 };
 
-struct postrotate {
-    int m_m;
-    __host__ __device__
-    postrotate(int m) : m_m(m) {}
-    __host__ __device__
-    int operator()(const int& j) {
-        return j % m_m;
-    }
-};
-
 template<typename F>
 struct rotator {
     F m_f;
@@ -40,41 +30,32 @@ struct rotator {
     }
 };
 
-struct permuter {
-    int m_m, m_n, m_c;
+struct postpermuter {
+    int m_m, m_n, m_c, m_j;
     __host__ __device__
-    permuter(int m, int n, int c) : m_m(m), m_n(n), m_c(c) {}
+    postpermuter(int m, int n, int c) : m_m(m), m_n(n), m_c(c) {}
     __host__ __device__
-    void set_j(const int& j) {}
+    void set_j(const int& j) {
+        m_j = j;
+    }
     __host__ __device__
     int operator()(const int& i) {
-        return (i * m_n - (i*m_c)/m_m) % m_m;
+        return ((i*m_n)-(i*m_c)/m_m+m_j) % m_m;
     }
 };
 
-struct identity {
-    __host__ __device__
-    void set_j(const int& j){}
-    __host__ __device__
-    int operator()(const int& i) {
-        return i;
-    }
-};
-
-
-template<typename T, typename F0, typename F1>
-__global__ void col_op(int m, int n, T* d, T* tmp, F0 fn0, F1 fn1) {
+template<typename T, typename F>
+__global__ void col_op(int m, int n, T* d, T* tmp, F fn) {
     column_major_index cm(m, n);
     for(int j = blockIdx.x; j < n; j += gridDim.x) {
-        fn0.set_j(j); fn1.set_j(j);
+        fn.set_j(j); 
         for(int i = threadIdx.x; i < m; i += blockDim.x) {
-            int src_idx = fn0(i);
+            int src_idx = fn(i);
             tmp[cm(i, blockIdx.x)] = d[cm(src_idx, j)];
         }
         __syncthreads();
         for(int i = threadIdx.x; i < m; i += blockDim.x) {
-            int src_idx = fn1(i);
-            d[cm(i, j)] = tmp[cm(src_idx, blockIdx.x)];
+            d[cm(i, j)] = tmp[cm(i, blockIdx.x)];
         }
         __syncthreads();
     }
@@ -142,12 +123,12 @@ void transpose(bool row_major, int m, int n, T* data, T* tmp_in=0) {
 
     col_op<<<blockdim, threaddim>>>
         (m, n, data, static_cast<T*>(tmp),
-         rotator<prerotate>(prerotate(m, n, c)), identity());
+         rotator<prerotate>(prerotate(m, n, c)));
     row_shuffle<<<blockdim, threaddim>>>
         (m, n, data, static_cast<T*>(tmp), shuffle(m, n, c, k));
     col_op<<<blockdim, threaddim>>>
         (m, n, data, static_cast<T*>(tmp),
-         rotator<postrotate>(postrotate(m)), permuter(m, n, c));
+         postpermuter(m, n, c));
 }
 
 }
