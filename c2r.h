@@ -5,16 +5,12 @@
 namespace inplace {
 
 struct prerotator {
-    int m_a, m_m, m_n, m_c;
+    int m_m, m_n, m_c;
     __host__ __device__
     prerotator(int m, int n, int c) : m_m(m), m_n(n), m_c(c) {}
     __host__ __device__
-    void set_j(const int& j) {
-        m_a = (j * m_c)/m_n;
-    }
-    __host__ __device__
-    int operator()(const int& i) {
-        return (i + m_a) % m_m;
+    int operator()(const int& j) {
+        return (j * m_c)/m_n;
     }
 };
 
@@ -31,6 +27,64 @@ struct postpermuter {
         return ((i*m_n)-(i*m_c)/m_m+m_j) % m_m;
     }
 };
+
+template<typename T, typename F>
+__global__ void col_rotate(int m, int n, T* d, T* tmp, F fn) {
+    column_major_index cm(m, n);
+    for(int j = blockIdx.x; j < n; j += gridDim.x) {
+        int rotation_amount = fn(j);
+        if (rotation_amount > 0) {            
+            //if (rotation_amount < m/2) {
+            for(int i = threadIdx.x; i < rotation_amount; i += blockDim.x) {
+                tmp[cm(i, blockIdx.x)] = d[cm(i, j)];
+            }
+            __syncthreads();
+            int n_blocks = (m - rotation_amount - 1)/(blockDim.x) + 1;
+            int index = threadIdx.x + rotation_amount;
+            for(int i = 0; i < n_blocks; i++) {
+                T tmp;
+                if (index < m) {
+                    tmp = d[cm(index, j)];
+                }
+                __syncthreads();
+                if (index < m) {
+                    d[cm(index-rotation_amount, j)] = tmp;
+                }
+                index += blockDim.x;
+            }
+            __syncthreads();
+            for(int i = threadIdx.x; i < rotation_amount; i += blockDim.x) {
+                d[cm(i+m-rotation_amount, j)] = tmp[cm(i, blockIdx.x)];
+            }
+            __syncthreads();
+            // } else {
+
+            //     for(int i = threadIdx.x; i < m - rotation_amount; i += blockDim.x) {
+            //         tmp[cm(i, blockIdx.x)] = d[cm(i + rotation_amount, j)];
+            //     }
+            //     __syncthreads();
+            //     int n_blocks = (rotation_amount - 1)/(blockDim.x) + 1;
+            //     int index = threadIdx.x;
+            //     for(int i = 0; i < n_blocks; i++) {
+            //         T tmp;
+            //         if (index < rotation_amount) {
+            //             tmp = d[cm(index, j)];
+            //         }
+            //         __syncthreads();
+            //         if (index < rotation_amount) {
+            //             d[cm(index+m-rotation_amount, j)] = tmp;
+            //         }
+            //         index += blockDim.x;
+            //     }
+            //     __syncthreads();
+            //     for(int i = threadIdx.x; i < m - rotation_amount; i += blockDim.x) {
+            //         d[cm(i, j)] = tmp[cm(i, blockIdx.x)];
+            //     }
+            //     __syncthreads();
+            // }
+        }
+    }
+}
 
 template<typename T, typename F>
 __global__ void col_op(int m, int n, T* d, T* tmp, F fn) {
@@ -109,9 +163,11 @@ void transpose(bool row_major, int m, int n, T* data, T* tmp_in=0) {
     int blockdim = n_ctas();
     int threaddim = n_threads();
 
-    col_op<<<blockdim, threaddim>>>
-        (m, n, data, static_cast<T*>(tmp),
-         prerotator(m, n, c));
+    if (c > 1) {
+        col_rotate<<<blockdim, threaddim>>>
+            (m, n, data, static_cast<T*>(tmp),
+             prerotator(m, n, c));
+    }
     row_shuffle<<<blockdim, threaddim>>>
         (m, n, data, static_cast<T*>(tmp), shuffle(m, n, c, k));
     col_op<<<blockdim, threaddim>>>
