@@ -9,8 +9,9 @@ namespace {
 int n_threads() {
     int maxThreadsPerBlock =
         cached_properties.properties.maxThreadsPerBlock;
-    return (maxThreadsPerBlock > 0) ? maxThreadsPerBlock:
-        256;
+    return 512;
+    // return (maxThreadsPerBlock > 0) ? maxThreadsPerBlock:
+    //     256;
 }
 
 
