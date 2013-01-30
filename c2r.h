@@ -2,7 +2,7 @@
 
 #include "introspect.h"
 #include "array.h"
-#include "streaming.h"
+//#include "streaming.h"
 
 namespace inplace {
 
@@ -53,27 +53,28 @@ __global__ void col_op(int m, int n, T* d, T* tmp, F fn) {
 }
 
 template<typename T, int R, typename F>
-struct gather_impl {
-    static __device__ void fun(int i, int m, const T* d, array<T, R>& s, F& fn) {
-        if (i < m) {
-            s.head = d[fn(i)];
+struct gather_col_impl {
+    static __device__ void fun(int i, int j, column_major_index cm, const T* d, array<T, R>& s, F& fn) {
+        if (i < cm.m_m) {
+            s.head = d[cm(fn(i), j)];
         }
-        gather_impl<T, R-1, F>::fun(i + blockDim.x, m, d, s.tail, fn);
+        gather_col_impl<T, R-1, F>::fun(i + blockDim.x, j, cm, d, s.tail, fn);
     }
 };
 
 template<typename T, typename F>
-struct gather_impl<T, 1, F> {
-    static __device__ void fun(int i, int m, const T* d, array<T, 1>& s, F& fn) {
-        if (i < m) {
-            s.head = d[fn(i)];
+struct gather_col_impl<T, 1, F> {
+    static __device__ void fun(int i, int j, column_major_index cm, const T* d, array<T, 1>& s, F& fn) {
+        if (i < cm.m_m) {
+            s.head = d[cm(fn(i), j)];
         }
     }
 };  
 
 template<typename T, int R, typename F>
-__device__ void gather(const int& m, const T* d, array<T, R>& s, F& fn) {
-    gather_impl<T, R, F>::fun(threadIdx.x, m, d, s, fn);
+__device__ void gather_col(int j, column_major_index cm,
+                           const T* d, array<T, R>& s, F& fn) {
+    gather_col_impl<T, R, F>::fun(threadIdx.x, j, cm, d, s, fn);
 }
 
 template<typename T, int R>
@@ -82,8 +83,8 @@ struct write_col_impl {
                                const column_major_index& cm,
                                const array<T, R>& s, T* d) {
         if (i < cm.m_m) {
-            st_glb_cs(d + cm(i, j), s.head);
-            //d[cm(i, j)] = s.head;
+            //st_glb_cs(d + cm(i, j), s.head);
+            d[cm(i, j)] = s.head;
         }
         write_col_impl<T, R-1>::fun(i + blockDim.x, j, cm, s.tail, d);
     }
@@ -95,15 +96,15 @@ struct write_col_impl<T, 1> {
                                const column_major_index& cm,
                                const array<T, 1>& s, T* d) {
         if (i < cm.m_m) {
-            st_glb_cs(d+cm(i, j), s.head);
-            //d[cm(i, j)] = s.head;
+            //st_glb_cs(d+cm(i, j), s.head);
+            d[cm(i, j)] = s.head;
         }
     }
 };  
 
 
 template<typename T, int R>
-__device__ void write_col(const column_major_index& cm, const int& j,
+__device__ void write_col(const int& j, const column_major_index& cm, 
                       const array<T, R>& s, T* d) {
     write_col_impl<T, R>::fun(threadIdx.x, j, cm, s, d);
 }
@@ -114,25 +115,24 @@ __device__ void write_col(const column_major_index& cm, const int& j,
 template<typename T, typename F, int R>
 __global__ void inplace_col_op(int m, int n, T* d, F fn) {
     column_major_index cm(m, n);
-    extern __shared__ T storage[];
+    //extern __shared__ T storage[];
     array<T, R> thread_storage;
 
+    int j = blockIdx.x;
+    fn.set_j(j);
     
-    for(int j = blockIdx.x; j < n; j += gridDim.x) {
-        fn.set_j(j);
+        // for(int i = threadIdx.x; i < m; i += blockDim.x) {
+        //     //storage[i] = d[cm(i, j)];
+        //     storage[i] = ld_glb_cs(d + cm(i, j));
+        // }
+        // __syncthreads();
         
-        for(int i = threadIdx.x; i < m; i += blockDim.x) {
-            //storage[i] = d[cm(i, j)];
-            storage[i] = ld_glb_cs(d + cm(i, j));
-        }
-        __syncthreads();
-        
-        gather(m, storage, thread_storage, fn);
+    gather_col(j, cm, d, thread_storage, fn);
+    
+    __syncthreads();
+    
+    write_col(j, cm, thread_storage, d);
 
-        write_col(cm, j, thread_storage, d);
-
-        __syncthreads();
-    }
 }
 
 struct shuffle {
@@ -182,6 +182,30 @@ __global__ void row_shuffle(int m, int n, T* d, T* tmp, shuffle s) {
     }        
 }
 
+template<typename T, int R, typename F>
+struct gather_row_impl {
+    static __device__ void fun(int i, int j, column_major_index cm, const T* d, array<T, R>& s, F& fn) {
+        if (j < cm.m_n) {
+            s.head = d[cm(i, fn(j))];
+        }
+        gather_row_impl<T, R-1, F>::fun(i, j + blockDim.x, cm, d, s.tail, fn);
+    }
+};
+
+template<typename T, typename F>
+struct gather_row_impl<T, 1, F> {
+    static __device__ void fun(int i, int j, column_major_index cm, const T* d, array<T, 1>& s, F& fn) {
+        if (j < cm.m_n) {
+            s.head = d[cm(i, fn(j))];
+        }
+    }
+};  
+
+template<typename T, int R, typename F>
+__device__ void gather_row(int i, column_major_index cm,
+                           const T* d, array<T, R>& s, F& fn) {
+    gather_row_impl<T, R, F>::fun(i, threadIdx.x, cm, d, s, fn);
+}
 
 template<typename T, int R>
 struct write_row_impl {
@@ -208,7 +232,7 @@ struct write_row_impl<T, 1> {
 
 
 template<typename T, int R>
-__device__ void write_row(const column_major_index& cm, const int& i,
+__device__ void write_row(const int& i, const column_major_index& cm, 
                           const array<T, R>& s, T* d) {
     write_row_impl<T, R>::fun(i, threadIdx.x, cm, s, d);
 }
@@ -218,23 +242,17 @@ __device__ void write_row(const column_major_index& cm, const int& i,
 template<typename T, int R>
 __global__ void inplace_row_shuffle(int m, int n, T* d, shuffle s) {
     column_major_index cm(m, n);
-    row_major_index rm(m, n);
-    extern __shared__ T storage[];
     array<T, R> thread_storage;
 
-    for(int i = blockIdx.x; i < m; i += gridDim.x) {
-        s.set_i(i);
-        for(int j = threadIdx.x; j < n; j += blockDim.x) {
-            storage[j] = d[cm(i, j)];
-        }
-        __syncthreads();
-        
-        gather(n, storage, thread_storage, s);
+    int i = blockIdx.x;
+    // for(int i = blockIdx.x; i < m; i += gridDim.x) {
+    s.set_i(i);
+    
+    gather_row(i, cm, d, thread_storage, s);
+    __syncthreads();
+    write_row(i, cm, thread_storage, d);
 
-        write_row(cm, i, thread_storage, d);
-
-        __syncthreads();
-    }
+    // }
 }
 
 
@@ -243,7 +261,7 @@ template<typename T>
 void transpose(bool row_major, int m, int n, T* data, T* tmp_in=0) {
     if (!row_major) {
         std::swap(m, n);
-    }
+    }   
 
     //temporary_storage<T> tmp(m, n, tmp_in);
     int c, t, k;
@@ -254,17 +272,23 @@ void transpose(bool row_major, int m, int n, T* data, T* tmp_in=0) {
         k = t;
     }
 
-    int blockdim = n_ctas();
+    int blockdim_col = n;
+    int blockdim_row = m;
+    // int blockdim = n_ctas();
     int threaddim = n_threads();
+
+    #define WPT 6
+    //Verified to work on SM_35
+    //with no spills/fills for row_shuffle
+    //#define WPT 100
     
     if (c > 1) {
-        inplace_col_op<T, prerotator, 6><<<blockdim, threaddim, m*sizeof(T)>>>
+        inplace_col_op<T, prerotator, WPT><<<blockdim_col, threaddim>>>
             (m, n, data, prerotator(m, n, c));
     }
-     // row_shuffle<<<blockdim, threaddim>>>(m, n, data, static_cast<T*>(tmp), shuffle(m, n, c, k));
-    inplace_row_shuffle<T, 6><<<blockdim, threaddim, n*sizeof(T)>>>
+    inplace_row_shuffle<T, WPT><<<blockdim_row, threaddim>>>
         (m, n, data, shuffle(m, n, c, k));
-    inplace_col_op<T, postpermuter, 6><<<blockdim, threaddim, m*sizeof(T)>>>
+    inplace_col_op<T, postpermuter, WPT><<<blockdim_col, threaddim>>>
         (m, n, data, postpermuter(m, n, c));
 }
 
