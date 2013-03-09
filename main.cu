@@ -38,15 +38,15 @@ void print_array(const thrust::device_vector<T>& d, Fn index) {
     }
 }
 
-// void visual_test(int m, int n) {
-//     thrust::device_vector<int> x(m*n);
-//     thrust::counting_iterator<int> c(0);
-//     thrust::transform(c, c+(m*n), x.begin(), thrust::identity<int>());
-//     print_array(x, column_major_index(m, n));
-//     transpose(false, m, n, thrust::raw_pointer_cast(x.data()));
-//     std::cout << std::endl;
-//     print_array(x, column_major_index(n, m));
-// }
+void visual_test(int m, int n) {
+    thrust::device_vector<float> x(m*n);
+    thrust::counting_iterator<int> c(0);
+    thrust::transform(c, c+(m*n), x.begin(), thrust::identity<int>());
+    print_array(x, column_major_index(m, n));
+    transpose(false, thrust::raw_pointer_cast(x.data()), m, n);
+    std::cout << std::endl;
+    print_array(x, column_major_index(n, m));
+}
 
 
 template<typename T>
@@ -73,9 +73,9 @@ void time_test(int m, int n) {
     cudaEventRecord(start, 0);
 
     
-    transpose(row_major, m, n,
+    transpose(row_major,
               thrust::raw_pointer_cast(x.data()),
-              thrust::raw_pointer_cast(t.data()));
+              m, n);
 
 
     cudaEventRecord(stop, 0);
@@ -103,7 +103,7 @@ void time_test(int m, int n) {
 void generate_random_size(int& m, int &n) {
     size_t memory_size = gpu_memory_size();
     size_t ints_size = memory_size / sizeof(int);
-    size_t e = 512 * 6;//(size_t)sqrt(double(ints_size));
+    size_t e = 25600;//(size_t)sqrt(double(ints_size));
     while(true) {
         long long lm = rand() % e;
         long long ln = rand() % e;
@@ -129,13 +129,13 @@ int main() {
     // }
             
     
-    // for(int i = 0; i < 1000; i++) {
-    //     int m, n;
-    //     generate_random_size(m, n);
-    //     time_test(m, n);
-    // }
+    for(int i = 0; i < 1000; i++) {
+        int m, n;
+        generate_random_size(m, n);
+        time_test<float>(m, n);
+    }
 
-    time_test<float>(2047, 2046);
+    //time_test<float>(2047, 2046);
     
     //time_test(1045, 5735);
 }

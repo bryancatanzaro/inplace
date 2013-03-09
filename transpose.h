@@ -1,13 +1,14 @@
 #pragma once
 
-#include "gcd.h"
 #include "temporary.h"
 #include "introspect.h"
 #include "index.h"
 #include "c2r.h"
 
-
-
+namespace inplace {
+void transpose(bool row_major, float* data, int m, int n);
+void transpose(bool row_major, double* data, int m, int n);
+}
 
 // template<typename T>
 // void transpose(bool row_major, int m, int n, T* data, T* tmp_in=0) {

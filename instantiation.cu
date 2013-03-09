@@ -1,5 +1,6 @@
 #include "c2r.h"
 #include "schedule.h"
+#include "gcd.h"
 
 namespace inplace {
 namespace detail {
@@ -106,7 +107,7 @@ void postpermute_fn(T* data, int m, int n, int c, int k) {
 }
 
 template<typename T>
-void transpose(bool row_major, T* data, int m, int n) {
+void transpose_fn(bool row_major, T* data, int m, int n) {
     if (!row_major) {
         int o = m;
         m = n;
@@ -125,8 +126,11 @@ void transpose(bool row_major, T* data, int m, int n) {
 }
 
 
-//Explicit instantiation
-template void transpose(bool, float*, int, int);
-template void transpose(bool, double*, int, int);
+void transpose(bool row_major, float* data, int m, int n) {
+    transpose_fn(row_major, data, m, n);
+}
+void transpose(bool row_major, double* data, int m, int n) {
+    transpose_fn(row_major, data, m, n);
+}
 
 }

@@ -4,7 +4,6 @@
 #include "array.h"
 //#include "streaming.h"
 #include "index.h"
-#include "gcd.h"
 
 namespace inplace {
 
