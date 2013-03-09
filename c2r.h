@@ -3,6 +3,8 @@
 #include "introspect.h"
 #include "array.h"
 //#include "streaming.h"
+#include "index.h"
+#include "gcd.h"
 
 namespace inplace {
 
@@ -255,41 +257,5 @@ __global__ void inplace_row_shuffle(int m, int n, T* d, shuffle s) {
     // }
 }
 
-
-
-template<typename T>
-void transpose(bool row_major, int m, int n, T* data, T* tmp_in=0) {
-    if (!row_major) {
-        std::swap(m, n);
-    }   
-
-    //temporary_storage<T> tmp(m, n, tmp_in);
-    int c, t, k;
-    extended_gcd(m, n, c, t);
-    if (c > 1) {
-        extended_gcd(m/c, n/c, t, k);
-    } else {
-        k = t;
-    }
-
-    int blockdim_col = n;
-    int blockdim_row = m;
-    // int blockdim = n_ctas();
-    int threaddim = n_threads();
-
-    #define WPT 6
-    //Verified to work on SM_35
-    //with no spills/fills for row_shuffle
-    //#define WPT 100
-    
-    if (c > 1) {
-        inplace_col_op<T, prerotator, WPT><<<blockdim_col, threaddim>>>
-            (m, n, data, prerotator(m, n, c));
-    }
-    inplace_row_shuffle<T, WPT><<<blockdim_row, threaddim>>>
-        (m, n, data, shuffle(m, n, c, k));
-    inplace_col_op<T, postpermuter, WPT><<<blockdim_col, threaddim>>>
-        (m, n, data, postpermuter(m, n, c));
-}
 
 }

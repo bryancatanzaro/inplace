@@ -38,16 +38,18 @@ void print_array(const thrust::device_vector<T>& d, Fn index) {
     }
 }
 
-void visual_test(int m, int n) {
-    thrust::device_vector<int> x(m*n);
-    thrust::counting_iterator<int> c(0);
-    thrust::transform(c, c+(m*n), x.begin(), thrust::identity<int>());
-    print_array(x, column_major_index(m, n));
-    transpose(false, m, n, thrust::raw_pointer_cast(x.data()));
-    std::cout << std::endl;
-    print_array(x, column_major_index(n, m));
-}
+// void visual_test(int m, int n) {
+//     thrust::device_vector<int> x(m*n);
+//     thrust::counting_iterator<int> c(0);
+//     thrust::transform(c, c+(m*n), x.begin(), thrust::identity<int>());
+//     print_array(x, column_major_index(m, n));
+//     transpose(false, m, n, thrust::raw_pointer_cast(x.data()));
+//     std::cout << std::endl;
+//     print_array(x, column_major_index(n, m));
+// }
 
+
+template<typename T>
 void time_test(int m, int n) {
     bool row_major = rand() & 2;
 
@@ -59,11 +61,11 @@ void time_test(int m, int n) {
         std::cout << "column major order." << std::endl;
     }
     
-    thrust::device_vector<int> x(m*n);
+    thrust::device_vector<T> x(m*n);
     thrust::counting_iterator<int> c(0);
-    thrust::transform(c, c+(m*n), x.begin(), thrust::identity<int>());
+    thrust::transform(c, c+(m*n), x.begin(), thrust::identity<T>());
     //Preallocate temporary storage.
-    thrust::device_vector<int> t(max(m,n)*n_ctas());
+    thrust::device_vector<T> t(max(m,n)*n_ctas());
     cudaEvent_t start,stop;
     float time=0;
     cudaEventCreate(&start);
@@ -86,9 +88,9 @@ void time_test(int m, int n) {
     
     bool correct;
     if (row_major) {
-        correct = is_ordered(x, tx_row_major_order<int>(n, m));
+        correct = is_ordered(x, tx_row_major_order<T>(n, m));
     } else {
-        correct = is_ordered(x, tx_column_major_order<int>(n, m));
+        correct = is_ordered(x, tx_column_major_order<T>(n, m));
     }
     if (correct) {
         std::cout << "PASSES" << std::endl << std::endl;
@@ -127,11 +129,13 @@ int main() {
     // }
             
     
-    for(int i = 0; i < 1000; i++) {
-        int m, n;
-        generate_random_size(m, n);
-        time_test(m, n);
-    }
+    // for(int i = 0; i < 1000; i++) {
+    //     int m, n;
+    //     generate_random_size(m, n);
+    //     time_test(m, n);
+    // }
 
+    time_test<float>(2047, 2046);
+    
     //time_test(1045, 5735);
 }
