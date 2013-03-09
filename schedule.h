@@ -25,12 +25,12 @@ struct schedule{};
 
 template<>
 struct schedule<float, sm_35> {
-    typedef cons_tup<5, 256, cons_tup<35, 256, cons_tup<100, 256, cons_tup<100, 512> > > > type;
+    typedef cons_tup<5, 256, cons_tup<20, 256, cons_tup<35, 256, cons_tup<67, 256, cons_tup<100, 256, cons_tup<100, 512> > > > > > type;
 };
 
 template<>
 struct schedule<double, sm_35> {
-    typedef cons_tup<4, 256, cons_tup<19, 256, cons_tup<50, 256, cons_tup<108, 256> > > > type;
+    typedef cons_tup<4, 256, cons_tup<19, 256, cons_tup<35, 256, cons_tup<50, 256, cons_tup<75, 256, cons_tup<108, 256> > > > > >type;
 };
 
 }
