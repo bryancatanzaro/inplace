@@ -2,7 +2,6 @@
 
 #include "introspect.h"
 #include "array.h"
-//#include "streaming.h"
 #include "index.h"
 
 namespace inplace {
@@ -84,10 +83,9 @@ struct write_col_impl {
                                const column_major_index& cm,
                                const array<T, R>& s, T* d) {
         if (i < cm.m_m) {
-            //st_glb_cs(d + cm(i, j), s.head);
             d[cm(i, j)] = s.head;
+            write_col_impl<T, R-1>::fun(i + blockDim.x, j, cm, s.tail, d);
         }
-        write_col_impl<T, R-1>::fun(i + blockDim.x, j, cm, s.tail, d);
     }
 };
 
@@ -97,7 +95,6 @@ struct write_col_impl<T, 1> {
                                const column_major_index& cm,
                                const array<T, 1>& s, T* d) {
         if (i < cm.m_m) {
-            //st_glb_cs(d+cm(i, j), s.head);
             d[cm(i, j)] = s.head;
         }
     }
@@ -116,18 +113,11 @@ __device__ void write_col(const int& j, const column_major_index& cm,
 template<typename T, typename F, int R>
 __global__ void inplace_col_op(int m, int n, T* d, F fn) {
     column_major_index cm(m, n);
-    //extern __shared__ T storage[];
     array<T, R> thread_storage;
 
     int j = blockIdx.x;
     fn.set_j(j);
-    
-        // for(int i = threadIdx.x; i < m; i += blockDim.x) {
-        //     //storage[i] = d[cm(i, j)];
-        //     storage[i] = ld_glb_cs(d + cm(i, j));
-        // }
-        // __syncthreads();
-        
+            
     gather_col(j, cm, d, thread_storage, fn);
     
     __syncthreads();
@@ -188,8 +178,9 @@ struct gather_row_impl {
     static __device__ void fun(int i, int j, column_major_index cm, const T* d, array<T, R>& s, F& fn) {
         if (j < cm.m_n) {
             s.head = d[cm(i, fn(j))];
+            gather_row_impl<T, R-1, F>::fun(i, j + blockDim.x, cm, d, s.tail, fn);
+
         }
-        gather_row_impl<T, R-1, F>::fun(i, j + blockDim.x, cm, d, s.tail, fn);
     }
 };
 
@@ -215,8 +206,8 @@ struct write_row_impl {
                                const array<T, R>& s, T* d) {
         if (j < cm.m_n) {
             d[cm(i, j)] = s.head;
+            write_row_impl<T, R-1>::fun(i, j + blockDim.x, cm, s.tail, d);
         }
-        write_row_impl<T, R-1>::fun(i, j + blockDim.x, cm, s.tail, d);
     }
 };
 
@@ -246,14 +237,14 @@ __global__ void inplace_row_shuffle(int m, int n, T* d, shuffle s) {
     array<T, R> thread_storage;
 
     int i = blockIdx.x;
-    // for(int i = blockIdx.x; i < m; i += gridDim.x) {
     s.set_i(i);
     
     gather_row(i, cm, d, thread_storage, s);
+
     __syncthreads();
+
     write_row(i, cm, thread_storage, d);
 
-    // }
 }
 
 
