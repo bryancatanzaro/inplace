@@ -103,7 +103,7 @@ void time_test(int m, int n) {
 void generate_random_size(int& m, int &n) {
     size_t memory_size = gpu_memory_size();
     size_t ints_size = memory_size / sizeof(int);
-    size_t e = 25600;//(size_t)sqrt(double(ints_size));
+    size_t e = 29440;//(size_t)sqrt(double(ints_size));
     while(true) {
         long long lm = rand() % e;
         long long ln = rand() % e;
@@ -117,17 +117,6 @@ void generate_random_size(int& m, int &n) {
 }
 
 int main() {
-    //cudaDeviceSetCacheConfig(cudaFuncCachePreferShared);
-
-    //visual_test(3,3);
-
-    
-    // for(int i = 1; i < 1000; i++) {
-    //     for(int j = 1; j < 1000; j++) {
-    //         time_test(i, j);
-    //     }
-    // }
-            
     
     for(int i = 0; i < 1000; i++) {
         int m, n;
@@ -135,7 +124,4 @@ int main() {
         time_test<double>(m, n);
     }
 
-    //time_test<float>(2047, 2046);
-    
-    //time_test(1045, 5735);
 }
