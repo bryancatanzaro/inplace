@@ -61,7 +61,7 @@ __device__ __forceinline__ void write_col(const int& j, const column_major_index
 
 
 
-template<typename T, typename F, int R>
+template<typename SM, typename T, typename F, int R>
 __global__ void register_col_op(int m, int n, T* d, F fn) {
     column_major_index cm(m, n);
     array<T, R> thread_storage;
@@ -135,7 +135,7 @@ __device__ __forceinline__ void write_row(const int& i, const column_major_index
 
 
 
-template<typename T, int R>
+template<typename SM, typename T, int R>
 __global__ void register_row_shuffle(int m, int n, T* d, shuffle s) {
     column_major_index cm(m, n);
     array<T, R> thread_storage;

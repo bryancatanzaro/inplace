@@ -3,22 +3,19 @@
 #include "gcd.h"
 #include "temporary.h"
 #include "introspect.h"
+#include "sm.h"
 
 namespace inplace {
 namespace detail {
 
-// #if __CUDA_ARCH__ >= 350
-// #define sm_type sm_35
-// #elif __CUDA_ARCH__ >= 300
-// #define sm_type sm_30
-// #elif __CUDA_ARCH >= 200
-// #define sm_type sm_20
-// #else
-// #define sm_type sm_10
-// #endif
+template<typename SM, typename T, typename F, int WPT>
+__global__ void register_col_op(int, int, T*, F);
+
+template<typename SM, typename T, int WPT>
+__global__ void register_row_shuffle(int, int, T*, shuffle);
 
 
-template<typename T, typename Schedule>
+template<typename T, typename Schedule, typename SM>
 struct prerotate_enactor {
     T* data;
     int m, n;
@@ -31,13 +28,13 @@ struct prerotate_enactor {
         enabled = (_c > 1) && (m <= Schedule::lim);
     }
     void operator()() {
-        register_col_op<T, prerotator, Schedule::wpt>
+        register_col_op<SM, T, prerotator, Schedule::wpt>
             <<<n, Schedule::blk>>>(m, n, data, p);
     }
 };
 
-template<typename T>
-struct prerotate_enactor<T, memory> {
+template<typename T, typename SM>
+struct prerotate_enactor<T, memory, SM> {
     T* data;
     int m, n;
     prerotator p;
@@ -54,7 +51,7 @@ struct prerotate_enactor<T, memory> {
     }
 };
 
-template<typename T, typename Schedule>
+template<typename T, typename Schedule, typename SM>
 struct shuffle_enactor {
     T* data;
     int m, n;
@@ -66,14 +63,14 @@ struct shuffle_enactor {
         enabled = (n <= Schedule::lim);
     }
     void operator()() {
-        register_row_shuffle<T, Schedule::wpt>
+        register_row_shuffle<SM, T, Schedule::wpt>
             <<<m, Schedule::blk>>>(m, n, data, s);
     }
 };
 
 
-template<typename T>
-struct shuffle_enactor<T, memory> {
+template<typename T, typename SM>
+struct shuffle_enactor<T, memory, SM> {
     T* data;
     int m, n;
     shuffle s;
@@ -90,7 +87,7 @@ struct shuffle_enactor<T, memory> {
     }
 };
 
-template<typename T, typename Schedule>
+template<typename T, typename Schedule, typename SM>
 struct postpermute_enactor {
     T* data;
     int m, n;
@@ -102,13 +99,13 @@ struct postpermute_enactor {
         enabled = (m <= Schedule::lim);
     }
     void operator()() {
-        register_col_op<T, postpermuter, Schedule::wpt>
+        register_col_op<SM, T, postpermuter, Schedule::wpt>
             <<<n, Schedule::blk>>>(m, n, data, p);
     }
 };
 
-template<typename T>
-struct postpermute_enactor<T, memory> {
+template<typename T, typename SM>
+struct postpermute_enactor<T, memory, SM> {
     T* data;
     int m, n;
     postpermuter p;
@@ -126,23 +123,23 @@ struct postpermute_enactor<T, memory> {
 };
 
 
-template<typename T, typename Schedule, template<class, class> class Enactor>
+template<typename SM, typename T, typename Schedule, template<class, class, class> class Enactor>
 struct enact_schedule {
     static void impl(T* data, int m, int n, int c, int k, temporary_storage<T> temp) {
-        Enactor<T, Schedule> enactor(data, m, n, c, k, temp);
+        Enactor<T, Schedule, SM> enactor(data, m, n, c, k, temp);
         if (enactor.enabled) {
             enactor();
         } else {
-            enact_schedule<T, typename Schedule::tail, Enactor>
+            enact_schedule<SM, T, typename Schedule::tail, Enactor>
                 ::impl(data, m, n, c, k, temp);
         }
     }
 };
 
-template<typename T, template<class, class> class Enactor>
-struct enact_schedule<T, memory, Enactor> {
+template<typename SM, typename T, template<class, class, class> class Enactor>
+struct enact_schedule<SM, T, memory, Enactor> {
     static void impl(T* data, int m, int n, int c, int k, temporary_storage<T> temp) {
-        Enactor<T, memory> enactor(data, m, n, c, k, temp);
+        Enactor<T, memory, SM> enactor(data, m, n, c, k, temp);
         if (enactor.enabled) {
             enactor();
         }
@@ -152,20 +149,39 @@ struct enact_schedule<T, memory, Enactor> {
 
 template<typename T>
 void prerotate_fn(T* data, int m, int n, int c, int k, temporary_storage<T> temp) {
-    enact_schedule<T, typename schedule<T, sm_35>::type, prerotate_enactor>
-        ::impl(data, m, n, c, k, temp);
+    int arch = current_sm();
+    if (arch >= 350) {
+        enact_schedule<sm_35, T, typename schedule<T, sm_35>::type, prerotate_enactor>
+            ::impl(data, m, n, c, k, temp);
+    } else if (arch >= 200) {
+        enact_schedule<sm_20, T, typename schedule<T, sm_20>::type, prerotate_enactor>
+            ::impl(data, m, n, c, k, temp);
+    }
 }
 
 template<typename T>
 void shuffle_fn(T* data, int m, int n, int c, int k, temporary_storage<T> temp) {
-    enact_schedule<T, typename schedule<T, sm_35>::type, shuffle_enactor>
-        ::impl(data, m, n, c, k, temp);
+    int arch = current_sm();
+    if (arch >= 350) {
+        enact_schedule<sm_35, T, typename schedule<T, sm_35>::type, shuffle_enactor>
+            ::impl(data, m, n, c, k, temp);
+    } else if (arch >= 200) {
+        enact_schedule<sm_20, T, typename schedule<T, sm_20>::type, shuffle_enactor>
+            ::impl(data, m, n, c, k, temp);
+    }
 }
 
 template<typename T>
 void postpermute_fn(T* data, int m, int n, int c, int k, temporary_storage<T> temp) {
-    enact_schedule<T, typename schedule<T, sm_35>::type, postpermute_enactor>
-        ::impl(data, m, n, c, k, temp);
+    
+    int arch = current_sm();
+    if (arch >= 350) {
+        enact_schedule<sm_35, T, typename schedule<T, sm_35>::type, postpermute_enactor>
+            ::impl(data, m, n, c, k, temp);
+    } else if (arch >= 200) {
+        enact_schedule<sm_20, T, typename schedule<T, sm_20>::type, postpermute_enactor>
+            ::impl(data, m, n, c, k, temp);
+    }
 }
 
 

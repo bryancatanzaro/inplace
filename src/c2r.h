@@ -71,5 +71,4 @@ struct shuffle {
 }
 }
 
-#include "register_ops.h"
 #include "memory_ops.h"

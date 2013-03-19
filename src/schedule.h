@@ -1,6 +1,8 @@
 #pragma once
+#include "sm.h"
 
 namespace inplace {
+namespace detail {
 
 struct nil{};
 
@@ -14,11 +16,6 @@ struct cons_tup {
     static const int lim = w * b;
     typedef Next tail;
 };
-
-struct sm_10{};
-struct sm_20{};
-struct sm_30{};
-struct sm_35{};
 
 struct memory{};
 
@@ -35,4 +32,17 @@ struct schedule<double, sm_35> {
     typedef cons_tup<4, 256, cons_tup<4, 384, cons_tup<4, 512, cons_tup<11, 256, cons_tup<11, 384, cons_tup<11, 512, cons_tup<18, 256, cons_tup<18, 384, cons_tup<18, 512, cons_tup<34, 256, cons_tup<34, 384, cons_tup<34, 512, cons_tup<51, 256, cons_tup<51, 384, cons_tup<51, 512, cons_tup<83, 256, cons_tup<115, 256, memory> > > > > > > > > > > > > > > > > type;
 };
 
+
+template<>
+struct schedule<float, sm_20> {
+    typedef cons_tup<5, 256, memory> type;
+
+};
+
+template<>
+struct schedule<double, sm_20> {
+    typedef cons_tup<5, 256, memory> type;
+};
+
+}
 }

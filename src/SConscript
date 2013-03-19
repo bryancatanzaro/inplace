@@ -1,0 +1,51 @@
+import glob
+import os
+import re
+
+Import('env')
+
+sources = glob.glob('*.cu')
+if 'instantiation.cu' in sources:
+    sources.remove('instantiation.cu')
+
+
+def schedule_parser(filename):
+    schedule_type_extractor = re.compile(r'schedule\<(.*)\,(.*)\>')
+    schedule_extractor = re.compile(r'cons_tup\<(\d+),(.*)\>')
+    f = open(filename, 'r')
+    schedules =[]
+    for line in f:
+        match = schedule_type_extractor.search(line)
+        if match:
+            data_type = match.group(1).strip()
+            sm_arch = match.group(2).strip()
+        
+        def schedule_extract(l):
+            match = schedule_extractor.search(l)
+            if match:
+                return [match.group(1)] + schedule_extract(match.group(2))
+            else:
+                return []
+        
+        schedule = schedule_extract(line)
+        if schedule:
+            unique_schedules = set(schedule)
+            schedules.append((sm_arch, data_type, unique_schedules))
+    return schedules
+
+schedule = schedule_parser('schedule.h')
+assert(schedule is not None)
+
+instantiations = []
+
+for sm_arch, datatype, wpts in schedule:
+
+    for wpt in wpts:
+        custom_env = env.Clone()
+        custom_env.Replace(SHNVCCFLAGS='-arch=%s ' % sm_arch)
+        custom_env.Append(SHNVCCFLAGS='-DINSTANTIATED_TYPE=%s ' % datatype)
+        custom_env.Append(SHNVCCFLAGS='-DWPT=%s ' % wpt)
+        custom_env.Append(SHNVCCFLAGS='-DSM=%s ' % sm_arch)
+        instantiations.append(custom_env.SharedObject(target='instantiation%s%s%s.os' % (sm_arch, datatype, wpt), source='instantiation.cu'))
+
+env.SharedLibrary('inplace', instantiations + sources)
