@@ -21,7 +21,7 @@ void print_array(const thrust::device_vector<T>& d, Fn index) {
 
 int main() {
     int m = 512;
-    int n = 32000;
+    int n = 64000;
     // int m = 6;
     // int n = 35;
     thrust::device_vector<int> x(m * n);
@@ -48,7 +48,7 @@ int main() {
     
 
     
-    inplace::coarse_col_rotate<<<n_blocks, block_size>>>(
+    inplace::coarse_col_rotate<int, 4><<<n_blocks, block_size>>>(
         m, n, thrust::raw_pointer_cast(x.data()));
    
     

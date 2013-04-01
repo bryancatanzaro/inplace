@@ -35,7 +35,35 @@ unsigned int div_down(unsigned int a, unsigned int b) {
     return a / b;
 }
 
-template<typename T>
+
+template<typename T, int U>
+__device__ __forceinline__
+void unroll_rotate(T& prior, int& pos, int col, row_major_index rm, int inc, T* d) {
+    T tmp[U];
+    int positions[U];
+    //Compute positions
+    #pragma unroll
+    for(int i = 0; i < U; i++) {
+        positions[i] = pos;
+        pos += inc;
+        if (pos >= rm.m_m) pos -= rm.m_m;
+    }
+    //Load temporaries
+    #pragma unroll
+    for(int i = 0; i < U; i++) {
+        tmp[i] = d[rm(positions[i], col)];
+    }
+    //Store results
+    d[rm(positions[0], col)] = prior;
+    #pragma unroll
+    for(int i = 0; i < U-1; i++) {
+        d[rm(positions[i+1], col)] = tmp[i];
+    }
+    prior = tmp[U-1];
+
+}
+
+template<typename T, int U>
 __global__ void coarse_col_rotate(int m, int n, T* d) {
     int warp_id = threadIdx.x & 0x1f;
     int global_index = threadIdx.x + blockIdx.x * blockDim.x;
@@ -45,23 +73,22 @@ __global__ void coarse_col_rotate(int m, int n, T* d) {
     if ((col < n) && (rotation_amount > 0)) {
         row_major_index rm(m, n);
         int c = gcd(rotation_amount, m);
+        int l = m / c;
         int inc = m - rotation_amount;
         for(int b = 0; b < c; b++) {
             int pos = b;
             T prior = d[rm(pos, col)];
-            int next_pos = pos + inc;
-            if (next_pos >= m)
-                next_pos -= m;
-            while (next_pos >= c) {
-                T temp = d[rm(next_pos, col)];
-                pos = next_pos;
-                d[rm(pos, col)] = prior;
-                prior = temp;
-                next_pos = pos + inc;
-                if (next_pos >= m)
-                    next_pos -= m;
+            pos += inc;
+            if (pos >= m)
+                pos -= m;
+            int x = 0;
+            for(; x < l - U + 1; x += U) {
+                unroll_rotate<T, U>(prior, pos, col, rm, inc, d);
             }
-            d[rm(next_pos, col)] = prior;
+            for(; x < l; x++) {
+                unroll_rotate<T, 1>(prior, pos, col, rm, inc, d);
+            }
+            d[rm(pos, col)] = prior;
 
         }
     }
