@@ -11,7 +11,7 @@ void print_array(const thrust::device_vector<T>& d, Fn index) {
     for(int i = 0; i < m; i++) {
         for(int j = 0; j < n; j++) {
             T x = h[index(i, j)];
-            std::cout.width(3); std::cout << std::right;
+            std::cout.width(5); std::cout << std::right;
             std::cout << x << " ";
         }
         std::cout << std::endl;
@@ -20,10 +20,12 @@ void print_array(const thrust::device_vector<T>& d, Fn index) {
 
 
 int main() {
-    int m = 512;
-    int n = 64000;
-    // int m = 6;
-    // int n = 35;
+    // int m = 512;
+    // int n = 64000;
+    // int m = 32;
+    // int n = 64;
+    int m = 33;
+    int n = 16;
     thrust::device_vector<int> x(m * n);
     thrust::copy(thrust::counting_iterator<int>(0),
                  thrust::counting_iterator<int>(0) + m * n,
@@ -32,12 +34,17 @@ int main() {
     // print_array(x, inplace::row_major_index(m, n));
     std::cout << std::endl;
 
-    int block_size = 256;
-    int n_blocks = (n-1)/block_size + 1;
+    //int block_size = 256;
+    //int n_blocks = (n-1)/block_size + 1;
+
+    // std::cout << "m: " << m << " n: " << n;
+    // std::cout << " n_blocks: " << n_blocks << " block_size: " << block_size;
+    // std::cout << std::endl;
 
     std::cout << "m: " << m << " n: " << n;
-    std::cout << " n_blocks: " << n_blocks << " block_size: " << block_size;
+    std::cout << " n_blocks: " << (n-1)/32+1 << " block_size: 32x32";
     std::cout << std::endl;
+ 
     
     cudaEvent_t start,stop;
     float time=0;
@@ -47,9 +54,9 @@ int main() {
 
     
 
-    
-    inplace::coarse_col_rotate<int, 4><<<n_blocks, block_size>>>(
-        m, n, thrust::raw_pointer_cast(x.data()));
+    inplace::fine_col_rotate<<<(n-1)/32+1, dim3(32,32)>>>(m, n, thrust::raw_pointer_cast(x.data()));
+    // inplace::coarse_col_rotate<int, 4><<<n_blocks, block_size>>>(
+    //     m, n, thrust::raw_pointer_cast(x.data()));
    
     
     cudaEventRecord(stop, 0);
@@ -61,6 +68,6 @@ int main() {
     std::cout << "  Throughput: " << gbs << " GB/s" << std::endl;
 
 
-    // print_array(x, inplace::row_major_index(m, n));
+    print_array(x, inplace::row_major_index(m, n));
     
 }
