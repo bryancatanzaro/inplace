@@ -20,12 +20,12 @@ void print_array(const thrust::device_vector<T>& d, Fn index) {
 
 
 int main() {
-    // int m = 512;
-    // int n = 64000;
+    int m = 512;
+    int n = 64000;
     // int m = 32;
     // int n = 64;
-    int m = 33;
-    int n = 16;
+    //int m = 33;
+    //int n = 64;
     thrust::device_vector<int> x(m * n);
     thrust::copy(thrust::counting_iterator<int>(0),
                  thrust::counting_iterator<int>(0) + m * n,
@@ -68,6 +68,6 @@ int main() {
     std::cout << "  Throughput: " << gbs << " GB/s" << std::endl;
 
 
-    print_array(x, inplace::row_major_index(m, n));
+    //print_array(x, inplace::row_major_index(m, n));
     
 }

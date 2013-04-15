@@ -149,7 +149,7 @@ __global__ void fine_col_rotate(int m, int n, T* d) {
         int tmp_dest_row = 32 - fine_rotation_amount + threadIdx.y;
         if ((tmp_dest_row >= 0) && (tmp_dest_row < 32))
             smem[tmp_dest_row * 32 + threadIdx.x] = tmp;
-        
+        __syncthreads();
         int first_dest_row = 32 + remainder - fine_rotation_amount + threadIdx.y;
         if ((first_dest_row >= 0) && (first_dest_row < 32))
             smem[first_dest_row * 32 + threadIdx.x] = first;
@@ -162,6 +162,7 @@ __global__ void fine_col_rotate(int m, int n, T* d) {
         tmp_dest_row -= 32; first_dest_row -= 32;
         if ((tmp_dest_row >= 0) && (tmp_dest_row < 32))
             smem[tmp_dest_row * 32 + threadIdx.x] = tmp;
+        __syncthreads();
         if ((first_dest_row >= 0) && (first_dest_row < 32))
             smem[first_dest_row * 32 + threadIdx.x] = first;
         __syncthreads();
