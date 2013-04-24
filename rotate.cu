@@ -2,6 +2,7 @@
 
 #include <thrust/device_vector.h>
 #include <iostream>
+#include <cassert>
 
 template<typename T, typename Fn>
 void print_array(const thrust::device_vector<T>& d, Fn index) {
@@ -19,13 +20,47 @@ void print_array(const thrust::device_vector<T>& d, Fn index) {
 }
 
 
+struct fine_rotate_gold {
+    typedef int result_type;
+    int m, n;
+    __host__ __device__ fine_rotate_gold(int _m, int _n) : m(_m), n(_n) {}
+    __host__ __device__ int operator()(int idx) {
+        int row = idx / n;
+        int col = idx % n;
+        int group_col = col & (~0x1f);
+        int coarse_rotate = group_col % m;
+        int col_rotate = col % m;
+        int fine_rotate = col_rotate - coarse_rotate;
+        if (fine_rotate < 0) fine_rotate += m;
+        int src_row = row + fine_rotate;
+        if (src_row >= m) src_row -= m;
+        return (src_row * n) + col;
+    }
+};
+
+struct overall_rotate_gold {
+    typedef int result_type;
+    int m, n;
+    __host__ __device__ overall_rotate_gold(int _m, int _n) : m(_m), n(_n) {}
+    __host__ __device__ int operator()(int idx) {
+        int row = idx / n;
+        int col = idx % n;
+        int rotate = col % m;
+        int src_row = row + rotate;
+        if (src_row >= m) src_row -= m;
+        return (src_row * n) + col;
+    }
+};
+
 int main() {
-    int m = 512;
+    //int m = 6;
+    //int n = 23;
+    int m = 511;
     int n = 64000;
     // int m = 32;
     // int n = 64;
-    //int m = 33;
-    //int n = 64;
+    // int m = 33;
+    // int n = 16;
     thrust::device_vector<int> x(m * n);
     thrust::copy(thrust::counting_iterator<int>(0),
                  thrust::counting_iterator<int>(0) + m * n,
@@ -34,16 +69,6 @@ int main() {
     // print_array(x, inplace::row_major_index(m, n));
     std::cout << std::endl;
 
-    //int block_size = 256;
-    //int n_blocks = (n-1)/block_size + 1;
-
-    // std::cout << "m: " << m << " n: " << n;
-    // std::cout << " n_blocks: " << n_blocks << " block_size: " << block_size;
-    // std::cout << std::endl;
-
-    std::cout << "m: " << m << " n: " << n;
-    std::cout << " n_blocks: " << (n-1)/32+1 << " block_size: 32x32";
-    std::cout << std::endl;
  
     
     cudaEvent_t start,stop;
@@ -53,10 +78,7 @@ int main() {
     cudaEventRecord(start, 0);
 
     
-
-    inplace::fine_col_rotate<<<(n-1)/32+1, dim3(32,32)>>>(m, n, thrust::raw_pointer_cast(x.data()));
-    // inplace::coarse_col_rotate<int, 4><<<n_blocks, block_size>>>(
-    //     m, n, thrust::raw_pointer_cast(x.data()));
+    inplace::post_rotate(m, n, thrust::raw_pointer_cast(x.data()));
    
     
     cudaEventRecord(stop, 0);
@@ -67,7 +89,17 @@ int main() {
     float gbs = (float)(m * n * sizeof(float) * 2) / (time * 1000000);
     std::cout << "  Throughput: " << gbs << " GB/s" << std::endl;
 
+    // thrust::device_vector<int> y(m*n);
+    // thrust::counting_iterator<int> c(0);
+    // thrust::transform(c, c+m*n, y.begin(), fine_rotate_gold(m, n));
+    
+    // print_array(y, inplace::row_major_index(m, n));
 
     //print_array(x, inplace::row_major_index(m, n));
+    
+    assert(thrust::equal(x.begin(), x.end(), thrust::make_transform_iterator(
+                             thrust::counting_iterator<int>(0),
+                             overall_rotate_gold(m, n))));
+
     
 }

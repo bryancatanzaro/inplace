@@ -170,4 +170,16 @@ __global__ void fine_col_rotate(int m, int n, T* d) {
     }
 }
 
+template<typename T>
+void post_rotate(int m, int n, T* data) {
+    inplace::fine_col_rotate<<<(n-1)/32+1, dim3(32,32)>>>(m, n, data);
+
+    int block_size = 256;
+    int n_blocks = (n-1)/block_size + 1;
+    inplace::coarse_col_rotate<int, 4><<<n_blocks, block_size>>>(
+        m, n, data);
+   
+}
+
+
 }
