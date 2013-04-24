@@ -176,7 +176,7 @@ void post_rotate(int m, int n, T* data) {
 
     int block_size = 256;
     int n_blocks = (n-1)/block_size + 1;
-    inplace::coarse_col_rotate<int, 4><<<n_blocks, block_size>>>(
+    inplace::coarse_col_rotate<T, 4><<<n_blocks, block_size>>>(
         m, n, data);
    
 }
