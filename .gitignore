@@ -1,0 +1,8 @@
+*~
+*.os
+*.o
+.sconsign.dblite
+*.so
+*.pyc
+core
+cuda_profile*

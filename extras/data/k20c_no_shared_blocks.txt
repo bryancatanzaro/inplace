@@ -1,0 +1,5000 @@
+Checking results for transpose of a 2407 x 1990 matrix, in column major order.
+  Time: 4.32202 ms
+  Throughput: 4.43305 GB/s
+PASSES
+
+Checking results for transpose of a 115 x 2129 matrix, in row major order.
+  Time: 0.314688 ms
+  Throughput: 3.1121 GB/s
+PASSES
+
+Checking results for transpose of a 2122 x 1260 matrix, in column major order.
+  Time: 2.47178 ms
+  Throughput: 4.3268 GB/s
+PASSES
+
+Checking results for transpose of a 205 x 2234 matrix, in row major order.
+  Time: 0.451296 ms
+  Throughput: 4.05915 GB/s
+PASSES
+
+Checking results for transpose of a 2546 x 763 matrix, in row major order.
+  Time: 1.69462 ms
+  Throughput: 4.58532 GB/s
+PASSES
+
+Checking results for transpose of a 2374 x 2172 matrix, in row major order.
+  Time: 5.00096 ms
+  Throughput: 4.12427 GB/s
+PASSES
+
+Checking results for transpose of a 1108 x 3064 matrix, in row major order.
+  Time: 3.17699 ms
+  Throughput: 4.27437 GB/s
+PASSES
+
+Checking results for transpose of a 488 x 2535 matrix, in column major order.
+  Time: 1.24954 ms
+  Throughput: 3.96013 GB/s
+PASSES
+
+Checking results for transpose of a 1910 x 1370 matrix, in row major order.
+  Time: 2.57869 ms
+  Throughput: 4.05896 GB/s
+PASSES
+
+Checking results for transpose of a 2659 x 2611 matrix, in row major order.
+  Time: 6.24035 ms
+  Throughput: 4.45016 GB/s
+PASSES
+
+Checking results for transpose of a 2249 x 2970 matrix, in row major order.
+  Time: 5.88598 ms
+  Throughput: 4.53928 GB/s
+PASSES
+
+Checking results for transpose of a 306 x 1037 matrix, in row major order.
+  Time: 0.394048 ms
+  Throughput: 3.22115 GB/s
+PASSES
+
+Checking results for transpose of a 1585 x 88 matrix, in row major order.
+  Time: 0.368384 ms
+  Throughput: 1.51451 GB/s
+PASSES
+
+Checking results for transpose of a 346 x 1317 matrix, in column major order.
+  Time: 0.47712 ms
+  Throughput: 3.82027 GB/s
+PASSES
+
+Checking results for transpose of a 261 x 791 matrix, in column major order.
+  Time: 0.238976 ms
+  Throughput: 3.45559 GB/s
+PASSES
+
+Checking results for transpose of a 745 x 1118 matrix, in column major order.
+  Time: 0.72896 ms
+  Throughput: 4.5704 GB/s
+PASSES
+
+Checking results for transpose of a 1451 x 2226 matrix, in column major order.
+  Time: 2.84803 ms
+  Throughput: 4.53636 GB/s
+PASSES
+
+Checking results for transpose of a 1222 x 667 matrix, in column major order.
+  Time: 0.678752 ms
+  Throughput: 4.80337 GB/s
+PASSES
+
+Checking results for transpose of a 2132 x 2577 matrix, in row major order.
+  Time: 4.83997 ms
+  Throughput: 4.54066 GB/s
+PASSES
+
+Checking results for transpose of a 386 x 2164 matrix, in column major order.
+  Time: 0.959168 ms
+  Throughput: 3.48345 GB/s
+PASSES
+
+Checking results for transpose of a 2337 x 1341 matrix, in column major order.
+  Time: 3.10064 ms
+  Throughput: 4.04293 GB/s
+PASSES
+
+Checking results for transpose of a 135 x 2672 matrix, in column major order.
+  Time: 0.675584 ms
+  Throughput: 2.13575 GB/s
+PASSES
+
+Checking results for transpose of a 2110 x 1185 matrix, in column major order.
+  Time: 2.49334 ms
+  Throughput: 4.01124 GB/s
+PASSES
+
+Checking results for transpose of a 2273 x 2556 matrix, in row major order.
+  Time: 4.44474 ms
+  Throughput: 5.22847 GB/s
+PASSES
+
+Checking results for transpose of a 2622 x 2817 matrix, in row major order.
+  Time: 6.94525 ms
+  Throughput: 4.25394 GB/s
+PASSES
+
+Checking results for transpose of a 663 x 1514 matrix, in column major order.
+  Time: 0.968544 ms
+  Throughput: 4.14553 GB/s
+PASSES
+
+Checking results for transpose of a 1899 x 2966 matrix, in row major order.
+  Time: 4.71606 ms
+  Throughput: 4.77723 GB/s
+PASSES
+
+Checking results for transpose of a 1080 x 1116 matrix, in row major order.
+  Time: 1.28653 ms
+  Throughput: 3.74739 GB/s
+PASSES
+
+Checking results for transpose of a 1772 x 1200 matrix, in row major order.
+  Time: 2.13584 ms
+  Throughput: 3.98232 GB/s
+PASSES
+
+Checking results for transpose of a 1787 x 1586 matrix, in row major order.
+  Time: 2.47827 ms
+  Throughput: 4.57445 GB/s
+PASSES
+
+Checking results for transpose of a 2364 x 852 matrix, in column major order.
+  Time: 1.98624 ms
+  Throughput: 4.05616 GB/s
+PASSES
+
+Checking results for transpose of a 792 x 2011 matrix, in column major order.
+  Time: 1.57875 ms
+  Throughput: 4.03537 GB/s
+PASSES
+
+Checking results for transpose of a 1282 x 1050 matrix, in row major order.
+  Time: 1.33056 ms
+  Throughput: 4.04672 GB/s
+PASSES
+
+Checking results for transpose of a 1859 x 1275 matrix, in row major order.
+  Time: 2.17437 ms
+  Throughput: 4.3603 GB/s
+PASSES
+
+Checking results for transpose of a 1706 x 826 matrix, in row major order.
+  Time: 1.49827 ms
+  Throughput: 3.76208 GB/s
+PASSES
+
+Checking results for transpose of a 297 x 2513 matrix, in row major order.
+  Time: 0.66032 ms
+  Throughput: 4.52121 GB/s
+PASSES
+
+Checking results for transpose of a 1029 x 2364 matrix, in column major order.
+  Time: 2.53146 ms
+  Throughput: 3.84373 GB/s
+PASSES
+
+Checking results for transpose of a 1940 x 373 matrix, in column major order.
+  Time: 0.61472 ms
+  Throughput: 4.70862 GB/s
+PASSES
+
+Checking results for transpose of a 446 x 97 matrix, in column major order.
+  Time: 0.077856 ms
+  Throughput: 2.22267 GB/s
+PASSES
+
+Checking results for transpose of a 1529 x 2908 matrix, in row major order.
+  Time: 3.86317 ms
+  Throughput: 4.60382 GB/s
+PASSES
+
+Checking results for transpose of a 2728 x 153 matrix, in row major order.
+  Time: 0.696864 ms
+  Throughput: 2.39578 GB/s
+PASSES
+
+Checking results for transpose of a 2197 x 945 matrix, in row major order.
+  Time: 1.89232 ms
+  Throughput: 4.38861 GB/s
+PASSES
+
+Checking results for transpose of a 2289 x 179 matrix, in column major order.
+  Time: 0.421824 ms
+  Throughput: 3.88533 GB/s
+PASSES
+
+Checking results for transpose of a 1519 x 3063 matrix, in column major order.
+  Time: 4.0143 ms
+  Throughput: 4.63612 GB/s
+PASSES
+
+Checking results for transpose of a 233 x 2721 matrix, in row major order.
+  Time: 0.593696 ms
+  Throughput: 4.2715 GB/s
+PASSES
+
+Checking results for transpose of a 2789 x 970 matrix, in row major order.
+  Time: 2.40838 ms
+  Throughput: 4.49319 GB/s
+PASSES
+
+Checking results for transpose of a 1739 x 2000 matrix, in column major order.
+  Time: 2.95037 ms
+  Throughput: 4.71534 GB/s
+PASSES
+
+Checking results for transpose of a 2631 x 1892 matrix, in column major order.
+  Time: 4.51805 ms
+  Throughput: 4.40708 GB/s
+PASSES
+
+Checking results for transpose of a 543 x 2339 matrix, in row major order.
+  Time: 1.06899 ms
+  Throughput: 4.75243 GB/s
+PASSES
+
+Checking results for transpose of a 1704 x 796 matrix, in row major order.
+  Time: 1.35379 ms
+  Throughput: 4.00766 GB/s
+PASSES
+
+Checking results for transpose of a 2404 x 453 matrix, in column major order.
+  Time: 0.934848 ms
+  Throughput: 4.65963 GB/s
+PASSES
+
+Checking results for transpose of a 1907 x 602 matrix, in column major order.
+  Time: 0.931584 ms
+  Throughput: 4.9293 GB/s
+PASSES
+
+Checking results for transpose of a 350 x 843 matrix, in column major order.
+  Time: 0.308704 ms
+  Throughput: 3.82308 GB/s
+PASSES
+
+Checking results for transpose of a 2915 x 2363 matrix, in column major order.
+  Time: 6.06272 ms
+  Throughput: 4.54459 GB/s
+PASSES
+
+Checking results for transpose of a 2660 x 548 matrix, in column major order.
+  Time: 1.48426 ms
+  Throughput: 3.92838 GB/s
+PASSES
+
+Checking results for transpose of a 158 x 265 matrix, in column major order.
+  Time: 0.084768 ms
+  Throughput: 1.97575 GB/s
+PASSES
+
+Checking results for transpose of a 170 x 3028 matrix, in column major order.
+  Time: 0.858848 ms
+  Throughput: 2.39744 GB/s
+PASSES
+
+Checking results for transpose of a 1522 x 539 matrix, in column major order.
+  Time: 0.726624 ms
+  Throughput: 4.516 GB/s
+PASSES
+
+Checking results for transpose of a 2223 x 1083 matrix, in row major order.
+  Time: 2.50374 ms
+  Throughput: 3.84625 GB/s
+PASSES
+
+Checking results for transpose of a 973 x 2787 matrix, in column major order.
+  Time: 2.59811 ms
+  Throughput: 4.17496 GB/s
+PASSES
+
+Checking results for transpose of a 2632 x 71 matrix, in column major order.
+  Time: 0.307424 ms
+  Throughput: 2.43146 GB/s
+PASSES
+
+Checking results for transpose of a 1372 x 1979 matrix, in row major order.
+  Time: 2.32698 ms
+  Throughput: 4.66732 GB/s
+PASSES
+
+Checking results for transpose of a 2082 x 2329 matrix, in row major order.
+  Time: 4.31798 ms
+  Throughput: 4.49189 GB/s
+PASSES
+
+Checking results for transpose of a 2971 x 125 matrix, in column major order.
+  Time: 0.435552 ms
+  Throughput: 3.41061 GB/s
+PASSES
+
+Checking results for transpose of a 1803 x 2785 matrix, in row major order.
+  Time: 4.07827 ms
+  Throughput: 4.92498 GB/s
+PASSES
+
+Checking results for transpose of a 284 x 2943 matrix, in row major order.
+  Time: 0.734624 ms
+  Throughput: 4.55096 GB/s
+PASSES
+
+Checking results for transpose of a 2808 x 1065 matrix, in column major order.
+  Time: 2.60531 ms
+  Throughput: 4.59142 GB/s
+PASSES
+
+Checking results for transpose of a 2212 x 2587 matrix, in row major order.
+  Time: 5.14934 ms
+  Throughput: 4.44518 GB/s
+PASSES
+
+Checking results for transpose of a 437 x 2762 matrix, in row major order.
+  Time: 1.03722 ms
+  Throughput: 4.65475 GB/s
+PASSES
+
+Checking results for transpose of a 1000 x 664 matrix, in row major order.
+  Time: 0.685312 ms
+  Throughput: 3.87561 GB/s
+PASSES
+
+Checking results for transpose of a 312 x 1248 matrix, in column major order.
+  Time: 0.428224 ms
+  Throughput: 3.63712 GB/s
+PASSES
+
+Checking results for transpose of a 1101 x 2621 matrix, in column major order.
+  Time: 2.75962 ms
+  Throughput: 4.18279 GB/s
+PASSES
+
+Checking results for transpose of a 2492 x 2655 matrix, in row major order.
+  Time: 5.90294 ms
+  Throughput: 4.48336 GB/s
+PASSES
+
+Checking results for transpose of a 1655 x 506 matrix, in row major order.
+  Time: 0.849152 ms
+  Throughput: 3.94478 GB/s
+PASSES
+
+Checking results for transpose of a 1132 x 2309 matrix, in column major order.
+  Time: 2.47568 ms
+  Throughput: 4.22314 GB/s
+PASSES
+
+Checking results for transpose of a 1158 x 545 matrix, in row major order.
+  Time: 0.655328 ms
+  Throughput: 3.85218 GB/s
+PASSES
+
+Checking results for transpose of a 2474 x 1306 matrix, in column major order.
+  Time: 2.99536 ms
+  Throughput: 4.31473 GB/s
+PASSES
+
+Checking results for transpose of a 674 x 1470 matrix, in column major order.
+  Time: 1.08899 ms
+  Throughput: 3.63926 GB/s
+PASSES
+
+Checking results for transpose of a 2485 x 2931 matrix, in row major order.
+  Time: 6.43315 ms
+  Throughput: 4.52875 GB/s
+PASSES
+
+Checking results for transpose of a 2308 x 860 matrix, in row major order.
+  Time: 2.06438 ms
+  Throughput: 3.84595 GB/s
+PASSES
+
+Checking results for transpose of a 2870 x 2196 matrix, in row major order.
+  Time: 5.86259 ms
+  Throughput: 4.30016 GB/s
+PASSES
+
+Checking results for transpose of a 1455 x 226 matrix, in column major order.
+  Time: 0.328 ms
+  Throughput: 4.01012 GB/s
+PASSES
+
+Checking results for transpose of a 2020 x 670 matrix, in row major order.
+  Time: 1.29974 ms
+  Throughput: 4.16513 GB/s
+PASSES
+
+Checking results for transpose of a 2866 x 2325 matrix, in column major order.
+  Time: 5.88554 ms
+  Throughput: 4.5287 GB/s
+PASSES
+
+Checking results for transpose of a 1789 x 1410 matrix, in row major order.
+  Time: 2.316 ms
+  Throughput: 4.35663 GB/s
+PASSES
+
+Checking results for transpose of a 425 x 2568 matrix, in column major order.
+  Time: 1.06115 ms
+  Throughput: 4.11402 GB/s
+PASSES
+
+Checking results for transpose of a 3028 x 2994 matrix, in row major order.
+  Time: 8.53261 ms
+  Throughput: 4.24997 GB/s
+PASSES
+
+Checking results for transpose of a 1577 x 596 matrix, in column major order.
+  Time: 0.840736 ms
+  Throughput: 4.47176 GB/s
+PASSES
+
+Checking results for transpose of a 666 x 1034 matrix, in column major order.
+  Time: 0.764064 ms
+  Throughput: 3.60516 GB/s
+PASSES
+
+Checking results for transpose of a 2517 x 270 matrix, in column major order.
+  Time: 0.799616 ms
+  Throughput: 3.39958 GB/s
+PASSES
+
+Checking results for transpose of a 936 x 1092 matrix, in column major order.
+  Time: 0.9504 ms
+  Throughput: 4.30182 GB/s
+PASSES
+
+Checking results for transpose of a 2651 x 2547 matrix, in row major order.
+  Time: 6.02141 ms
+  Throughput: 4.48539 GB/s
+PASSES
+
+Checking results for transpose of a 1868 x 2519 matrix, in column major order.
+  Time: 4.25238 ms
+  Throughput: 4.42622 GB/s
+PASSES
+
+Checking results for transpose of a 1691 x 2313 matrix, in row major order.
+  Time: 3.38269 ms
+  Throughput: 4.62506 GB/s
+PASSES
+
+Checking results for transpose of a 997 x 2054 matrix, in column major order.
+  Time: 1.94509 ms
+  Throughput: 4.2113 GB/s
+PASSES
+
+Checking results for transpose of a 1587 x 2479 matrix, in column major order.
+  Time: 3.52163 ms
+  Throughput: 4.46858 GB/s
+PASSES
+
+Checking results for transpose of a 2723 x 388 matrix, in row major order.
+  Time: 0.989984 ms
+  Throughput: 4.26885 GB/s
+PASSES
+
+Checking results for transpose of a 45 x 2989 matrix, in column major order.
+  Time: 0.670272 ms
+  Throughput: 0.802689 GB/s
+PASSES
+
+Checking results for transpose of a 1910 x 583 matrix, in row major order.
+  Time: 1.21706 ms
+  Throughput: 3.65975 GB/s
+PASSES
+
+Checking results for transpose of a 1586 x 1052 matrix, in column major order.
+  Time: 1.55898 ms
+  Throughput: 4.28094 GB/s
+PASSES
+
+Checking results for transpose of a 2122 x 1988 matrix, in column major order.
+  Time: 3.96963 ms
+  Throughput: 4.25081 GB/s
+PASSES
+
+Checking results for transpose of a 1782 x 2592 matrix, in row major order.
+  Time: 3.83549 ms
+  Throughput: 4.81706 GB/s
+PASSES
+
+Checking results for transpose of a 645 x 2412 matrix, in row major order.
+  Time: 2.1841 ms
+  Throughput: 2.84922 GB/s
+PASSES
+
+Checking results for transpose of a 2226 x 1031 matrix, in column major order.
+  Time: 1.98963 ms
+  Throughput: 4.61393 GB/s
+PASSES
+
+Checking results for transpose of a 1012 x 3052 matrix, in row major order.
+  Time: 2.73539 ms
+  Throughput: 4.51654 GB/s
+PASSES
+
+Checking results for transpose of a 1209 x 1568 matrix, in row major order.
+  Time: 1.73491 ms
+  Throughput: 4.37074 GB/s
+PASSES
+
+Checking results for transpose of a 1926 x 2243 matrix, in row major order.
+  Time: 3.67853 ms
+  Throughput: 4.69755 GB/s
+PASSES
+
+Checking results for transpose of a 2565 x 241 matrix, in column major order.
+  Time: 0.582976 ms
+  Throughput: 4.24144 GB/s
+PASSES
+
+Checking results for transpose of a 1753 x 103 matrix, in row major order.
+  Time: 0.408224 ms
+  Throughput: 1.76921 GB/s
+PASSES
+
+Checking results for transpose of a 1975 x 1689 matrix, in column major order.
+  Time: 2.99878 ms
+  Throughput: 4.4495 GB/s
+PASSES
+
+Checking results for transpose of a 2467 x 739 matrix, in column major order.
+  Time: 1.46749 ms
+  Throughput: 4.96934 GB/s
+PASSES
+
+Checking results for transpose of a 2003 x 473 matrix, in column major order.
+  Time: 0.816992 ms
+  Throughput: 4.63857 GB/s
+PASSES
+
+Checking results for transpose of a 2039 x 1118 matrix, in column major order.
+  Time: 1.83795 ms
+  Throughput: 4.96118 GB/s
+PASSES
+
+Checking results for transpose of a 1522 x 1296 matrix, in column major order.
+  Time: 1.9145 ms
+  Throughput: 4.12121 GB/s
+PASSES
+
+Checking results for transpose of a 1270 x 2309 matrix, in column major order.
+  Time: 2.42029 ms
+  Throughput: 4.84642 GB/s
+PASSES
+
+Checking results for transpose of a 1 x 1470 matrix, in column major order.
+  Time: 0.272864 ms
+  Throughput: 0.0215492 GB/s
+PASSES
+
+Checking results for transpose of a 2236 x 324 matrix, in column major order.
+  Time: 0.807424 ms
+  Throughput: 3.58901 GB/s
+PASSES
+
+Checking results for transpose of a 2810 x 841 matrix, in column major order.
+  Time: 1.95888 ms
+  Throughput: 4.82563 GB/s
+PASSES
+
+Checking results for transpose of a 230 x 547 matrix, in column major order.
+  Time: 0.168448 ms
+  Throughput: 2.98751 GB/s
+PASSES
+
+Checking results for transpose of a 2330 x 2522 matrix, in column major order.
+  Time: 5.50886 ms
+  Throughput: 4.26677 GB/s
+PASSES
+
+Checking results for transpose of a 362 x 2942 matrix, in column major order.
+  Time: 1.23853 ms
+  Throughput: 3.43958 GB/s
+PASSES
+
+Checking results for transpose of a 1406 x 2897 matrix, in column major order.
+  Time: 3.68934 ms
+  Throughput: 4.41616 GB/s
+PASSES
+
+Checking results for transpose of a 1971 x 1864 matrix, in column major order.
+  Time: 3.31034 ms
+  Throughput: 4.43936 GB/s
+PASSES
+
+Checking results for transpose of a 2899 x 314 matrix, in column major order.
+  Time: 0.79392 ms
+  Throughput: 4.58629 GB/s
+PASSES
+
+Checking results for transpose of a 1787 x 2609 matrix, in column major order.
+  Time: 4.30726 ms
+  Throughput: 4.32969 GB/s
+PASSES
+
+Checking results for transpose of a 656 x 2610 matrix, in row major order.
+  Time: 1.69078 ms
+  Throughput: 4.05057 GB/s
+PASSES
+
+Checking results for transpose of a 2116 x 1774 matrix, in row major order.
+  Time: 3.65453 ms
+  Throughput: 4.10864 GB/s
+PASSES
+
+Checking results for transpose of a 700 x 1513 matrix, in column major order.
+  Time: 1.04096 ms
+  Throughput: 4.06971 GB/s
+PASSES
+
+Checking results for transpose of a 2597 x 2767 matrix, in column major order.
+  Time: 6.48042 ms
+  Throughput: 4.43546 GB/s
+PASSES
+
+Checking results for transpose of a 1525 x 3049 matrix, in row major order.
+  Time: 3.38957 ms
+  Throughput: 5.4871 GB/s
+PASSES
+
+Checking results for transpose of a 2142 x 339 matrix, in column major order.
+  Time: 0.801344 ms
+  Throughput: 3.6246 GB/s
+PASSES
+
+Checking results for transpose of a 1450 x 2770 matrix, in row major order.
+  Time: 3.70701 ms
+  Throughput: 4.33395 GB/s
+PASSES
+
+Checking results for transpose of a 1232 x 1669 matrix, in row major order.
+  Time: 1.89069 ms
+  Throughput: 4.35018 GB/s
+PASSES
+
+Checking results for transpose of a 84 x 2520 matrix, in column major order.
+  Time: 0.61456 ms
+  Throughput: 1.37777 GB/s
+PASSES
+
+Checking results for transpose of a 232 x 1236 matrix, in row major order.
+  Time: 0.376224 ms
+  Throughput: 3.04874 GB/s
+PASSES
+
+Checking results for transpose of a 642 x 2916 matrix, in column major order.
+  Time: 2.10269 ms
+  Throughput: 3.56129 GB/s
+PASSES
+
+Checking results for transpose of a 2521 x 2984 matrix, in row major order.
+  Time: 6.65091 ms
+  Throughput: 4.52429 GB/s
+PASSES
+
+Checking results for transpose of a 2677 x 613 matrix, in column major order.
+  Time: 1.4153 ms
+  Throughput: 4.6379 GB/s
+PASSES
+
+Checking results for transpose of a 1626 x 138 matrix, in row major order.
+  Time: 0.44288 ms
+  Throughput: 2.02663 GB/s
+PASSES
+
+Checking results for transpose of a 1122 x 1664 matrix, in column major order.
+  Time: 2.0767 ms
+  Throughput: 3.5961 GB/s
+PASSES
+
+Checking results for transpose of a 68 x 1758 matrix, in column major order.
+  Time: 0.427968 ms
+  Throughput: 1.11732 GB/s
+PASSES
+
+Checking results for transpose of a 2981 x 137 matrix, in row major order.
+  Time: 0.755424 ms
+  Throughput: 2.16248 GB/s
+PASSES
+
+Checking results for transpose of a 2647 x 1369 matrix, in row major order.
+  Time: 3.21098 ms
+  Throughput: 4.51419 GB/s
+PASSES
+
+Checking results for transpose of a 2129 x 2477 matrix, in column major order.
+  Time: 4.76627 ms
+  Throughput: 4.42571 GB/s
+PASSES
+
+Checking results for transpose of a 1926 x 2709 matrix, in column major order.
+  Time: 4.99498 ms
+  Throughput: 4.17823 GB/s
+PASSES
+
+Checking results for transpose of a 2284 x 1303 matrix, in column major order.
+  Time: 2.35539 ms
+  Throughput: 5.05402 GB/s
+PASSES
+
+Checking results for transpose of a 2181 x 753 matrix, in column major order.
+  Time: 1.63245 ms
+  Throughput: 4.02412 GB/s
+PASSES
+
+Checking results for transpose of a 780 x 1382 matrix, in column major order.
+  Time: 1.17523 ms
+  Throughput: 3.66893 GB/s
+PASSES
+
+Checking results for transpose of a 2940 x 3008 matrix, in column major order.
+  Time: 8.35955 ms
+  Throughput: 4.23158 GB/s
+PASSES
+
+Checking results for transpose of a 1723 x 1058 matrix, in column major order.
+  Time: 1.66445 ms
+  Throughput: 4.38087 GB/s
+PASSES
+
+Checking results for transpose of a 484 x 2150 matrix, in row major order.
+  Time: 1.07872 ms
+  Throughput: 3.85865 GB/s
+PASSES
+
+Checking results for transpose of a 609 x 2059 matrix, in row major order.
+  Time: 1.27914 ms
+  Throughput: 3.92118 GB/s
+PASSES
+
+Checking results for transpose of a 431 x 1634 matrix, in column major order.
+  Time: 0.719936 ms
+  Throughput: 3.91287 GB/s
+PASSES
+
+Checking results for transpose of a 1923 x 692 matrix, in column major order.
+  Time: 1.0911 ms
+  Throughput: 4.87842 GB/s
+PASSES
+
+Checking results for transpose of a 815 x 570 matrix, in row major order.
+  Time: 0.526848 ms
+  Throughput: 3.52701 GB/s
+PASSES
+
+Checking results for transpose of a 1967 x 2855 matrix, in row major order.
+  Time: 5.00416 ms
+  Throughput: 4.48889 GB/s
+PASSES
+
+Checking results for transpose of a 1939 x 1964 matrix, in row major order.
+  Time: 3.22813 ms
+  Throughput: 4.71877 GB/s
+PASSES
+
+Checking results for transpose of a 2847 x 696 matrix, in column major order.
+  Time: 1.83283 ms
+  Throughput: 4.32448 GB/s
+PASSES
+
+Checking results for transpose of a 1297 x 564 matrix, in column major order.
+  Time: 0.61696 ms
+  Throughput: 4.74266 GB/s
+PASSES
+
+Checking results for transpose of a 1933 x 239 matrix, in row major order.
+  Time: 0.55552 ms
+  Throughput: 3.32652 GB/s
+PASSES
+
+Checking results for transpose of a 1161 x 724 matrix, in row major order.
+  Time: 0.780768 ms
+  Throughput: 4.30634 GB/s
+PASSES
+
+Checking results for transpose of a 2147 x 2357 matrix, in column major order.
+  Time: 4.56646 ms
+  Throughput: 4.43273 GB/s
+PASSES
+
+Checking results for transpose of a 1223 x 2788 matrix, in column major order.
+  Time: 3.14781 ms
+  Throughput: 4.33282 GB/s
+PASSES
+
+Checking results for transpose of a 1667 x 2663 matrix, in column major order.
+  Time: 3.79987 ms
+  Throughput: 4.67302 GB/s
+PASSES
+
+Checking results for transpose of a 2541 x 406 matrix, in row major order.
+  Time: 1.13875 ms
+  Throughput: 3.62378 GB/s
+PASSES
+
+Checking results for transpose of a 1004 x 2373 matrix, in column major order.
+  Time: 2.1561 ms
+  Throughput: 4.42001 GB/s
+PASSES
+
+Checking results for transpose of a 770 x 2264 matrix, in column major order.
+  Time: 1.88464 ms
+  Throughput: 3.69997 GB/s
+PASSES
+
+Checking results for transpose of a 1290 x 2040 matrix, in column major order.
+  Time: 2.57078 ms
+  Throughput: 4.09463 GB/s
+PASSES
+
+Checking results for transpose of a 1143 x 1289 matrix, in column major order.
+  Time: 1.35184 ms
+  Throughput: 4.35947 GB/s
+PASSES
+
+Checking results for transpose of a 933 x 150 matrix, in column major order.
+  Time: 0.24416 ms
+  Throughput: 2.29276 GB/s
+PASSES
+
+Checking results for transpose of a 2804 x 1311 matrix, in column major order.
+  Time: 3.27933 ms
+  Throughput: 4.4839 GB/s
+PASSES
+
+Checking results for transpose of a 2730 x 1410 matrix, in row major order.
+  Time: 3.75581 ms
+  Throughput: 4.09957 GB/s
+PASSES
+
+Checking results for transpose of a 2668 x 2633 matrix, in row major order.
+  Time: 6.31965 ms
+  Throughput: 4.44635 GB/s
+PASSES
+
+Checking results for transpose of a 2192 x 2253 matrix, in row major order.
+  Time: 4.44829 ms
+  Throughput: 4.44088 GB/s
+PASSES
+
+Checking results for transpose of a 2408 x 2746 matrix, in column major order.
+  Time: 6.32666 ms
+  Throughput: 4.18064 GB/s
+PASSES
+
+Checking results for transpose of a 1146 x 678 matrix, in row major order.
+  Time: 0.879264 ms
+  Throughput: 3.53472 GB/s
+PASSES
+
+Checking results for transpose of a 2740 x 1448 matrix, in row major order.
+  Time: 3.86566 ms
+  Throughput: 4.1054 GB/s
+PASSES
+
+Checking results for transpose of a 1177 x 690 matrix, in row major order.
+  Time: 0.832512 ms
+  Throughput: 3.90207 GB/s
+PASSES
+
+Checking results for transpose of a 311 x 1834 matrix, in row major order.
+  Time: 0.506528 ms
+  Throughput: 4.50419 GB/s
+PASSES
+
+Checking results for transpose of a 1032 x 719 matrix, in column major order.
+  Time: 0.705344 ms
+  Throughput: 4.20792 GB/s
+PASSES
+
+Checking results for transpose of a 1993 x 451 matrix, in column major order.
+  Time: 0.772832 ms
+  Throughput: 4.6522 GB/s
+PASSES
+
+Checking results for transpose of a 1630 x 1134 matrix, in row major order.
+  Time: 1.7937 ms
+  Throughput: 4.12204 GB/s
+PASSES
+
+Checking results for transpose of a 2600 x 1754 matrix, in column major order.
+  Time: 4.43146 ms
+  Throughput: 4.11639 GB/s
+PASSES
+
+Checking results for transpose of a 1239 x 1898 matrix, in column major order.
+  Time: 2.12784 ms
+  Throughput: 4.42067 GB/s
+PASSES
+
+Checking results for transpose of a 2541 x 2258 matrix, in row major order.
+  Time: 4.34656 ms
+  Throughput: 5.28011 GB/s
+PASSES
+
+Checking results for transpose of a 2201 x 332 matrix, in column major order.
+  Time: 0.644704 ms
+  Throughput: 4.53375 GB/s
+PASSES
+
+Checking results for transpose of a 2187 x 1024 matrix, in row major order.
+  Time: 2.17267 ms
+  Throughput: 4.12301 GB/s
+PASSES
+
+Checking results for transpose of a 1366 x 154 matrix, in column major order.
+  Time: 0.33664 ms
+  Throughput: 2.49957 GB/s
+PASSES
+
+Checking results for transpose of a 536 x 465 matrix, in row major order.
+  Time: 0.259136 ms
+  Throughput: 3.84725 GB/s
+PASSES
+
+Checking results for transpose of a 2020 x 2521 matrix, in column major order.
+  Time: 4.07075 ms
+  Throughput: 5.00391 GB/s
+PASSES
+
+Checking results for transpose of a 1605 x 2467 matrix, in column major order.
+  Time: 3.66502 ms
+  Throughput: 4.32143 GB/s
+PASSES
+
+Checking results for transpose of a 2502 x 1025 matrix, in row major order.
+  Time: 2.50378 ms
+  Throughput: 4.09709 GB/s
+PASSES
+
+Checking results for transpose of a 2761 x 554 matrix, in column major order.
+  Time: 1.24723 ms
+  Throughput: 4.90556 GB/s
+PASSES
+
+Checking results for transpose of a 533 x 2817 matrix, in row major order.
+  Time: 1.21725 ms
+  Throughput: 4.93395 GB/s
+PASSES
+
+Checking results for transpose of a 559 x 2286 matrix, in column major order.
+  Time: 1.40922 ms
+  Throughput: 3.62719 GB/s
+PASSES
+
+Checking results for transpose of a 1282 x 2439 matrix, in column major order.
+  Time: 2.85405 ms
+  Throughput: 4.38226 GB/s
+PASSES
+
+Checking results for transpose of a 636 x 1555 matrix, in row major order.
+  Time: 0.821088 ms
+  Throughput: 4.8179 GB/s
+PASSES
+
+Checking results for transpose of a 1438 x 2921 matrix, in column major order.
+  Time: 3.79133 ms
+  Throughput: 4.43158 GB/s
+PASSES
+
+Checking results for transpose of a 882 x 1409 matrix, in column major order.
+  Time: 1.06259 ms
+  Throughput: 4.67814 GB/s
+PASSES
+
+Checking results for transpose of a 2161 x 357 matrix, in row major order.
+  Time: 0.80064 ms
+  Throughput: 3.8543 GB/s
+PASSES
+
+Checking results for transpose of a 2110 x 1963 matrix, in column major order.
+  Time: 3.81846 ms
+  Throughput: 4.33884 GB/s
+PASSES
+
+Checking results for transpose of a 463 x 2417 matrix, in row major order.
+  Time: 0.9656 ms
+  Throughput: 4.63575 GB/s
+PASSES
+
+Checking results for transpose of a 3022 x 58 matrix, in column major order.
+  Time: 0.51936 ms
+  Throughput: 1.34994 GB/s
+PASSES
+
+Checking results for transpose of a 2215 x 591 matrix, in row major order.
+  Time: 1.27744 ms
+  Throughput: 4.09903 GB/s
+PASSES
+
+Checking results for transpose of a 234 x 2174 matrix, in column major order.
+  Time: 0.6776 ms
+  Throughput: 3.00305 GB/s
+PASSES
+
+Checking results for transpose of a 511 x 1409 matrix, in row major order.
+  Time: 0.636384 ms
+  Throughput: 4.52556 GB/s
+PASSES
+
+Checking results for transpose of a 1121 x 2045 matrix, in row major order.
+  Time: 1.91866 ms
+  Throughput: 4.77927 GB/s
+PASSES
+
+Checking results for transpose of a 707 x 1435 matrix, in row major order.
+  Time: 1.02454 ms
+  Throughput: 3.96096 GB/s
+PASSES
+
+Checking results for transpose of a 447 x 2317 matrix, in column major order.
+  Time: 1.06608 ms
+  Throughput: 3.88601 GB/s
+PASSES
+
+Checking results for transpose of a 1676 x 2430 matrix, in row major order.
+  Time: 3.65869 ms
+  Throughput: 4.45261 GB/s
+PASSES
+
+Checking results for transpose of a 2354 x 1469 matrix, in column major order.
+  Time: 2.86656 ms
+  Throughput: 4.82533 GB/s
+PASSES
+
+Checking results for transpose of a 2428 x 2956 matrix, in row major order.
+  Time: 6.41085 ms
+  Throughput: 4.47814 GB/s
+PASSES
+
+Checking results for transpose of a 1479 x 2907 matrix, in column major order.
+  Time: 4.21126 ms
+  Throughput: 4.08377 GB/s
+PASSES
+
+Checking results for transpose of a 1084 x 2 matrix, in column major order.
+  Time: 0.163552 ms
+  Throughput: 0.0530229 GB/s
+PASSES
+
+Checking results for transpose of a 1458 x 237 matrix, in row major order.
+  Time: 0.47264 ms
+  Throughput: 2.92439 GB/s
+PASSES
+
+Checking results for transpose of a 2070 x 748 matrix, in row major order.
+  Time: 1.67683 ms
+  Throughput: 3.69354 GB/s
+PASSES
+
+Checking results for transpose of a 2049 x 2893 matrix, in column major order.
+  Time: 5.07366 ms
+  Throughput: 4.67335 GB/s
+PASSES
+
+Checking results for transpose of a 1536 x 528 matrix, in row major order.
+  Time: 0.978528 ms
+  Throughput: 3.31522 GB/s
+PASSES
+
+Checking results for transpose of a 1895 x 1999 matrix, in column major order.
+  Time: 3.30099 ms
+  Throughput: 4.59026 GB/s
+PASSES
+
+Checking results for transpose of a 592 x 603 matrix, in row major order.
+  Time: 0.361952 ms
+  Throughput: 3.94501 GB/s
+PASSES
+
+Checking results for transpose of a 671 x 910 matrix, in column major order.
+  Time: 0.602464 ms
+  Throughput: 4.05408 GB/s
+PASSES
+
+Checking results for transpose of a 664 x 1290 matrix, in column major order.
+  Time: 1.09562 ms
+  Throughput: 3.12723 GB/s
+PASSES
+
+Checking results for transpose of a 3 x 2769 matrix, in column major order.
+  Time: 0.505056 ms
+  Throughput: 0.0657907 GB/s
+PASSES
+
+Checking results for transpose of a 423 x 1805 matrix, in row major order.
+  Time: 0.671008 ms
+  Throughput: 4.55145 GB/s
+PASSES
+
+Checking results for transpose of a 1435 x 1215 matrix, in row major order.
+  Time: 1.59984 ms
+  Throughput: 4.35925 GB/s
+PASSES
+
+Checking results for transpose of a 2574 x 1237 matrix, in column major order.
+  Time: 2.86285 ms
+  Throughput: 4.44877 GB/s
+PASSES
+
+Checking results for transpose of a 2049 x 1238 matrix, in column major order.
+  Time: 2.26291 ms
+  Throughput: 4.48389 GB/s
+PASSES
+
+Checking results for transpose of a 1522 x 2774 matrix, in row major order.
+  Time: 4.00509 ms
+  Throughput: 4.21666 GB/s
+PASSES
+
+Checking results for transpose of a 2429 x 1598 matrix, in column major order.
+  Time: 3.29651 ms
+  Throughput: 4.70988 GB/s
+PASSES
+
+Checking results for transpose of a 2582 x 142 matrix, in column major order.
+  Time: 0.586176 ms
+  Throughput: 2.50194 GB/s
+PASSES
+
+Checking results for transpose of a 2094 x 813 matrix, in row major order.
+  Time: 1.76538 ms
+  Throughput: 3.85736 GB/s
+PASSES
+
+Checking results for transpose of a 1026 x 1478 matrix, in column major order.
+  Time: 1.63363 ms
+  Throughput: 3.71302 GB/s
+PASSES
+
+Checking results for transpose of a 2915 x 1481 matrix, in row major order.
+  Time: 3.94022 ms
+  Throughput: 4.38261 GB/s
+PASSES
+
+Checking results for transpose of a 2591 x 1904 matrix, in row major order.
+  Time: 4.44563 ms
+  Throughput: 4.43875 GB/s
+PASSES
+
+Checking results for transpose of a 2270 x 1292 matrix, in row major order.
+  Time: 2.89018 ms
+  Throughput: 4.05905 GB/s
+PASSES
+
+Checking results for transpose of a 137 x 794 matrix, in row major order.
+  Time: 0.146816 ms
+  Throughput: 2.96366 GB/s
+PASSES
+
+Checking results for transpose of a 1825 x 795 matrix, in column major order.
+  Time: 1.44202 ms
+  Throughput: 4.02457 GB/s
+PASSES
+
+Checking results for transpose of a 263 x 2317 matrix, in column major order.
+  Time: 0.746528 ms
+  Throughput: 3.26509 GB/s
+PASSES
+
+Checking results for transpose of a 2301 x 1675 matrix, in row major order.
+  Time: 3.27907 ms
+  Throughput: 4.70154 GB/s
+PASSES
+
+Checking results for transpose of a 1218 x 2209 matrix, in column major order.
+  Time: 2.46822 ms
+  Throughput: 4.36032 GB/s
+PASSES
+
+Checking results for transpose of a 1763 x 2255 matrix, in row major order.
+  Time: 3.96586 ms
+  Throughput: 4.00979 GB/s
+PASSES
+
+Checking results for transpose of a 146 x 210 matrix, in column major order.
+  Time: 0.088224 ms
+  Throughput: 1.3901 GB/s
+PASSES
+
+Checking results for transpose of a 2891 x 1077 matrix, in column major order.
+  Time: 2.51549 ms
+  Throughput: 4.9511 GB/s
+PASSES
+
+Checking results for transpose of a 213 x 1621 matrix, in column major order.
+  Time: 0.470144 ms
+  Throughput: 2.93759 GB/s
+PASSES
+
+Checking results for transpose of a 2412 x 1843 matrix, in column major order.
+  Time: 4.06941 ms
+  Throughput: 4.3695 GB/s
+PASSES
+
+Checking results for transpose of a 706 x 1980 matrix, in row major order.
+  Time: 1.35773 ms
+  Throughput: 4.11829 GB/s
+PASSES
+
+Checking results for transpose of a 237 x 734 matrix, in row major order.
+  Time: 0.195392 ms
+  Throughput: 3.56121 GB/s
+PASSES
+
+Checking results for transpose of a 1007 x 997 matrix, in column major order.
+  Time: 0.825632 ms
+  Throughput: 4.86405 GB/s
+PASSES
+
+Checking results for transpose of a 2503 x 1250 matrix, in row major order.
+  Time: 2.33699 ms
+  Throughput: 5.35517 GB/s
+PASSES
+
+Checking results for transpose of a 477 x 420 matrix, in column major order.
+  Time: 0.24752 ms
+  Throughput: 3.23756 GB/s
+PASSES
+
+Checking results for transpose of a 2689 x 2184 matrix, in column major order.
+  Time: 4.78413 ms
+  Throughput: 4.91022 GB/s
+PASSES
+
+Checking results for transpose of a 1619 x 282 matrix, in row major order.
+  Time: 0.51664 ms
+  Throughput: 3.53483 GB/s
+PASSES
+
+Checking results for transpose of a 3051 x 102 matrix, in column major order.
+  Time: 0.603488 ms
+  Throughput: 2.06269 GB/s
+PASSES
+
+Checking results for transpose of a 844 x 1339 matrix, in column major order.
+  Time: 1.10938 ms
+  Throughput: 4.07478 GB/s
+PASSES
+
+Checking results for transpose of a 542 x 680 matrix, in column major order.
+  Time: 0.438048 ms
+  Throughput: 3.36548 GB/s
+PASSES
+
+Checking results for transpose of a 2555 x 1386 matrix, in column major order.
+  Time: 3.46989 ms
+  Throughput: 4.08224 GB/s
+PASSES
+
+Checking results for transpose of a 243 x 2648 matrix, in row major order.
+  Time: 0.599488 ms
+  Throughput: 4.29342 GB/s
+PASSES
+
+Checking results for transpose of a 1798 x 1607 matrix, in row major order.
+  Time: 2.67366 ms
+  Throughput: 4.32274 GB/s
+PASSES
+
+Checking results for transpose of a 2598 x 1038 matrix, in column major order.
+  Time: 2.31955 ms
+  Throughput: 4.65042 GB/s
+PASSES
+
+Checking results for transpose of a 3026 x 2539 matrix, in row major order.
+  Time: 6.88778 ms
+  Throughput: 4.46183 GB/s
+PASSES
+
+Checking results for transpose of a 543 x 2156 matrix, in row major order.
+  Time: 1.01104 ms
+  Throughput: 4.6317 GB/s
+PASSES
+
+Checking results for transpose of a 315 x 1728 matrix, in column major order.
+  Time: 0.605856 ms
+  Throughput: 3.59373 GB/s
+PASSES
+
+Checking results for transpose of a 298 x 1707 matrix, in row major order.
+  Time: 0.465024 ms
+  Throughput: 4.37557 GB/s
+PASSES
+
+Checking results for transpose of a 2382 x 2552 matrix, in row major order.
+  Time: 5.08726 ms
+  Throughput: 4.77967 GB/s
+PASSES
+
+Checking results for transpose of a 967 x 1046 matrix, in row major order.
+  Time: 0.942144 ms
+  Throughput: 4.29438 GB/s
+PASSES
+
+Checking results for transpose of a 1395 x 1553 matrix, in column major order.
+  Time: 1.92195 ms
+  Throughput: 4.50882 GB/s
+PASSES
+
+Checking results for transpose of a 2779 x 1796 matrix, in column major order.
+  Time: 4.44995 ms
+  Throughput: 4.48642 GB/s
+PASSES
+
+Checking results for transpose of a 2850 x 522 matrix, in row major order.
+  Time: 1.74355 ms
+  Throughput: 3.41303 GB/s
+PASSES
+
+Checking results for transpose of a 1869 x 1073 matrix, in column major order.
+  Time: 1.81862 ms
+  Throughput: 4.41089 GB/s
+PASSES
+
+Checking results for transpose of a 2139 x 1027 matrix, in column major order.
+  Time: 1.7489 ms
+  Throughput: 5.02432 GB/s
+PASSES
+
+Checking results for transpose of a 2829 x 1570 matrix, in column major order.
+  Time: 3.48579 ms
+  Throughput: 5.09672 GB/s
+PASSES
+
+Checking results for transpose of a 583 x 1885 matrix, in column major order.
+  Time: 1.20173 ms
+  Throughput: 3.65792 GB/s
+PASSES
+
+Checking results for transpose of a 1691 x 135 matrix, in column major order.
+  Time: 0.276448 ms
+  Throughput: 3.30312 GB/s
+PASSES
+
+Checking results for transpose of a 854 x 469 matrix, in column major order.
+  Time: 0.458048 ms
+  Throughput: 3.49768 GB/s
+PASSES
+
+Checking results for transpose of a 1356 x 2460 matrix, in row major order.
+  Time: 3.23456 ms
+  Throughput: 4.12515 GB/s
+PASSES
+
+Checking results for transpose of a 490 x 783 matrix, in column major order.
+  Time: 0.361312 ms
+  Throughput: 4.24752 GB/s
+PASSES
+
+Checking results for transpose of a 2034 x 491 matrix, in column major order.
+  Time: 0.815872 ms
+  Throughput: 4.89633 GB/s
+PASSES
+
+Checking results for transpose of a 83 x 1293 matrix, in row major order.
+  Time: 0.1728 ms
+  Throughput: 2.48424 GB/s
+PASSES
+
+Checking results for transpose of a 2810 x 90 matrix, in column major order.
+  Time: 0.535008 ms
+  Throughput: 1.89081 GB/s
+PASSES
+
+Checking results for transpose of a 1456 x 181 matrix, in row major order.
+  Time: 0.370144 ms
+  Throughput: 2.84793 GB/s
+PASSES
+
+Checking results for transpose of a 2640 x 3010 matrix, in column major order.
+  Time: 7.60506 ms
+  Throughput: 4.17954 GB/s
+PASSES
+
+Checking results for transpose of a 861 x 521 matrix, in row major order.
+  Time: 0.485344 ms
+  Throughput: 3.69701 GB/s
+PASSES
+
+Checking results for transpose of a 810 x 2213 matrix, in row major order.
+  Time: 1.52547 ms
+  Throughput: 4.70026 GB/s
+PASSES
+
+Checking results for transpose of a 2467 x 1019 matrix, in row major order.
+  Time: 2.38826 ms
+  Throughput: 4.21039 GB/s
+PASSES
+
+Checking results for transpose of a 1555 x 2375 matrix, in column major order.
+  Time: 3.66064 ms
+  Throughput: 4.0355 GB/s
+PASSES
+
+Checking results for transpose of a 2714 x 817 matrix, in row major order.
+  Time: 2.1328 ms
+  Throughput: 4.15855 GB/s
+PASSES
+
+Checking results for transpose of a 306 x 2851 matrix, in row major order.
+  Time: 0.76864 ms
+  Throughput: 4.54 GB/s
+PASSES
+
+Checking results for transpose of a 718 x 2934 matrix, in row major order.
+  Time: 2.05696 ms
+  Throughput: 4.09655 GB/s
+PASSES
+
+Checking results for transpose of a 1653 x 2673 matrix, in row major order.
+  Time: 4.29715 ms
+  Throughput: 4.11293 GB/s
+PASSES
+
+Checking results for transpose of a 1613 x 1057 matrix, in row major order.
+  Time: 1.6457 ms
+  Throughput: 4.144 GB/s
+PASSES
+
+Checking results for transpose of a 2600 x 1649 matrix, in row major order.
+  Time: 3.99568 ms
+  Throughput: 4.29204 GB/s
+PASSES
+
+Checking results for transpose of a 1061 x 2511 matrix, in row major order.
+  Time: 2.37565 ms
+  Throughput: 4.4858 GB/s
+PASSES
+
+Checking results for transpose of a 1408 x 249 matrix, in column major order.
+  Time: 0.338144 ms
+  Throughput: 4.14725 GB/s
+PASSES
+
+Checking results for transpose of a 2914 x 2716 matrix, in row major order.
+  Time: 7.56368 ms
+  Throughput: 4.18549 GB/s
+PASSES
+
+Checking results for transpose of a 2841 x 2224 matrix, in row major order.
+  Time: 5.49651 ms
+  Throughput: 4.5981 GB/s
+PASSES
+
+Checking results for transpose of a 2157 x 2890 matrix, in row major order.
+  Time: 5.51523 ms
+  Throughput: 4.5211 GB/s
+PASSES
+
+Checking results for transpose of a 2257 x 1148 matrix, in row major order.
+  Time: 2.43635 ms
+  Throughput: 4.25396 GB/s
+PASSES
+
+Checking results for transpose of a 799 x 1866 matrix, in column major order.
+  Time: 1.24144 ms
+  Throughput: 4.80389 GB/s
+PASSES
+
+Checking results for transpose of a 1659 x 448 matrix, in row major order.
+  Time: 0.831392 ms
+  Throughput: 3.57584 GB/s
+PASSES
+
+Checking results for transpose of a 2609 x 13 matrix, in row major order.
+  Time: 0.481184 ms
+  Throughput: 0.281946 GB/s
+PASSES
+
+Checking results for transpose of a 1692 x 566 matrix, in column major order.
+  Time: 0.936128 ms
+  Throughput: 4.09206 GB/s
+PASSES
+
+Checking results for transpose of a 714 x 1627 matrix, in column major order.
+  Time: 1.1984 ms
+  Throughput: 3.87743 GB/s
+PASSES
+
+Checking results for transpose of a 258 x 987 matrix, in column major order.
+  Time: 0.349024 ms
+  Throughput: 2.91838 GB/s
+PASSES
+
+Checking results for transpose of a 2014 x 1853 matrix, in row major order.
+  Time: 3.21606 ms
+  Throughput: 4.64163 GB/s
+PASSES
+
+Checking results for transpose of a 2742 x 1623 matrix, in row major order.
+  Time: 4.36224 ms
+  Throughput: 4.08072 GB/s
+PASSES
+
+Checking results for transpose of a 724 x 1732 matrix, in column major order.
+  Time: 1.35789 ms
+  Throughput: 3.69388 GB/s
+PASSES
+
+Checking results for transpose of a 1572 x 1941 matrix, in column major order.
+  Time: 2.93152 ms
+  Throughput: 4.16337 GB/s
+PASSES
+
+Checking results for transpose of a 151 x 2741 matrix, in row major order.
+  Time: 0.451488 ms
+  Throughput: 3.66691 GB/s
+PASSES
+
+Checking results for transpose of a 1664 x 2352 matrix, in row major order.
+  Time: 4.62608 ms
+  Throughput: 3.38406 GB/s
+PASSES
+
+Checking results for transpose of a 731 x 1889 matrix, in column major order.
+  Time: 1.38915 ms
+  Throughput: 3.97612 GB/s
+PASSES
+
+Checking results for transpose of a 1878 x 1533 matrix, in row major order.
+  Time: 2.82531 ms
+  Throughput: 4.07597 GB/s
+PASSES
+
+Checking results for transpose of a 1603 x 2248 matrix, in column major order.
+  Time: 3.06794 ms
+  Throughput: 4.69833 GB/s
+PASSES
+
+Checking results for transpose of a 767 x 2506 matrix, in column major order.
+  Time: 1.90269 ms
+  Throughput: 4.04081 GB/s
+PASSES
+
+Checking results for transpose of a 1205 x 2472 matrix, in row major order.
+  Time: 2.64502 ms
+  Throughput: 4.5047 GB/s
+PASSES
+
+Checking results for transpose of a 1287 x 94 matrix, in column major order.
+  Time: 0.183008 ms
+  Throughput: 2.64421 GB/s
+PASSES
+
+Checking results for transpose of a 1545 x 819 matrix, in row major order.
+  Time: 1.30192 ms
+  Throughput: 3.88766 GB/s
+PASSES
+
+Checking results for transpose of a 2645 x 343 matrix, in row major order.
+  Time: 1.10682 ms
+  Throughput: 3.27872 GB/s
+PASSES
+
+Checking results for transpose of a 1821 x 494 matrix, in column major order.
+  Time: 0.776224 ms
+  Throughput: 4.63564 GB/s
+PASSES
+
+Checking results for transpose of a 1839 x 110 matrix, in column major order.
+  Time: 0.26656 ms
+  Throughput: 3.03556 GB/s
+PASSES
+
+Checking results for transpose of a 1282 x 1865 matrix, in column major order.
+  Time: 1.93933 ms
+  Throughput: 4.93146 GB/s
+PASSES
+
+Checking results for transpose of a 738 x 672 matrix, in row major order.
+  Time: 0.553344 ms
+  Throughput: 3.58501 GB/s
+PASSES
+
+Checking results for transpose of a 760 x 2275 matrix, in row major order.
+  Time: 1.56371 ms
+  Throughput: 4.42281 GB/s
+PASSES
+
+Checking results for transpose of a 2409 x 995 matrix, in column major order.
+  Time: 2.02288 ms
+  Throughput: 4.73969 GB/s
+PASSES
+
+Checking results for transpose of a 2998 x 2200 matrix, in column major order.
+  Time: 5.9712 ms
+  Throughput: 4.41827 GB/s
+PASSES
+
+Checking results for transpose of a 2369 x 415 matrix, in column major order.
+  Time: 0.847008 ms
+  Throughput: 4.64286 GB/s
+PASSES
+
+Checking results for transpose of a 290 x 2984 matrix, in row major order.
+  Time: 0.990592 ms
+  Throughput: 3.49431 GB/s
+PASSES
+
+Checking results for transpose of a 1992 x 509 matrix, in row major order.
+  Time: 1.02842 ms
+  Throughput: 3.94365 GB/s
+PASSES
+
+Checking results for transpose of a 1540 x 2330 matrix, in column major order.
+  Time: 3.5752 ms
+  Throughput: 4.01454 GB/s
+PASSES
+
+Checking results for transpose of a 2804 x 1097 matrix, in row major order.
+  Time: 2.8105 ms
+  Throughput: 4.37786 GB/s
+PASSES
+
+Checking results for transpose of a 2325 x 331 matrix, in column major order.
+  Time: 0.671616 ms
+  Throughput: 4.58342 GB/s
+PASSES
+
+Checking results for transpose of a 1686 x 1069 matrix, in column major order.
+  Time: 1.60867 ms
+  Throughput: 4.48154 GB/s
+PASSES
+
+Checking results for transpose of a 533 x 1829 matrix, in row major order.
+  Time: 0.845632 ms
+  Throughput: 4.61126 GB/s
+PASSES
+
+Checking results for transpose of a 604 x 2191 matrix, in row major order.
+  Time: 1.13619 ms
+  Throughput: 4.65895 GB/s
+PASSES
+
+Checking results for transpose of a 1133 x 2117 matrix, in row major order.
+  Time: 2.17802 ms
+  Throughput: 4.40504 GB/s
+PASSES
+
+Checking results for transpose of a 1063 x 1414 matrix, in column major order.
+  Time: 1.26554 ms
+  Throughput: 4.75082 GB/s
+PASSES
+
+Checking results for transpose of a 2111 x 2729 matrix, in column major order.
+  Time: 5.16374 ms
+  Throughput: 4.46259 GB/s
+PASSES
+
+Checking results for transpose of a 2954 x 1649 matrix, in row major order.
+  Time: 4.46707 ms
+  Throughput: 4.36182 GB/s
+PASSES
+
+Checking results for transpose of a 2092 x 1141 matrix, in column major order.
+  Time: 1.81958 ms
+  Throughput: 5.24729 GB/s
+PASSES
+
+Checking results for transpose of a 2748 x 874 matrix, in row major order.
+  Time: 2.34346 ms
+  Throughput: 4.0995 GB/s
+PASSES
+
+Checking results for transpose of a 1466 x 1151 matrix, in column major order.
+  Time: 1.38365 ms
+  Throughput: 4.87802 GB/s
+PASSES
+
+Checking results for transpose of a 1026 x 2837 matrix, in row major order.
+  Time: 2.35219 ms
+  Throughput: 4.94987 GB/s
+PASSES
+
+Checking results for transpose of a 234 x 1323 matrix, in column major order.
+  Time: 0.403136 ms
+  Throughput: 3.07174 GB/s
+PASSES
+
+Checking results for transpose of a 1718 x 1927 matrix, in row major order.
+  Time: 2.98458 ms
+  Throughput: 4.43693 GB/s
+PASSES
+
+Checking results for transpose of a 1124 x 1013 matrix, in column major order.
+  Time: 0.992032 ms
+  Throughput: 4.59103 GB/s
+PASSES
+
+Checking results for transpose of a 683 x 28 matrix, in row major order.
+  Time: 0.146528 ms
+  Throughput: 0.522057 GB/s
+PASSES
+
+Checking results for transpose of a 656 x 2139 matrix, in column major order.
+  Time: 1.44534 ms
+  Throughput: 3.88332 GB/s
+PASSES
+
+Checking results for transpose of a 2590 x 2021 matrix, in row major order.
+  Time: 4.68234 ms
+  Throughput: 4.47161 GB/s
+PASSES
+
+Checking results for transpose of a 936 x 2065 matrix, in row major order.
+  Time: 1.72726 ms
+  Throughput: 4.47607 GB/s
+PASSES
+
+Checking results for transpose of a 1613 x 1741 matrix, in column major order.
+  Time: 2.56838 ms
+  Throughput: 4.37354 GB/s
+PASSES
+
+Checking results for transpose of a 2363 x 1159 matrix, in column major order.
+  Time: 2.3769 ms
+  Throughput: 4.6089 GB/s
+PASSES
+
+Checking results for transpose of a 2420 x 2186 matrix, in row major order.
+  Time: 5.09328 ms
+  Throughput: 4.15459 GB/s
+PASSES
+
+Checking results for transpose of a 2523 x 372 matrix, in column major order.
+  Time: 0.996384 ms
+  Throughput: 3.76785 GB/s
+PASSES
+
+Checking results for transpose of a 1384 x 2090 matrix, in column major order.
+  Time: 2.78435 ms
+  Throughput: 4.15545 GB/s
+PASSES
+
+Checking results for transpose of a 387 x 1167 matrix, in column major order.
+  Time: 0.481664 ms
+  Throughput: 3.75057 GB/s
+PASSES
+
+Checking results for transpose of a 1508 x 1850 matrix, in column major order.
+  Time: 2.72214 ms
+  Throughput: 4.09942 GB/s
+PASSES
+
+Checking results for transpose of a 1996 x 458 matrix, in column major order.
+  Time: 0.95584 ms
+  Throughput: 3.82561 GB/s
+PASSES
+
+Checking results for transpose of a 2140 x 3048 matrix, in column major order.
+  Time: 6.2992 ms
+  Throughput: 4.14194 GB/s
+PASSES
+
+Checking results for transpose of a 862 x 1937 matrix, in row major order.
+  Time: 1.31642 ms
+  Throughput: 5.07345 GB/s
+PASSES
+
+Checking results for transpose of a 726 x 1502 matrix, in row major order.
+  Time: 1.0968 ms
+  Throughput: 3.97685 GB/s
+PASSES
+
+Checking results for transpose of a 2487 x 793 matrix, in row major order.
+  Time: 1.94461 ms
+  Throughput: 4.05674 GB/s
+PASSES
+
+Checking results for transpose of a 2328 x 1165 matrix, in column major order.
+  Time: 2.03754 ms
+  Throughput: 5.32431 GB/s
+PASSES
+
+Checking results for transpose of a 2958 x 617 matrix, in column major order.
+  Time: 1.55478 ms
+  Throughput: 4.69541 GB/s
+PASSES
+
+Checking results for transpose of a 2863 x 3025 matrix, in column major order.
+  Time: 7.63101 ms
+  Throughput: 4.53968 GB/s
+PASSES
+
+Checking results for transpose of a 1623 x 340 matrix, in row major order.
+  Time: 0.612288 ms
+  Throughput: 3.60497 GB/s
+PASSES
+
+Checking results for transpose of a 1397 x 2873 matrix, in column major order.
+  Time: 3.62675 ms
+  Throughput: 4.42664 GB/s
+PASSES
+
+Checking results for transpose of a 2222 x 1797 matrix, in row major order.
+  Time: 3.62387 ms
+  Throughput: 4.40737 GB/s
+PASSES
+
+Checking results for transpose of a 1091 x 865 matrix, in column major order.
+  Time: 0.883808 ms
+  Throughput: 4.27113 GB/s
+PASSES
+
+Checking results for transpose of a 956 x 2752 matrix, in column major order.
+  Time: 2.64294 ms
+  Throughput: 3.98179 GB/s
+PASSES
+
+Checking results for transpose of a 2887 x 406 matrix, in row major order.
+  Time: 1.2295 ms
+  Throughput: 3.81332 GB/s
+PASSES
+
+Checking results for transpose of a 1438 x 845 matrix, in column major order.
+  Time: 1.03069 ms
+  Throughput: 4.71572 GB/s
+PASSES
+
+Checking results for transpose of a 1149 x 1125 matrix, in column major order.
+  Time: 1.28918 ms
+  Throughput: 4.01068 GB/s
+PASSES
+
+Checking results for transpose of a 998 x 2035 matrix, in row major order.
+  Time: 1.76778 ms
+  Throughput: 4.59545 GB/s
+PASSES
+
+Checking results for transpose of a 1220 x 1826 matrix, in row major order.
+  Time: 1.91334 ms
+  Throughput: 4.65723 GB/s
+PASSES
+
+Checking results for transpose of a 460 x 1402 matrix, in column major order.
+  Time: 0.697664 ms
+  Throughput: 3.6976 GB/s
+PASSES
+
+Checking results for transpose of a 1891 x 2799 matrix, in column major order.
+  Time: 4.79744 ms
+  Throughput: 4.41311 GB/s
+PASSES
+
+Checking results for transpose of a 52 x 2973 matrix, in row major order.
+  Time: 0.293376 ms
+  Throughput: 2.10782 GB/s
+PASSES
+
+Checking results for transpose of a 2767 x 2016 matrix, in row major order.
+  Time: 4.97718 ms
+  Throughput: 4.48307 GB/s
+PASSES
+
+Checking results for transpose of a 2387 x 2973 matrix, in row major order.
+  Time: 6.24576 ms
+  Throughput: 4.54488 GB/s
+PASSES
+
+Checking results for transpose of a 1896 x 2788 matrix, in column major order.
+  Time: 4.88211 ms
+  Throughput: 4.33095 GB/s
+PASSES
+
+Checking results for transpose of a 2907 x 2178 matrix, in row major order.
+  Time: 5.19398 ms
+  Throughput: 4.87598 GB/s
+PASSES
+
+Checking results for transpose of a 2663 x 256 matrix, in column major order.
+  Time: 0.625824 ms
+  Throughput: 4.35731 GB/s
+PASSES
+
+Checking results for transpose of a 2561 x 1254 matrix, in column major order.
+  Time: 2.83958 ms
+  Throughput: 4.52389 GB/s
+PASSES
+
+Checking results for transpose of a 1027 x 2474 matrix, in row major order.
+  Time: 2.13027 ms
+  Throughput: 4.77084 GB/s
+PASSES
+
+Checking results for transpose of a 2519 x 886 matrix, in column major order.
+  Time: 1.92899 ms
+  Throughput: 4.62798 GB/s
+PASSES
+
+Checking results for transpose of a 2303 x 2777 matrix, in row major order.
+  Time: 5.81395 ms
+  Throughput: 4.40006 GB/s
+PASSES
+
+Checking results for transpose of a 1888 x 781 matrix, in column major order.
+  Time: 1.2047 ms
+  Throughput: 4.8959 GB/s
+PASSES
+
+Checking results for transpose of a 1222 x 477 matrix, in column major order.
+  Time: 0.523136 ms
+  Throughput: 4.45692 GB/s
+PASSES
+
+Checking results for transpose of a 2445 x 816 matrix, in row major order.
+  Time: 1.76608 ms
+  Throughput: 4.51875 GB/s
+PASSES
+
+Checking results for transpose of a 2325 x 665 matrix, in row major order.
+  Time: 1.46723 ms
+  Throughput: 4.21508 GB/s
+PASSES
+
+Checking results for transpose of a 1586 x 1524 matrix, in column major order.
+  Time: 2.41974 ms
+  Throughput: 3.99557 GB/s
+PASSES
+
+Checking results for transpose of a 1693 x 1116 matrix, in column major order.
+  Time: 1.70019 ms
+  Throughput: 4.44512 GB/s
+PASSES
+
+Checking results for transpose of a 878 x 1629 matrix, in row major order.
+  Time: 1.17232 ms
+  Throughput: 4.88011 GB/s
+PASSES
+
+Checking results for transpose of a 2098 x 2656 matrix, in row major order.
+  Time: 5.15728 ms
+  Throughput: 4.32188 GB/s
+PASSES
+
+Checking results for transpose of a 1048 x 55 matrix, in column major order.
+  Time: 0.12976 ms
+  Throughput: 1.77682 GB/s
+PASSES
+
+Checking results for transpose of a 377 x 2358 matrix, in row major order.
+  Time: 0.750656 ms
+  Throughput: 4.73701 GB/s
+PASSES
+
+Checking results for transpose of a 1480 x 2198 matrix, in row major order.
+  Time: 3.22621 ms
+  Throughput: 4.03327 GB/s
+PASSES
+
+Checking results for transpose of a 2485 x 1372 matrix, in column major order.
+  Time: 3.28563 ms
+  Throughput: 4.1507 GB/s
+PASSES
+
+Checking results for transpose of a 1411 x 746 matrix, in column major order.
+  Time: 0.923392 ms
+  Throughput: 4.55974 GB/s
+PASSES
+
+Checking results for transpose of a 2285 x 1023 matrix, in row major order.
+  Time: 2.18557 ms
+  Throughput: 4.27816 GB/s
+PASSES
+
+Checking results for transpose of a 2876 x 2609 matrix, in row major order.
+  Time: 6.74902 ms
+  Throughput: 4.44715 GB/s
+PASSES
+
+Checking results for transpose of a 2573 x 1231 matrix, in row major order.
+  Time: 2.77344 ms
+  Throughput: 4.56814 GB/s
+PASSES
+
+Checking results for transpose of a 478 x 2109 matrix, in row major order.
+  Time: 0.870656 ms
+  Throughput: 4.63146 GB/s
+PASSES
+
+Checking results for transpose of a 2709 x 2159 matrix, in column major order.
+  Time: 5.21037 ms
+  Throughput: 4.49007 GB/s
+PASSES
+
+Checking results for transpose of a 2295 x 135 matrix, in row major order.
+  Time: 0.57888 ms
+  Throughput: 2.14086 GB/s
+PASSES
+
+Checking results for transpose of a 1744 x 1536 matrix, in row major order.
+  Time: 2.63158 ms
+  Throughput: 4.07174 GB/s
+PASSES
+
+Checking results for transpose of a 2946 x 3017 matrix, in column major order.
+  Time: 7.8672 ms
+  Throughput: 4.51906 GB/s
+PASSES
+
+Checking results for transpose of a 833 x 382 matrix, in column major order.
+  Time: 0.3072 ms
+  Throughput: 4.14331 GB/s
+PASSES
+
+Checking results for transpose of a 222 x 1793 matrix, in row major order.
+  Time: 0.39568 ms
+  Throughput: 4.02392 GB/s
+PASSES
+
+Checking results for transpose of a 427 x 2031 matrix, in row major order.
+  Time: 0.744 ms
+  Throughput: 4.66256 GB/s
+PASSES
+
+Checking results for transpose of a 2321 x 1835 matrix, in row major order.
+  Time: 3.82998 ms
+  Throughput: 4.4481 GB/s
+PASSES
+
+Checking results for transpose of a 1643 x 2360 matrix, in row major order.
+  Time: 3.44275 ms
+  Throughput: 4.50509 GB/s
+PASSES
+
+Checking results for transpose of a 34 x 790 matrix, in row major order.
+  Time: 0.143168 ms
+  Throughput: 0.750447 GB/s
+PASSES
+
+Checking results for transpose of a 53 x 427 matrix, in row major order.
+  Time: 0.06128 ms
+  Throughput: 1.47722 GB/s
+PASSES
+
+Checking results for transpose of a 681 x 675 matrix, in row major order.
+  Time: 0.50752 ms
+  Throughput: 3.62291 GB/s
+PASSES
+
+Checking results for transpose of a 1365 x 371 matrix, in row major order.
+  Time: 0.561216 ms
+  Throughput: 3.60941 GB/s
+PASSES
+
+Checking results for transpose of a 1335 x 245 matrix, in row major order.
+  Time: 0.427296 ms
+  Throughput: 3.06181 GB/s
+PASSES
+
+Checking results for transpose of a 1455 x 1078 matrix, in row major order.
+  Time: 1.47485 ms
+  Throughput: 4.25397 GB/s
+PASSES
+
+Checking results for transpose of a 900 x 2324 matrix, in row major order.
+  Time: 1.95219 ms
+  Throughput: 4.28564 GB/s
+PASSES
+
+Checking results for transpose of a 2115 x 703 matrix, in row major order.
+  Time: 1.26605 ms
+  Throughput: 4.69759 GB/s
+PASSES
+
+Checking results for transpose of a 257 x 3024 matrix, in column major order.
+  Time: 0.96544 ms
+  Throughput: 3.21995 GB/s
+PASSES
+
+Checking results for transpose of a 2033 x 2620 matrix, in column major order.
+  Time: 4.76074 ms
+  Throughput: 4.47532 GB/s
+PASSES
+
+Checking results for transpose of a 2991 x 2654 matrix, in row major order.
+  Time: 7.0863 ms
+  Throughput: 4.48082 GB/s
+PASSES
+
+Checking results for transpose of a 2987 x 659 matrix, in row major order.
+  Time: 2.03811 ms
+  Throughput: 3.86325 GB/s
+PASSES
+
+Checking results for transpose of a 21 x 2365 matrix, in row major order.
+  Time: 0.197568 ms
+  Throughput: 1.00553 GB/s
+PASSES
+
+Checking results for transpose of a 263 x 658 matrix, in column major order.
+  Time: 0.203968 ms
+  Throughput: 3.39375 GB/s
+PASSES
+
+Checking results for transpose of a 3066 x 1993 matrix, in row major order.
+  Time: 4.95987 ms
+  Throughput: 4.92798 GB/s
+PASSES
+
+Checking results for transpose of a 2741 x 1400 matrix, in column major order.
+  Time: 3.32864 ms
+  Throughput: 4.61137 GB/s
+PASSES
+
+Checking results for transpose of a 751 x 253 matrix, in column major order.
+  Time: 0.207136 ms
+  Throughput: 3.66914 GB/s
+PASSES
+
+Checking results for transpose of a 1579 x 2368 matrix, in column major order.
+  Time: 2.84272 ms
+  Throughput: 5.26126 GB/s
+PASSES
+
+Checking results for transpose of a 341 x 578 matrix, in column major order.
+  Time: 0.2184 ms
+  Throughput: 3.60985 GB/s
+PASSES
+
+Checking results for transpose of a 2987 x 563 matrix, in column major order.
+  Time: 1.43891 ms
+  Throughput: 4.67487 GB/s
+PASSES
+
+Checking results for transpose of a 1848 x 482 matrix, in row major order.
+  Time: 0.953312 ms
+  Throughput: 3.73744 GB/s
+PASSES
+
+Checking results for transpose of a 1500 x 1421 matrix, in row major order.
+  Time: 1.75878 ms
+  Throughput: 4.84767 GB/s
+PASSES
+
+Checking results for transpose of a 1579 x 1443 matrix, in row major order.
+  Time: 2.08957 ms
+  Throughput: 4.36166 GB/s
+PASSES
+
+Checking results for transpose of a 1309 x 1706 matrix, in column major order.
+  Time: 2.02397 ms
+  Throughput: 4.41342 GB/s
+PASSES
+
+Checking results for transpose of a 386 x 1700 matrix, in row major order.
+  Time: 0.712352 ms
+  Throughput: 3.6847 GB/s
+PASSES
+
+Checking results for transpose of a 2780 x 2394 matrix, in row major order.
+  Time: 6.36592 ms
+  Throughput: 4.18184 GB/s
+PASSES
+
+Checking results for transpose of a 2156 x 73 matrix, in column major order.
+  Time: 0.255808 ms
+  Throughput: 2.46103 GB/s
+PASSES
+
+Checking results for transpose of a 2833 x 1652 matrix, in column major order.
+  Time: 3.48998 ms
+  Throughput: 5.36405 GB/s
+PASSES
+
+Checking results for transpose of a 2166 x 3018 matrix, in row major order.
+  Time: 6.22387 ms
+  Throughput: 4.20124 GB/s
+PASSES
+
+Checking results for transpose of a 1451 x 2933 matrix, in column major order.
+  Time: 3.85091 ms
+  Throughput: 4.42055 GB/s
+PASSES
+
+Checking results for transpose of a 284 x 2733 matrix, in column major order.
+  Time: 0.89296 ms
+  Throughput: 3.47685 GB/s
+PASSES
+
+Checking results for transpose of a 2795 x 1161 matrix, in column major order.
+  Time: 3.10422 ms
+  Throughput: 4.18139 GB/s
+PASSES
+
+Checking results for transpose of a 845 x 692 matrix, in column major order.
+  Time: 0.532448 ms
+  Throughput: 4.39284 GB/s
+PASSES
+
+Checking results for transpose of a 1261 x 2001 matrix, in row major order.
+  Time: 2.24694 ms
+  Throughput: 4.4919 GB/s
+PASSES
+
+Checking results for transpose of a 1310 x 2387 matrix, in row major order.
+  Time: 2.78912 ms
+  Throughput: 4.48453 GB/s
+PASSES
+
+Checking results for transpose of a 2329 x 47 matrix, in column major order.
+  Time: 0.23552 ms
+  Throughput: 1.85909 GB/s
+PASSES
+
+Checking results for transpose of a 1676 x 2204 matrix, in row major order.
+  Time: 3.53821 ms
+  Throughput: 4.17602 GB/s
+PASSES
+
+Checking results for transpose of a 1276 x 2989 matrix, in row major order.
+  Time: 3.38976 ms
+  Throughput: 4.50057 GB/s
+PASSES
+
+Checking results for transpose of a 1196 x 2083 matrix, in column major order.
+  Time: 2.30816 ms
+  Throughput: 4.31732 GB/s
+PASSES
+
+Checking results for transpose of a 1695 x 1486 matrix, in row major order.
+  Time: 2.17738 ms
+  Throughput: 4.62717 GB/s
+PASSES
+
+Checking results for transpose of a 708 x 1770 matrix, in column major order.
+  Time: 1.19485 ms
+  Throughput: 4.19521 GB/s
+PASSES
+
+Checking results for transpose of a 2252 x 2517 matrix, in column major order.
+  Time: 4.58934 ms
+  Throughput: 4.94039 GB/s
+PASSES
+
+Checking results for transpose of a 1122 x 291 matrix, in row major order.
+  Time: 0.426048 ms
+  Throughput: 3.0654 GB/s
+PASSES
+
+Checking results for transpose of a 410 x 1552 matrix, in row major order.
+  Time: 0.693632 ms
+  Throughput: 3.6695 GB/s
+PASSES
+
+Checking results for transpose of a 2429 x 814 matrix, in row major order.
+  Time: 1.69955 ms
+  Throughput: 4.65348 GB/s
+PASSES
+
+Checking results for transpose of a 5 x 1095 matrix, in row major order.
+  Time: 0.165888 ms
+  Throughput: 0.132017 GB/s
+PASSES
+
+Checking results for transpose of a 998 x 2771 matrix, in row major order.
+  Time: 2.18851 ms
+  Throughput: 5.0545 GB/s
+PASSES
+
+Checking results for transpose of a 17 x 1999 matrix, in column major order.
+  Time: 0.3816 ms
+  Throughput: 0.356216 GB/s
+PASSES
+
+Checking results for transpose of a 689 x 124 matrix, in row major order.
+  Time: 0.176032 ms
+  Throughput: 1.94137 GB/s
+PASSES
+
+Checking results for transpose of a 2330 x 2843 matrix, in row major order.
+  Time: 5.8529 ms
+  Throughput: 4.52712 GB/s
+PASSES
+
+Checking results for transpose of a 1785 x 479 matrix, in column major order.
+  Time: 0.733344 ms
+  Throughput: 4.66365 GB/s
+PASSES
+
+Checking results for transpose of a 901 x 684 matrix, in row major order.
+  Time: 0.636672 ms
+  Throughput: 3.87191 GB/s
+PASSES
+
+Checking results for transpose of a 1178 x 1806 matrix, in column major order.
+  Time: 2.03408 ms
+  Throughput: 4.18365 GB/s
+PASSES
+
+Checking results for transpose of a 100 x 2216 matrix, in column major order.
+  Time: 0.549728 ms
+  Throughput: 1.61243 GB/s
+PASSES
+
+Checking results for transpose of a 635 x 239 matrix, in row major order.
+  Time: 0.185248 ms
+  Throughput: 3.27701 GB/s
+PASSES
+
+Checking results for transpose of a 1731 x 1549 matrix, in column major order.
+  Time: 2.20096 ms
+  Throughput: 4.873 GB/s
+PASSES
+
+Checking results for transpose of a 1430 x 3016 matrix, in row major order.
+  Time: 4.10003 ms
+  Throughput: 4.20766 GB/s
+PASSES
+
+Checking results for transpose of a 358 x 304 matrix, in column major order.
+  Time: 0.16528 ms
+  Throughput: 2.63388 GB/s
+PASSES
+
+Checking results for transpose of a 1506 x 1723 matrix, in row major order.
+  Time: 2.07827 ms
+  Throughput: 4.99422 GB/s
+PASSES
+
+Checking results for transpose of a 1277 x 1557 matrix, in row major order.
+  Time: 1.84467 ms
+  Throughput: 4.31142 GB/s
+PASSES
+
+Checking results for transpose of a 2780 x 1114 matrix, in column major order.
+  Time: 2.6464 ms
+  Throughput: 4.68096 GB/s
+PASSES
+
+Checking results for transpose of a 392 x 116 matrix, in row major order.
+  Time: 0.121696 ms
+  Throughput: 1.49461 GB/s
+PASSES
+
+Checking results for transpose of a 2198 x 433 matrix, in row major order.
+  Time: 0.995904 ms
+  Throughput: 3.82259 GB/s
+PASSES
+
+Checking results for transpose of a 2367 x 2302 matrix, in row major order.
+  Time: 4.85856 ms
+  Throughput: 4.48597 GB/s
+PASSES
+
+Checking results for transpose of a 1893 x 2937 matrix, in row major order.
+  Time: 5.25526 ms
+  Throughput: 4.23175 GB/s
+PASSES
+
+Checking results for transpose of a 2448 x 1596 matrix, in column major order.
+  Time: 3.53632 ms
+  Throughput: 4.41929 GB/s
+PASSES
+
+Checking results for transpose of a 929 x 3027 matrix, in column major order.
+  Time: 2.69526 ms
+  Throughput: 4.17337 GB/s
+PASSES
+
+Checking results for transpose of a 452 x 1337 matrix, in column major order.
+  Time: 0.59264 ms
+  Throughput: 4.07886 GB/s
+PASSES
+
+Checking results for transpose of a 664 x 2843 matrix, in row major order.
+  Time: 1.61805 ms
+  Throughput: 4.66674 GB/s
+PASSES
+
+Checking results for transpose of a 135 x 2072 matrix, in column major order.
+  Time: 0.529568 ms
+  Throughput: 2.11282 GB/s
+PASSES
+
+Checking results for transpose of a 2414 x 1780 matrix, in row major order.
+  Time: 4.07651 ms
+  Throughput: 4.21627 GB/s
+PASSES
+
+Checking results for transpose of a 475 x 125 matrix, in row major order.
+  Time: 0.1424 ms
+  Throughput: 1.66784 GB/s
+PASSES
+
+Checking results for transpose of a 2786 x 2323 matrix, in column major order.
+  Time: 4.78778 ms
+  Throughput: 5.407 GB/s
+PASSES
+
+Checking results for transpose of a 2125 x 2642 matrix, in row major order.
+  Time: 5.03578 ms
+  Throughput: 4.45949 GB/s
+PASSES
+
+Checking results for transpose of a 2489 x 2487 matrix, in row major order.
+  Time: 4.4673 ms
+  Throughput: 5.54263 GB/s
+PASSES
+
+Checking results for transpose of a 1043 x 2887 matrix, in column major order.
+  Time: 2.92557 ms
+  Throughput: 4.117 GB/s
+PASSES
+
+Checking results for transpose of a 1147 x 1769 matrix, in row major order.
+  Time: 1.81347 ms
+  Throughput: 4.47549 GB/s
+PASSES
+
+Checking results for transpose of a 1195 x 2221 matrix, in column major order.
+  Time: 2.23965 ms
+  Throughput: 4.7402 GB/s
+PASSES
+
+Checking results for transpose of a 2571 x 2886 matrix, in row major order.
+  Time: 7.044 ms
+  Throughput: 4.21346 GB/s
+PASSES
+
+Checking results for transpose of a 551 x 973 matrix, in row major order.
+  Time: 0.504576 ms
+  Throughput: 4.25009 GB/s
+PASSES
+
+Checking results for transpose of a 1112 x 315 matrix, in row major order.
+  Time: 0.380928 ms
+  Throughput: 3.67818 GB/s
+PASSES
+
+Checking results for transpose of a 2787 x 790 matrix, in column major order.
+  Time: 1.87635 ms
+  Throughput: 4.69364 GB/s
+PASSES
+
+Checking results for transpose of a 1506 x 1528 matrix, in column major order.
+  Time: 2.14528 ms
+  Throughput: 4.29066 GB/s
+PASSES
+
+Checking results for transpose of a 658 x 582 matrix, in row major order.
+  Time: 0.470784 ms
+  Throughput: 3.25377 GB/s
+PASSES
+
+Checking results for transpose of a 64 x 1023 matrix, in row major order.
+  Time: 0.12272 ms
+  Throughput: 2.13403 GB/s
+PASSES
+
+Checking results for transpose of a 359 x 2066 matrix, in column major order.
+  Time: 0.79696 ms
+  Throughput: 3.72262 GB/s
+PASSES
+
+Checking results for transpose of a 2251 x 142 matrix, in row major order.
+  Time: 0.56144 ms
+  Throughput: 2.2773 GB/s
+PASSES
+
+Checking results for transpose of a 2050 x 2361 matrix, in column major order.
+  Time: 4.38618 ms
+  Throughput: 4.41391 GB/s
+PASSES
+
+Checking results for transpose of a 1138 x 1861 matrix, in row major order.
+  Time: 1.73744 ms
+  Throughput: 4.87572 GB/s
+PASSES
+
+Checking results for transpose of a 3069 x 364 matrix, in row major order.
+  Time: 1.22957 ms
+  Throughput: 3.63417 GB/s
+PASSES
+
+Checking results for transpose of a 1952 x 1476 matrix, in row major order.
+  Time: 2.93642 ms
+  Throughput: 3.92472 GB/s
+PASSES
+
+Checking results for transpose of a 2616 x 1191 matrix, in column major order.
+  Time: 2.92608 ms
+  Throughput: 4.25915 GB/s
+PASSES
+
+Checking results for transpose of a 332 x 2697 matrix, in column major order.
+  Time: 0.995488 ms
+  Throughput: 3.59785 GB/s
+PASSES
+
+Checking results for transpose of a 2420 x 1307 matrix, in row major order.
+  Time: 2.8631 ms
+  Throughput: 4.4189 GB/s
+PASSES
+
+Checking results for transpose of a 1007 x 2395 matrix, in row major order.
+  Time: 2.1023 ms
+  Throughput: 4.5888 GB/s
+PASSES
+
+Checking results for transpose of a 2081 x 706 matrix, in column major order.
+  Time: 1.27395 ms
+  Throughput: 4.613 GB/s
+PASSES
+
+Checking results for transpose of a 922 x 2958 matrix, in row major order.
+  Time: 2.5943 ms
+  Throughput: 4.20502 GB/s
+PASSES
+
+Checking results for transpose of a 1533 x 2960 matrix, in column major order.
+  Time: 4.12349 ms
+  Throughput: 4.40179 GB/s
+PASSES
+
+Checking results for transpose of a 1293 x 1027 matrix, in column major order.
+  Time: 1.1913 ms
+  Throughput: 4.45871 GB/s
+PASSES
+
+Checking results for transpose of a 1891 x 1024 matrix, in column major order.
+  Time: 1.55363 ms
+  Throughput: 4.98544 GB/s
+PASSES
+
+Checking results for transpose of a 390 x 929 matrix, in column major order.
+  Time: 0.39312 ms
+  Throughput: 3.68651 GB/s
+PASSES
+
+Checking results for transpose of a 2276 x 473 matrix, in column major order.
+  Time: 0.93344 ms
+  Throughput: 4.61325 GB/s
+PASSES
+
+Checking results for transpose of a 857 x 1829 matrix, in column major order.
+  Time: 1.5216 ms
+  Throughput: 4.12054 GB/s
+PASSES
+
+Checking results for transpose of a 967 x 2202 matrix, in column major order.
+  Time: 2.0393 ms
+  Throughput: 4.17661 GB/s
+PASSES
+
+Checking results for transpose of a 1658 x 137 matrix, in row major order.
+  Time: 0.408704 ms
+  Throughput: 2.22309 GB/s
+PASSES
+
+Checking results for transpose of a 1325 x 170 matrix, in row major order.
+  Time: 0.39632 ms
+  Throughput: 2.27342 GB/s
+PASSES
+
+Checking results for transpose of a 3058 x 1092 matrix, in column major order.
+  Time: 2.81206 ms
+  Throughput: 4.75001 GB/s
+PASSES
+
+Checking results for transpose of a 1861 x 577 matrix, in column major order.
+  Time: 0.983264 ms
+  Throughput: 4.3683 GB/s
+PASSES
+
+Checking results for transpose of a 977 x 1870 matrix, in row major order.
+  Time: 1.62474 ms
+  Throughput: 4.49794 GB/s
+PASSES
+
+Checking results for transpose of a 2979 x 1713 matrix, in column major order.
+  Time: 4.6384 ms
+  Throughput: 4.40068 GB/s
+PASSES
+
+Checking results for transpose of a 1248 x 2103 matrix, in column major order.
+  Time: 2.58653 ms
+  Throughput: 4.05879 GB/s
+PASSES
+
+Checking results for transpose of a 2018 x 2332 matrix, in row major order.
+  Time: 4.50976 ms
+  Throughput: 4.17404 GB/s
+PASSES
+
+Checking results for transpose of a 1930 x 117 matrix, in row major order.
+  Time: 0.475104 ms
+  Throughput: 1.90114 GB/s
+PASSES
+
+Checking results for transpose of a 1468 x 1084 matrix, in column major order.
+  Time: 1.57862 ms
+  Throughput: 4.03215 GB/s
+PASSES
+
+Checking results for transpose of a 2312 x 695 matrix, in row major order.
+  Time: 1.49942 ms
+  Throughput: 4.28655 GB/s
+PASSES
+
+Checking results for transpose of a 1456 x 2020 matrix, in column major order.
+  Time: 2.88086 ms
+  Throughput: 4.08366 GB/s
+PASSES
+
+Checking results for transpose of a 1306 x 3030 matrix, in column major order.
+  Time: 3.81558 ms
+  Throughput: 4.14844 GB/s
+PASSES
+
+Checking results for transpose of a 2066 x 2843 matrix, in row major order.
+  Time: 4.72211 ms
+  Throughput: 4.97543 GB/s
+PASSES
+
+Checking results for transpose of a 2714 x 748 matrix, in column major order.
+  Time: 1.97754 ms
+  Throughput: 4.10627 GB/s
+PASSES
+
+Checking results for transpose of a 1318 x 655 matrix, in row major order.
+  Time: 0.787808 ms
+  Throughput: 4.38325 GB/s
+PASSES
+
+Checking results for transpose of a 2994 x 2928 matrix, in row major order.
+  Time: 8.28656 ms
+  Throughput: 4.23164 GB/s
+PASSES
+
+Checking results for transpose of a 2527 x 2898 matrix, in row major order.
+  Time: 6.93997 ms
+  Throughput: 4.22091 GB/s
+PASSES
+
+Checking results for transpose of a 2533 x 1756 matrix, in row major order.
+  Time: 4.00867 ms
+  Throughput: 4.43833 GB/s
+PASSES
+
+Checking results for transpose of a 272 x 152 matrix, in column major order.
+  Time: 0.097376 ms
+  Throughput: 1.69832 GB/s
+PASSES
+
+Checking results for transpose of a 2262 x 417 matrix, in row major order.
+  Time: 1.08048 ms
+  Throughput: 3.49198 GB/s
+PASSES
+
+Checking results for transpose of a 2340 x 2897 matrix, in row major order.
+  Time: 5.49789 ms
+  Throughput: 4.93206 GB/s
+PASSES
+
+Checking results for transpose of a 2589 x 1131 matrix, in column major order.
+  Time: 2.86106 ms
+  Throughput: 4.09382 GB/s
+PASSES
+
+Checking results for transpose of a 1882 x 125 matrix, in column major order.
+  Time: 0.285792 ms
+  Throughput: 3.2926 GB/s
+PASSES
+
+Checking results for transpose of a 2776 x 791 matrix, in column major order.
+  Time: 1.77162 ms
+  Throughput: 4.95777 GB/s
+PASSES
+
+Checking results for transpose of a 2469 x 61 matrix, in column major order.
+  Time: 0.267392 ms
+  Throughput: 2.25301 GB/s
+PASSES
+
+Checking results for transpose of a 804 x 3055 matrix, in column major order.
+  Time: 2.21014 ms
+  Throughput: 4.44536 GB/s
+PASSES
+
+Checking results for transpose of a 1242 x 2510 matrix, in row major order.
+  Time: 2.96499 ms
+  Throughput: 4.20564 GB/s
+PASSES
+
+Checking results for transpose of a 940 x 2995 matrix, in row major order.
+  Time: 2.6911 ms
+  Throughput: 4.1846 GB/s
+PASSES
+
+Checking results for transpose of a 1779 x 1220 matrix, in row major order.
+  Time: 2.01402 ms
+  Throughput: 4.31055 GB/s
+PASSES
+
+Checking results for transpose of a 1655 x 1434 matrix, in column major order.
+  Time: 1.89718 ms
+  Throughput: 5.00377 GB/s
+PASSES
+
+Checking results for transpose of a 178 x 702 matrix, in column major order.
+  Time: 0.212992 ms
+  Throughput: 2.34668 GB/s
+PASSES
+
+Checking results for transpose of a 721 x 1243 matrix, in column major order.
+  Time: 0.907104 ms
+  Throughput: 3.95193 GB/s
+PASSES
+
+Checking results for transpose of a 1222 x 1077 matrix, in column major order.
+  Time: 1.18208 ms
+  Throughput: 4.45349 GB/s
+PASSES
+
+Checking results for transpose of a 1494 x 782 matrix, in column major order.
+  Time: 1.13712 ms
+  Throughput: 4.10971 GB/s
+PASSES
+
+Checking results for transpose of a 467 x 179 matrix, in row major order.
+  Time: 0.135712 ms
+  Throughput: 2.46384 GB/s
+PASSES
+
+Checking results for transpose of a 1119 x 983 matrix, in column major order.
+  Time: 1.04746 ms
+  Throughput: 4.20057 GB/s
+PASSES
+
+Checking results for transpose of a 2651 x 177 matrix, in column major order.
+  Time: 0.48656 ms
+  Throughput: 3.85751 GB/s
+PASSES
+
+Checking results for transpose of a 937 x 2141 matrix, in row major order.
+  Time: 1.56368 ms
+  Throughput: 5.13178 GB/s
+PASSES
+
+Checking results for transpose of a 2003 x 1873 matrix, in row major order.
+  Time: 3.3505 ms
+  Throughput: 4.47888 GB/s
+PASSES
+
+Checking results for transpose of a 150 x 456 matrix, in column major order.
+  Time: 0.14448 ms
+  Throughput: 1.89369 GB/s
+PASSES
+
+Checking results for transpose of a 2810 x 1659 matrix, in column major order.
+  Time: 4.12509 ms
+  Throughput: 4.52043 GB/s
+PASSES
+
+Checking results for transpose of a 175 x 2380 matrix, in row major order.
+  Time: 0.603968 ms
+  Throughput: 2.75842 GB/s
+PASSES
+
+Checking results for transpose of a 1743 x 1555 matrix, in column major order.
+  Time: 2.46851 ms
+  Throughput: 4.3919 GB/s
+PASSES
+
+Checking results for transpose of a 364 x 1001 matrix, in row major order.
+  Time: 0.416704 ms
+  Throughput: 3.49758 GB/s
+PASSES
+
+Checking results for transpose of a 801 x 2492 matrix, in row major order.
+  Time: 1.79485 ms
+  Throughput: 4.44849 GB/s
+PASSES
+
+Checking results for transpose of a 2323 x 539 matrix, in row major order.
+  Time: 1.3767 ms
+  Throughput: 3.63796 GB/s
+PASSES
+
+Checking results for transpose of a 756 x 1142 matrix, in row major order.
+  Time: 0.867968 ms
+  Throughput: 3.97873 GB/s
+PASSES
+
+Checking results for transpose of a 1700 x 31 matrix, in column major order.
+  Time: 0.16608 ms
+  Throughput: 1.26927 GB/s
+PASSES
+
+Checking results for transpose of a 1544 x 2035 matrix, in row major order.
+  Time: 2.6385 ms
+  Throughput: 4.76338 GB/s
+PASSES
+
+Checking results for transpose of a 2607 x 137 matrix, in row major order.
+  Time: 0.632352 ms
+  Throughput: 2.25924 GB/s
+PASSES
+
+Checking results for transpose of a 3057 x 900 matrix, in column major order.
+  Time: 2.50387 ms
+  Throughput: 4.39527 GB/s
+PASSES
+
+Checking results for transpose of a 1137 x 1075 matrix, in row major order.
+  Time: 1.1489 ms
+  Throughput: 4.25548 GB/s
+PASSES
+
+Checking results for transpose of a 1484 x 2819 matrix, in column major order.
+  Time: 3.48493 ms
+  Throughput: 4.8017 GB/s
+PASSES
+
+Checking results for transpose of a 2909 x 1135 matrix, in row major order.
+  Time: 3.12416 ms
+  Throughput: 4.22733 GB/s
+PASSES
+
+Checking results for transpose of a 3068 x 2960 matrix, in row major order.
+  Time: 8.55824 ms
+  Throughput: 4.24446 GB/s
+PASSES
+
+Checking results for transpose of a 335 x 2211 matrix, in row major order.
+  Time: 0.818624 ms
+  Throughput: 3.61917 GB/s
+PASSES
+
+Checking results for transpose of a 633 x 2968 matrix, in column major order.
+  Time: 1.9624 ms
+  Throughput: 3.82948 GB/s
+PASSES
+
+Checking results for transpose of a 1108 x 2620 matrix, in column major order.
+  Time: 2.90509 ms
+  Throughput: 3.99707 GB/s
+PASSES
+
+Checking results for transpose of a 2701 x 2116 matrix, in row major order.
+  Time: 5.18883 ms
+  Throughput: 4.40586 GB/s
+PASSES
+
+Checking results for transpose of a 1047 x 1652 matrix, in column major order.
+  Time: 1.68246 ms
+  Throughput: 4.11217 GB/s
+PASSES
+
+Checking results for transpose of a 874 x 1637 matrix, in column major order.
+  Time: 1.29517 ms
+  Throughput: 4.41869 GB/s
+PASSES
+
+Checking results for transpose of a 311 x 726 matrix, in column major order.
+  Time: 0.239552 ms
+  Throughput: 3.77014 GB/s
+PASSES
+
+Checking results for transpose of a 2129 x 2210 matrix, in row major order.
+  Time: 4.1687 ms
+  Throughput: 4.51468 GB/s
+PASSES
+
+Checking results for transpose of a 2430 x 2048 matrix, in row major order.
+  Time: 4.7671 ms
+  Throughput: 4.17582 GB/s
+PASSES
+
+Checking results for transpose of a 661 x 2044 matrix, in row major order.
+  Time: 1.13795 ms
+  Throughput: 4.74918 GB/s
+PASSES
+
+Checking results for transpose of a 2408 x 331 matrix, in row major order.
+  Time: 0.898208 ms
+  Throughput: 3.5495 GB/s
+PASSES
+
+Checking results for transpose of a 1622 x 964 matrix, in row major order.
+  Time: 1.63962 ms
+  Throughput: 3.81457 GB/s
+PASSES
+
+Checking results for transpose of a 3003 x 2073 matrix, in row major order.
+  Time: 6.03818 ms
+  Throughput: 4.12391 GB/s
+PASSES
+
+Checking results for transpose of a 2368 x 2726 matrix, in column major order.
+  Time: 6.1743 ms
+  Throughput: 4.18196 GB/s
+PASSES
+
+Checking results for transpose of a 2743 x 1726 matrix, in column major order.
+  Time: 4.16726 ms
+  Throughput: 4.54439 GB/s
+PASSES
+
+Checking results for transpose of a 1208 x 552 matrix, in column major order.
+  Time: 0.710848 ms
+  Throughput: 3.75223 GB/s
+PASSES
+
+Checking results for transpose of a 573 x 863 matrix, in row major order.
+  Time: 0.445408 ms
+  Throughput: 4.44086 GB/s
+PASSES
+
+Checking results for transpose of a 2038 x 2993 matrix, in column major order.
+  Time: 5.44394 ms
+  Throughput: 4.48186 GB/s
+PASSES
+
+Checking results for transpose of a 177 x 303 matrix, in column major order.
+  Time: 0.11696 ms
+  Throughput: 1.83417 GB/s
+PASSES
+
+Checking results for transpose of a 476 x 964 matrix, in row major order.
+  Time: 0.502368 ms
+  Throughput: 3.65361 GB/s
+PASSES
+
+Checking results for transpose of a 664 x 1324 matrix, in column major order.
+  Time: 0.870336 ms
+  Throughput: 4.04044 GB/s
+PASSES
+
+Checking results for transpose of a 1015 x 899 matrix, in row major order.
+  Time: 0.984608 ms
+  Throughput: 3.707 GB/s
+PASSES
+
+Checking results for transpose of a 1262 x 1854 matrix, in row major order.
+  Time: 2.34099 ms
+  Throughput: 3.99787 GB/s
+PASSES
+
+Checking results for transpose of a 2081 x 1150 matrix, in column major order.
+  Time: 2.03245 ms
+  Throughput: 4.70989 GB/s
+PASSES
+
+Checking results for transpose of a 1945 x 822 matrix, in row major order.
+  Time: 1.55181 ms
+  Throughput: 4.1211 GB/s
+PASSES
+
+Checking results for transpose of a 1413 x 3054 matrix, in row major order.
+  Time: 4.17219 ms
+  Throughput: 4.1372 GB/s
+PASSES
+
+Checking results for transpose of a 2518 x 1580 matrix, in row major order.
+  Time: 3.97632 ms
+  Throughput: 4.00213 GB/s
+PASSES
+
+Checking results for transpose of a 2301 x 1570 matrix, in column major order.
+  Time: 3.1367 ms
+  Throughput: 4.60684 GB/s
+PASSES
+
+Checking results for transpose of a 1223 x 2771 matrix, in row major order.
+  Time: 2.83898 ms
+  Throughput: 4.77487 GB/s
+PASSES
+
+Checking results for transpose of a 2192 x 176 matrix, in column major order.
+  Time: 0.56032 ms
+  Throughput: 2.75408 GB/s
+PASSES
+
+Checking results for transpose of a 86 x 1864 matrix, in column major order.
+  Time: 0.463904 ms
+  Throughput: 1.38222 GB/s
+PASSES
+
+Checking results for transpose of a 2408 x 2879 matrix, in row major order.
+  Time: 6.14579 ms
+  Throughput: 4.51212 GB/s
+PASSES
+
+Checking results for transpose of a 2622 x 2093 matrix, in row major order.
+  Time: 5.03853 ms
+  Throughput: 4.35671 GB/s
+PASSES
+
+Checking results for transpose of a 2861 x 2126 matrix, in column major order.
+  Time: 7.69971 ms
+  Throughput: 3.15985 GB/s
+PASSES
+
+Checking results for transpose of a 706 x 1000 matrix, in row major order.
+  Time: 0.71104 ms
+  Throughput: 3.97165 GB/s
+PASSES
+
+Checking results for transpose of a 1302 x 2413 matrix, in column major order.
+  Time: 2.89357 ms
+  Throughput: 4.34305 GB/s
+PASSES
+
+Checking results for transpose of a 401 x 2884 matrix, in column major order.
+  Time: 1.29283 ms
+  Throughput: 3.57814 GB/s
+PASSES
+
+Checking results for transpose of a 364 x 2113 matrix, in row major order.
+  Time: 0.678944 ms
+  Throughput: 4.53134 GB/s
+PASSES
+
+Checking results for transpose of a 1272 x 1288 matrix, in row major order.
+  Time: 1.48378 ms
+  Throughput: 4.41667 GB/s
+PASSES
+
+Checking results for transpose of a 2484 x 409 matrix, in row major order.
+  Time: 1.05117 ms
+  Throughput: 3.86601 GB/s
+PASSES
+
+Checking results for transpose of a 564 x 1519 matrix, in row major order.
+  Time: 0.755136 ms
+  Throughput: 4.53808 GB/s
+PASSES
+
+Checking results for transpose of a 2016 x 855 matrix, in column major order.
+  Time: 1.60874 ms
+  Throughput: 4.2858 GB/s
+PASSES
+
+Checking results for transpose of a 1296 x 1429 matrix, in row major order.
+  Time: 1.69741 ms
+  Throughput: 4.36426 GB/s
+PASSES
+
+Checking results for transpose of a 382 x 1218 matrix, in column major order.
+  Time: 0.537248 ms
+  Throughput: 3.46414 GB/s
+PASSES
+
+Checking results for transpose of a 2666 x 2949 matrix, in column major order.
+  Time: 7.01792 ms
+  Throughput: 4.48112 GB/s
+PASSES
+
+Checking results for transpose of a 1677 x 2203 matrix, in row major order.
+  Time: 3.30483 ms
+  Throughput: 4.47155 GB/s
+PASSES
+
+Checking results for transpose of a 670 x 2604 matrix, in row major order.
+  Time: 1.71165 ms
+  Throughput: 4.07719 GB/s
+PASSES
+
+Checking results for transpose of a 2267 x 921 matrix, in column major order.
+  Time: 1.64022 ms
+  Throughput: 5.09176 GB/s
+PASSES
+
+Checking results for transpose of a 2362 x 145 matrix, in column major order.
+  Time: 0.391136 ms
+  Throughput: 3.50252 GB/s
+PASSES
+
+Checking results for transpose of a 2156 x 2629 matrix, in column major order.
+  Time: 5.47453 ms
+  Throughput: 4.14145 GB/s
+PASSES
+
+Checking results for transpose of a 79 x 1145 matrix, in column major order.
+  Time: 0.277824 ms
+  Throughput: 1.30234 GB/s
+PASSES
+
+Checking results for transpose of a 889 x 90 matrix, in column major order.
+  Time: 0.127424 ms
+  Throughput: 2.51161 GB/s
+PASSES
+
+Checking results for transpose of a 1507 x 2410 matrix, in row major order.
+  Time: 2.70234 ms
+  Throughput: 5.3759 GB/s
+PASSES
+
+Checking results for transpose of a 2169 x 2792 matrix, in column major order.
+  Time: 5.1871 ms
+  Throughput: 4.66993 GB/s
+PASSES
+
+Checking results for transpose of a 2910 x 338 matrix, in column major order.
+  Time: 1.05936 ms
+  Throughput: 3.71387 GB/s
+PASSES
+
+Checking results for transpose of a 555 x 2015 matrix, in column major order.
+  Time: 1.3248 ms
+  Throughput: 3.37659 GB/s
+PASSES
+
+Checking results for transpose of a 2662 x 637 matrix, in column major order.
+  Time: 1.46205 ms
+  Throughput: 4.63923 GB/s
+PASSES
+
+Checking results for transpose of a 484 x 2904 matrix, in row major order.
+  Time: 1.38003 ms
+  Throughput: 4.07392 GB/s
+PASSES
+
+Checking results for transpose of a 2468 x 146 matrix, in row major order.
+  Time: 0.645248 ms
+  Throughput: 2.23373 GB/s
+PASSES
+
+Checking results for transpose of a 2669 x 2303 matrix, in column major order.
+  Time: 5.60096 ms
+  Throughput: 4.38975 GB/s
+PASSES
+
+Checking results for transpose of a 1230 x 334 matrix, in row major order.
+  Time: 0.477408 ms
+  Throughput: 3.44209 GB/s
+PASSES
+
+Checking results for transpose of a 1311 x 2247 matrix, in column major order.
+  Time: 2.47715 ms
+  Throughput: 4.75678 GB/s
+PASSES
+
+Checking results for transpose of a 2248 x 1706 matrix, in row major order.
+  Time: 3.72736 ms
+  Throughput: 4.11561 GB/s
+PASSES
+
+Checking results for transpose of a 2566 x 1828 matrix, in row major order.
+  Time: 4.55866 ms
+  Throughput: 4.11582 GB/s
+PASSES
+
+Checking results for transpose of a 1030 x 1666 matrix, in column major order.
+  Time: 1.81898 ms
+  Throughput: 3.77351 GB/s
+PASSES
+
+Checking results for transpose of a 1420 x 174 matrix, in column major order.
+  Time: 0.376064 ms
+  Throughput: 2.62806 GB/s
+PASSES
+
+Checking results for transpose of a 2988 x 2836 matrix, in row major order.
+  Time: 8.02528 ms
+  Throughput: 4.22364 GB/s
+PASSES
+
+Checking results for transpose of a 3065 x 1272 matrix, in row major order.
+  Time: 3.52509 ms
+  Throughput: 4.42392 GB/s
+PASSES
+
+Checking results for transpose of a 991 x 669 matrix, in column major order.
+  Time: 0.610528 ms
+  Throughput: 4.34364 GB/s
+PASSES
+
+Checking results for transpose of a 1111 x 1290 matrix, in column major order.
+  Time: 1.76006 ms
+  Throughput: 3.25713 GB/s
+PASSES
+
+Checking results for transpose of a 2836 x 2520 matrix, in row major order.
+  Time: 5.96534 ms
+  Throughput: 4.79216 GB/s
+PASSES
+
+Checking results for transpose of a 2634 x 1784 matrix, in column major order.
+  Time: 4.34202 ms
+  Throughput: 4.32892 GB/s
+PASSES
+
+Checking results for transpose of a 2523 x 1984 matrix, in column major order.
+  Time: 4.28106 ms
+  Throughput: 4.67701 GB/s
+PASSES
+
+Checking results for transpose of a 1749 x 1478 matrix, in column major order.
+  Time: 2.2777 ms
+  Throughput: 4.53971 GB/s
+PASSES
+
+Checking results for transpose of a 1720 x 460 matrix, in row major order.
+  Time: 0.951872 ms
+  Throughput: 3.32482 GB/s
+PASSES
+
+Checking results for transpose of a 1005 x 2904 matrix, in column major order.
+  Time: 2.84586 ms
+  Throughput: 4.10213 GB/s
+PASSES
+
+Checking results for transpose of a 257 x 2821 matrix, in column major order.
+  Time: 0.813504 ms
+  Throughput: 3.56481 GB/s
+PASSES
+
+Checking results for transpose of a 147 x 766 matrix, in column major order.
+  Time: 0.204576 ms
+  Throughput: 2.20167 GB/s
+PASSES
+
+Checking results for transpose of a 894 x 1758 matrix, in row major order.
+  Time: 1.58595 ms
+  Throughput: 3.96393 GB/s
+PASSES
+
+Checking results for transpose of a 1787 x 821 matrix, in column major order.
+  Time: 1.21299 ms
+  Throughput: 4.83804 GB/s
+PASSES
+
+Checking results for transpose of a 1911 x 585 matrix, in column major order.
+  Time: 1.1071 ms
+  Throughput: 4.03913 GB/s
+PASSES
+
+Checking results for transpose of a 1345 x 1171 matrix, in column major order.
+  Time: 1.42986 ms
+  Throughput: 4.40602 GB/s
+PASSES
+
+Checking results for transpose of a 3026 x 622 matrix, in column major order.
+  Time: 1.86262 ms
+  Throughput: 4.04198 GB/s
+PASSES
+
+Checking results for transpose of a 270 x 324 matrix, in row major order.
+  Time: 0.143424 ms
+  Throughput: 2.43976 GB/s
+PASSES
+
+Checking results for transpose of a 2414 x 2044 matrix, in row major order.
+  Time: 4.43997 ms
+  Throughput: 4.44527 GB/s
+PASSES
+
+Checking results for transpose of a 81 x 3049 matrix, in row major order.
+  Time: 0.37184 ms
+  Throughput: 2.65672 GB/s
+PASSES
+
+Checking results for transpose of a 2017 x 1258 matrix, in column major order.
+  Time: 2.13014 ms
+  Throughput: 4.76472 GB/s
+PASSES
+
+Checking results for transpose of a 2694 x 2430 matrix, in row major order.
+  Time: 6.26502 ms
+  Throughput: 4.17966 GB/s
+PASSES
+
+Checking results for transpose of a 2595 x 252 matrix, in column major order.
+  Time: 0.799584 ms
+  Throughput: 3.2714 GB/s
+PASSES
+
+Checking results for transpose of a 1117 x 2039 matrix, in row major order.
+  Time: 1.97466 ms
+  Throughput: 4.61359 GB/s
+PASSES
+
+Checking results for transpose of a 929 x 1902 matrix, in row major order.
+  Time: 1.49843 ms
+  Throughput: 4.71682 GB/s
+PASSES
+
+Checking results for transpose of a 1213 x 1199 matrix, in row major order.
+  Time: 1.18064 ms
+  Throughput: 4.92745 GB/s
+PASSES
+
+Checking results for transpose of a 1234 x 1153 matrix, in column major order.
+  Time: 1.25171 ms
+  Throughput: 4.54674 GB/s
+PASSES
+
+Checking results for transpose of a 166 x 1424 matrix, in column major order.
+  Time: 0.41328 ms
+  Throughput: 2.28788 GB/s
+PASSES
+
+Checking results for transpose of a 1601 x 766 matrix, in column major order.
+  Time: 1.03005 ms
+  Throughput: 4.76236 GB/s
+PASSES
+
+Checking results for transpose of a 1448 x 1871 matrix, in row major order.
+  Time: 2.37293 ms
+  Throughput: 4.56686 GB/s
+PASSES
+
+Checking results for transpose of a 1127 x 817 matrix, in column major order.
+  Time: 0.855744 ms
+  Throughput: 4.3039 GB/s
+PASSES
+
+Checking results for transpose of a 556 x 1463 matrix, in row major order.
+  Time: 0.722016 ms
+  Throughput: 4.50643 GB/s
+PASSES
+
+Checking results for transpose of a 1775 x 986 matrix, in row major order.
+  Time: 1.38234 ms
+  Throughput: 5.06433 GB/s
+PASSES
+
+Checking results for transpose of a 2704 x 2103 matrix, in column major order.
+  Time: 4.13389 ms
+  Throughput: 5.50234 GB/s
+PASSES
+
+Checking results for transpose of a 358 x 984 matrix, in row major order.
+  Time: 0.408256 ms
+  Throughput: 3.45148 GB/s
+PASSES
+
+Checking results for transpose of a 2693 x 2197 matrix, in row major order.
+  Time: 5.31622 ms
+  Throughput: 4.45167 GB/s
+PASSES
+
+Checking results for transpose of a 55 x 1383 matrix, in column major order.
+  Time: 0.319456 ms
+  Throughput: 0.952432 GB/s
+PASSES
+
+Checking results for transpose of a 1112 x 1550 matrix, in column major order.
+  Time: 1.81155 ms
+  Throughput: 3.8058 GB/s
+PASSES
+
+Checking results for transpose of a 445 x 79 matrix, in row major order.
+  Time: 0.11536 ms
+  Throughput: 1.21897 GB/s
+PASSES
+
+Checking results for transpose of a 798 x 1527 matrix, in row major order.
+  Time: 1.21789 ms
+  Throughput: 4.00216 GB/s
+PASSES
+
+Checking results for transpose of a 104 x 2654 matrix, in row major order.
+  Time: 0.533248 ms
+  Throughput: 2.07045 GB/s
+PASSES
+
+Checking results for transpose of a 2717 x 1162 matrix, in row major order.
+  Time: 2.67933 ms
+  Throughput: 4.71335 GB/s
+PASSES
+
+Checking results for transpose of a 591 x 889 matrix, in column major order.
+  Time: 0.511136 ms
+  Throughput: 4.11162 GB/s
+PASSES
+
+Checking results for transpose of a 766 x 521 matrix, in row major order.
+  Time: 0.437888 ms
+  Throughput: 3.64555 GB/s
+PASSES
+
+Checking results for transpose of a 1955 x 879 matrix, in row major order.
+  Time: 1.58374 ms
+  Throughput: 4.34021 GB/s
+PASSES
+
+Checking results for transpose of a 2999 x 1524 matrix, in column major order.
+  Time: 4.02349 ms
+  Throughput: 4.54379 GB/s
+PASSES
+
+Checking results for transpose of a 1145 x 1580 matrix, in column major order.
+  Time: 1.85856 ms
+  Throughput: 3.89355 GB/s
+PASSES
+
+Checking results for transpose of a 1469 x 2692 matrix, in row major order.
+  Time: 2.98819 ms
+  Throughput: 5.29357 GB/s
+PASSES
+
+Checking results for transpose of a 145 x 66 matrix, in column major order.
+  Time: 0.039456 ms
+  Throughput: 0.970195 GB/s
+PASSES
+
+Checking results for transpose of a 612 x 1888 matrix, in column major order.
+  Time: 1.33709 ms
+  Throughput: 3.45663 GB/s
+PASSES
+
+Checking results for transpose of a 2950 x 1993 matrix, in row major order.
+  Time: 5.27901 ms
+  Throughput: 4.45489 GB/s
+PASSES
+
+Checking results for transpose of a 3033 x 2662 matrix, in column major order.
+  Time: 7.10682 ms
+  Throughput: 4.54428 GB/s
+PASSES
+
+Checking results for transpose of a 1507 x 181 matrix, in row major order.
+  Time: 0.414432 ms
+  Throughput: 2.63268 GB/s
+PASSES
+
+Checking results for transpose of a 1991 x 1971 matrix, in column major order.
+  Time: 3.19974 ms
+  Throughput: 4.90572 GB/s
+PASSES
+
+Checking results for transpose of a 1506 x 855 matrix, in row major order.
+  Time: 1.36832 ms
+  Throughput: 3.76412 GB/s
+PASSES
+
+Checking results for transpose of a 3029 x 1806 matrix, in column major order.
+  Time: 4.80819 ms
+  Throughput: 4.55088 GB/s
+PASSES
+
+Checking results for transpose of a 605 x 2951 matrix, in column major order.
+  Time: 1.89088 ms
+  Throughput: 3.77677 GB/s
+PASSES
+
+Checking results for transpose of a 589 x 2373 matrix, in column major order.
+  Time: 1.3809 ms
+  Throughput: 4.04867 GB/s
+PASSES
+
+Checking results for transpose of a 2123 x 470 matrix, in row major order.
+  Time: 0.94272 ms
+  Throughput: 4.23375 GB/s
+PASSES
+
+Checking results for transpose of a 1688 x 1082 matrix, in row major order.
+  Time: 1.9295 ms
+  Throughput: 3.78629 GB/s
+PASSES
+
+Checking results for transpose of a 2780 x 960 matrix, in column major order.
+  Time: 2.59923 ms
+  Throughput: 4.10706 GB/s
+PASSES
+
+Checking results for transpose of a 1407 x 921 matrix, in row major order.
+  Time: 1.34672 ms
+  Throughput: 3.8489 GB/s
+PASSES
+
+Checking results for transpose of a 2220 x 380 matrix, in row major order.
+  Time: 0.965152 ms
+  Throughput: 3.49624 GB/s
+PASSES
+
+Checking results for transpose of a 850 x 2371 matrix, in row major order.
+  Time: 1.67341 ms
+  Throughput: 4.81735 GB/s
+PASSES
+
+Checking results for transpose of a 2 x 805 matrix, in row major order.
+  Time: 0.07072 ms
+  Throughput: 0.0910634 GB/s
+PASSES
+
+Checking results for transpose of a 2082 x 1786 matrix, in column major order.
+  Time: 3.18272 ms
+  Throughput: 4.6733 GB/s
+PASSES
+
+Checking results for transpose of a 1590 x 344 matrix, in row major order.
+  Time: 0.654432 ms
+  Throughput: 3.34311 GB/s
+PASSES
+
+Checking results for transpose of a 630 x 933 matrix, in column major order.
+  Time: 0.674048 ms
+  Throughput: 3.48812 GB/s
+PASSES
+
+Checking results for transpose of a 2362 x 1009 matrix, in row major order.
+  Time: 2.12573 ms
+  Throughput: 4.4846 GB/s
+PASSES
+
+Checking results for transpose of a 2113 x 649 matrix, in column major order.
+  Time: 1.17139 ms
+  Throughput: 4.68276 GB/s
+PASSES
+
+Checking results for transpose of a 680 x 358 matrix, in row major order.
+  Time: 0.306144 ms
+  Throughput: 3.18073 GB/s
+PASSES
+
+Checking results for transpose of a 2264 x 2789 matrix, in row major order.
+  Time: 5.62634 ms
+  Throughput: 4.4891 GB/s
+PASSES
+
+Checking results for transpose of a 366 x 1937 matrix, in column major order.
+  Time: 0.78208 ms
+  Throughput: 3.62593 GB/s
+PASSES
+
+Checking results for transpose of a 2745 x 739 matrix, in row major order.
+  Time: 1.97008 ms
+  Throughput: 4.11873 GB/s
+PASSES
+
+Checking results for transpose of a 1976 x 742 matrix, in column major order.
+  Time: 1.3424 ms
+  Throughput: 4.36887 GB/s
+PASSES
+
+Checking results for transpose of a 2062 x 776 matrix, in row major order.
+  Time: 1.63987 ms
+  Throughput: 3.90302 GB/s
+PASSES
+
+Checking results for transpose of a 1906 x 2366 matrix, in row major order.
+  Time: 4.27578 ms
+  Throughput: 4.21874 GB/s
+PASSES
+
+Checking results for transpose of a 2654 x 2996 matrix, in column major order.
+  Time: 7.60224 ms
+  Throughput: 4.18371 GB/s
+PASSES
+
+Checking results for transpose of a 2702 x 2286 matrix, in row major order.
+  Time: 5.17504 ms
+  Throughput: 4.77428 GB/s
+PASSES
+
+Checking results for transpose of a 149 x 1327 matrix, in row major order.
+  Time: 0.233248 ms
+  Throughput: 3.39078 GB/s
+PASSES
+
+Checking results for transpose of a 2775 x 3031 matrix, in column major order.
+  Time: 7.43226 ms
+  Throughput: 4.52677 GB/s
+PASSES
+
+Checking results for transpose of a 1241 x 2223 matrix, in row major order.
+  Time: 2.42192 ms
+  Throughput: 4.55629 GB/s
+PASSES
+
+Checking results for transpose of a 1652 x 541 matrix, in row major order.
+  Time: 0.972064 ms
+  Throughput: 3.67767 GB/s
+PASSES
+
+Checking results for transpose of a 2444 x 1239 matrix, in row major order.
+  Time: 2.77062 ms
+  Throughput: 4.37175 GB/s
+PASSES
+
+Checking results for transpose of a 488 x 143 matrix, in column major order.
+  Time: 0.09952 ms
+  Throughput: 2.80482 GB/s
+PASSES
+
+Checking results for transpose of a 2409 x 158 matrix, in column major order.
+  Time: 0.420128 ms
+  Throughput: 3.62387 GB/s
+PASSES
+
+Checking results for transpose of a 996 x 16 matrix, in row major order.
+  Time: 0.207584 ms
+  Throughput: 0.307076 GB/s
+PASSES
+
+Checking results for transpose of a 1976 x 2670 matrix, in row major order.
+  Time: 5.11114 ms
+  Throughput: 4.12896 GB/s
+PASSES
+
+Checking results for transpose of a 2865 x 2301 matrix, in column major order.
+  Time: 6.29533 ms
+  Throughput: 4.18874 GB/s
+PASSES
+
+Checking results for transpose of a 1691 x 402 matrix, in column major order.
+  Time: 0.601568 ms
+  Throughput: 4.52007 GB/s
+PASSES
+
+Checking results for transpose of a 1166 x 1129 matrix, in column major order.
+  Time: 1.23814 ms
+  Throughput: 4.25286 GB/s
+PASSES
+
+Checking results for transpose of a 2024 x 2370 matrix, in column major order.
+  Time: 4.62186 ms
+  Throughput: 4.15147 GB/s
+PASSES
+
+Checking results for transpose of a 2598 x 1975 matrix, in column major order.
+  Time: 4.34275 ms
+  Throughput: 4.72608 GB/s
+PASSES
+
+Checking results for transpose of a 1014 x 1347 matrix, in column major order.
+  Time: 1.27178 ms
+  Throughput: 4.29591 GB/s
+PASSES
+
+Checking results for transpose of a 2217 x 2859 matrix, in column major order.
+  Time: 6.10509 ms
+  Throughput: 4.15287 GB/s
+PASSES
+
+Checking results for transpose of a 2114 x 2196 matrix, in row major order.
+  Time: 4.41005 ms
+  Throughput: 4.2107 GB/s
+PASSES
+
+Checking results for transpose of a 2787 x 121 matrix, in row major order.
+  Time: 0.668128 ms
+  Throughput: 2.01894 GB/s
+PASSES
+
+Checking results for transpose of a 706 x 49 matrix, in column major order.
+  Time: 0.088064 ms
+  Throughput: 1.57131 GB/s
+PASSES
+
+Checking results for transpose of a 1621 x 866 matrix, in row major order.
+  Time: 1.31936 ms
+  Throughput: 4.25596 GB/s
+PASSES
+
+Checking results for transpose of a 2774 x 2557 matrix, in column major order.
+  Time: 6.28995 ms
+  Throughput: 4.51076 GB/s
+PASSES
+
+Checking results for transpose of a 135 x 1675 matrix, in row major order.
+  Time: 0.393696 ms
+  Throughput: 2.29746 GB/s
+PASSES
+
+Checking results for transpose of a 528 x 627 matrix, in column major order.
+  Time: 0.412832 ms
+  Throughput: 3.20766 GB/s
+PASSES
+
+Checking results for transpose of a 1096 x 1178 matrix, in row major order.
+  Time: 1.33696 ms
+  Throughput: 3.86276 GB/s
+PASSES
+
+Checking results for transpose of a 1181 x 144 matrix, in row major order.
+  Time: 0.316384 ms
+  Throughput: 2.1501 GB/s
+PASSES
+
+Checking results for transpose of a 458 x 2361 matrix, in row major order.
+  Time: 0.930496 ms
+  Throughput: 4.64844 GB/s
+PASSES
+
+Checking results for transpose of a 902 x 2427 matrix, in row major order.
+  Time: 1.85549 ms
+  Throughput: 4.71931 GB/s
+PASSES
+
+Checking results for transpose of a 1504 x 2142 matrix, in column major order.
+  Time: 3.13475 ms
+  Throughput: 4.11078 GB/s
+PASSES
+
+Checking results for transpose of a 74 x 800 matrix, in column major order.
+  Time: 0.206272 ms
+  Throughput: 1.148 GB/s
+PASSES
+
+Checking results for transpose of a 291 x 2421 matrix, in row major order.
+  Time: 0.814848 ms
+  Throughput: 3.45837 GB/s
+PASSES
+
+Checking results for transpose of a 761 x 75 matrix, in column major order.
+  Time: 0.106112 ms
+  Throughput: 2.1515 GB/s
+PASSES
+
+Checking results for transpose of a 2658 x 1235 matrix, in row major order.
+  Time: 2.98371 ms
+  Throughput: 4.40073 GB/s
+PASSES
+
+Checking results for transpose of a 2612 x 1763 matrix, in row major order.
+  Time: 4.19261 ms
+  Throughput: 4.3934 GB/s
+PASSES
+
+Checking results for transpose of a 1864 x 2859 matrix, in column major order.
+  Time: 4.6185 ms
+  Throughput: 4.61551 GB/s
+PASSES
+
+Checking results for transpose of a 1044 x 1992 matrix, in column major order.
+  Time: 2.07715 ms
+  Throughput: 4.00481 GB/s
+PASSES
+
+Checking results for transpose of a 1571 x 402 matrix, in row major order.
+  Time: 0.672992 ms
+  Throughput: 3.75364 GB/s
+PASSES
+
+Checking results for transpose of a 2909 x 2328 matrix, in column major order.
+  Time: 4.8537 ms
+  Throughput: 5.58103 GB/s
+PASSES
+
+Checking results for transpose of a 1324 x 760 matrix, in row major order.
+  Time: 1.06694 ms
+  Throughput: 3.77242 GB/s
+PASSES
+
+Checking results for transpose of a 2932 x 835 matrix, in row major order.
+  Time: 2.22496 ms
+  Throughput: 4.40137 GB/s
+PASSES
+
+Checking results for transpose of a 2541 x 2150 matrix, in column major order.
+  Time: 4.10109 ms
+  Throughput: 5.32849 GB/s
+PASSES
+
+Checking results for transpose of a 968 x 864 matrix, in row major order.
+  Time: 0.902656 ms
+  Throughput: 3.70618 GB/s
+PASSES
+
+Checking results for transpose of a 1952 x 1474 matrix, in row major order.
+  Time: 2.93866 ms
+  Throughput: 3.91641 GB/s
+PASSES
+
+Checking results for transpose of a 1540 x 1014 matrix, in column major order.
+  Time: 1.57926 ms
+  Throughput: 3.95516 GB/s
+PASSES
+
+Checking results for transpose of a 2779 x 2878 matrix, in column major order.
+  Time: 6.94038 ms
+  Throughput: 4.60952 GB/s
+PASSES
+
+Checking results for transpose of a 76 x 850 matrix, in column major order.
+  Time: 0.217888 ms
+  Throughput: 1.18593 GB/s
+PASSES
+
+Checking results for transpose of a 589 x 373 matrix, in row major order.
+  Time: 0.23952 ms
+  Throughput: 3.66895 GB/s
+PASSES
+
+Checking results for transpose of a 1415 x 1235 matrix, in column major order.
+  Time: 1.71094 ms
+  Throughput: 4.08552 GB/s
+PASSES
+
+Checking results for transpose of a 1596 x 2559 matrix, in column major order.
+  Time: 3.91536 ms
+  Throughput: 4.17245 GB/s
+PASSES
+
+Checking results for transpose of a 847 x 372 matrix, in row major order.
+  Time: 0.337248 ms
+  Throughput: 3.73712 GB/s
+PASSES
+
+Checking results for transpose of a 1922 x 865 matrix, in row major order.
+  Time: 1.48819 ms
+  Throughput: 4.46859 GB/s
+PASSES
+
+Checking results for transpose of a 2346 x 1834 matrix, in row major order.
+  Time: 4.18707 ms
+  Throughput: 4.11033 GB/s
+PASSES
+
+Checking results for transpose of a 797 x 1738 matrix, in column major order.
+  Time: 1.31744 ms
+  Throughput: 4.20569 GB/s
+PASSES
+
+Checking results for transpose of a 1508 x 206 matrix, in row major order.
+  Time: 0.448704 ms
+  Throughput: 2.76929 GB/s
+PASSES
+
+Checking results for transpose of a 909 x 937 matrix, in column major order.
+  Time: 0.815552 ms
+  Throughput: 4.17746 GB/s
+PASSES
+
+Checking results for transpose of a 1122 x 2037 matrix, in row major order.
+  Time: 2.26237 ms
+  Throughput: 4.04092 GB/s
+PASSES
+
+Checking results for transpose of a 1279 x 578 matrix, in column major order.
+  Time: 0.656032 ms
+  Throughput: 4.50748 GB/s
+PASSES
+
+Checking results for transpose of a 2862 x 1993 matrix, in row major order.
+  Time: 5.09987 ms
+  Throughput: 4.47381 GB/s
+PASSES
+
+Checking results for transpose of a 2678 x 517 matrix, in row major order.
+  Time: 1.53126 ms
+  Throughput: 3.61669 GB/s
+PASSES
+
+Checking results for transpose of a 2231 x 2388 matrix, in row major order.
+  Time: 4.76502 ms
+  Throughput: 4.47228 GB/s
+PASSES
+
+Checking results for transpose of a 2618 x 1238 matrix, in column major order.
+  Time: 3.18752 ms
+  Throughput: 4.06722 GB/s
+PASSES
+
+Checking results for transpose of a 36 x 1536 matrix, in row major order.
+  Time: 0.251488 ms
+  Throughput: 0.879501 GB/s
+PASSES
+
+Checking results for transpose of a 1390 x 2334 matrix, in column major order.
+  Time: 3.18698 ms
+  Throughput: 4.0719 GB/s
+PASSES
+
+Checking results for transpose of a 2170 x 1794 matrix, in row major order.
+  Time: 3.80314 ms
+  Throughput: 4.09449 GB/s
+PASSES
+
+Checking results for transpose of a 2940 x 2703 matrix, in column major order.
+  Time: 7.50298 ms
+  Throughput: 4.23662 GB/s
+PASSES
+
+Checking results for transpose of a 2493 x 1777 matrix, in row major order.
+  Time: 3.8527 ms
+  Throughput: 4.59943 GB/s
+PASSES
+
+Checking results for transpose of a 2896 x 1008 matrix, in column major order.
+  Time: 2.67171 ms
+  Throughput: 4.37048 GB/s
+PASSES
+
+Checking results for transpose of a 1624 x 799 matrix, in row major order.
+  Time: 1.2311 ms
+  Throughput: 4.21598 GB/s
+PASSES
+
+Checking results for transpose of a 1588 x 1429 matrix, in column major order.
+  Time: 1.76003 ms
+  Throughput: 5.1573 GB/s
+PASSES
+
+Checking results for transpose of a 2063 x 588 matrix, in column major order.
+  Time: 1.00102 ms
+  Throughput: 4.84721 GB/s
+PASSES
+
+Checking results for transpose of a 862 x 1159 matrix, in row major order.
+  Time: 0.933696 ms
+  Throughput: 4.28001 GB/s
+PASSES
+
+Checking results for transpose of a 1550 x 1195 matrix, in row major order.
+  Time: 1.88307 ms
+  Throughput: 3.93453 GB/s
+PASSES
+
+Checking results for transpose of a 1001 x 538 matrix, in column major order.
+  Time: 0.501024 ms
+  Throughput: 4.2995 GB/s
+PASSES
+
+Checking results for transpose of a 142 x 660 matrix, in row major order.
+  Time: 0.181888 ms
+  Throughput: 2.06105 GB/s
+PASSES
+
+Checking results for transpose of a 513 x 1553 matrix, in row major order.
+  Time: 0.69952 ms
+  Throughput: 4.55563 GB/s
+PASSES
+
+Checking results for transpose of a 798 x 974 matrix, in column major order.
+  Time: 0.796448 ms
+  Throughput: 3.90359 GB/s
+PASSES
+
+Checking results for transpose of a 2097 x 798 matrix, in column major order.
+  Time: 1.62906 ms
+  Throughput: 4.1089 GB/s
+PASSES
+
+Checking results for transpose of a 2950 x 2422 matrix, in column major order.
+  Time: 6.81107 ms
+  Throughput: 4.19605 GB/s
+PASSES
+
+Checking results for transpose of a 1700 x 938 matrix, in column major order.
+  Time: 1.49322 ms
+  Throughput: 4.27159 GB/s
+PASSES
+
+Checking results for transpose of a 968 x 953 matrix, in row major order.
+  Time: 0.792096 ms
+  Throughput: 4.65855 GB/s
+PASSES
+
+Checking results for transpose of a 577 x 2839 matrix, in column major order.
+  Time: 1.79584 ms
+  Throughput: 3.64866 GB/s
+PASSES
+
+Checking results for transpose of a 1424 x 1318 matrix, in column major order.
+  Time: 1.84054 ms
+  Throughput: 4.07886 GB/s
+PASSES
+
+Checking results for transpose of a 1759 x 271 matrix, in row major order.
+  Time: 0.516832 ms
+  Throughput: 3.68931 GB/s
+PASSES
+
+Checking results for transpose of a 1357 x 1437 matrix, in row major order.
+  Time: 1.58477 ms
+  Throughput: 4.92188 GB/s
+PASSES
+
+Checking results for transpose of a 700 x 1950 matrix, in column major order.
+  Time: 1.49594 ms
+  Throughput: 3.64989 GB/s
+PASSES
+
+Checking results for transpose of a 2747 x 701 matrix, in row major order.
+  Time: 1.95018 ms
+  Throughput: 3.94969 GB/s
+PASSES
+
+Checking results for transpose of a 428 x 2798 matrix, in column major order.
+  Time: 1.33635 ms
+  Throughput: 3.58452 GB/s
+PASSES
+
+Checking results for transpose of a 141 x 628 matrix, in row major order.
+  Time: 0.126144 ms
+  Throughput: 2.80784 GB/s
+PASSES
+
+Checking results for transpose of a 653 x 2328 matrix, in column major order.
+  Time: 1.58771 ms
+  Throughput: 3.82987 GB/s
+PASSES
+
+Checking results for transpose of a 546 x 225 matrix, in row major order.
+  Time: 0.190912 ms
+  Throughput: 2.57396 GB/s
+PASSES
+
+Checking results for transpose of a 1028 x 1826 matrix, in row major order.
+  Time: 1.7391 ms
+  Throughput: 4.31746 GB/s
+PASSES
+
+Checking results for transpose of a 621 x 1202 matrix, in column major order.
+  Time: 0.799136 ms
+  Throughput: 3.73625 GB/s
+PASSES
+
+Checking results for transpose of a 1410 x 2961 matrix, in row major order.
+  Time: 3.43318 ms
+  Throughput: 4.8643 GB/s
+PASSES
+
+Checking results for transpose of a 1712 x 2270 matrix, in column major order.
+  Time: 3.82234 ms
+  Throughput: 4.06687 GB/s
+PASSES
+
+Checking results for transpose of a 1651 x 2971 matrix, in row major order.
+  Time: 3.54493 ms
+  Throughput: 5.5348 GB/s
+PASSES
+
+Checking results for transpose of a 1095 x 2646 matrix, in row major order.
+  Time: 2.55536 ms
+  Throughput: 4.53536 GB/s
+PASSES
+
+Checking results for transpose of a 489 x 1026 matrix, in column major order.
+  Time: 0.558944 ms
+  Throughput: 3.59044 GB/s
+PASSES
+
+Checking results for transpose of a 1705 x 2191 matrix, in column major order.
+  Time: 2.93283 ms
+  Throughput: 5.09495 GB/s
+PASSES
+
+Checking results for transpose of a 2272 x 796 matrix, in row major order.
+  Time: 1.83117 ms
+  Throughput: 3.95051 GB/s
+PASSES
+
+Checking results for transpose of a 1729 x 1343 matrix, in row major order.
+  Time: 1.91085 ms
+  Throughput: 4.86077 GB/s
+PASSES
+
+Checking results for transpose of a 91 x 2371 matrix, in column major order.
+  Time: 0.556416 ms
+  Throughput: 1.55108 GB/s
+PASSES
+
+Checking results for transpose of a 269 x 2993 matrix, in row major order.
+  Time: 0.723008 ms
+  Throughput: 4.45426 GB/s
+PASSES
+
+Checking results for transpose of a 741 x 2355 matrix, in column major order.
+  Time: 1.89139 ms
+  Throughput: 3.69052 GB/s
+PASSES
+
+Checking results for transpose of a 1484 x 995 matrix, in row major order.
+  Time: 1.2679 ms
+  Throughput: 4.65833 GB/s
+PASSES
+
+Checking results for transpose of a 592 x 2647 matrix, in row major order.
+  Time: 1.36115 ms
+  Throughput: 4.60499 GB/s
+PASSES
+
+Checking results for transpose of a 2675 x 1694 matrix, in column major order.
+  Time: 3.69101 ms
+  Throughput: 4.9108 GB/s
+PASSES
+
+Checking results for transpose of a 1362 x 2184 matrix, in row major order.
+  Time: 2.79021 ms
+  Throughput: 4.26435 GB/s
+PASSES
+
+Checking results for transpose of a 1824 x 1841 matrix, in row major order.
+  Time: 2.66714 ms
+  Throughput: 5.03609 GB/s
+PASSES
+
+Checking results for transpose of a 1889 x 2065 matrix, in row major order.
+  Time: 3.54928 ms
+  Throughput: 4.39614 GB/s
+PASSES
+
+Checking results for transpose of a 2235 x 1746 matrix, in row major order.
+  Time: 3.81107 ms
+  Throughput: 4.09576 GB/s
+PASSES
+
+Checking results for transpose of a 758 x 1838 matrix, in column major order.
+  Time: 1.45309 ms
+  Throughput: 3.83515 GB/s
+PASSES
+
+Checking results for transpose of a 2131 x 59 matrix, in row major order.
+  Time: 0.492608 ms
+  Throughput: 1.02093 GB/s
+PASSES
+
+Checking results for transpose of a 610 x 801 matrix, in column major order.
+  Time: 0.515296 ms
+  Throughput: 3.79285 GB/s
+PASSES
+
+Checking results for transpose of a 1027 x 237 matrix, in column major order.
+  Time: 0.337024 ms
+  Throughput: 2.8888 GB/s
+PASSES
+
+Checking results for transpose of a 2690 x 830 matrix, in column major order.
+  Time: 2.19504 ms
+  Throughput: 4.06863 GB/s
+PASSES
+
+Checking results for transpose of a 156 x 433 matrix, in row major order.
+  Time: 0.094944 ms
+  Throughput: 2.8458 GB/s
+PASSES
+
+Checking results for transpose of a 268 x 2819 matrix, in row major order.
+  Time: 0.688352 ms
+  Throughput: 4.39015 GB/s
+PASSES
+
+Checking results for transpose of a 383 x 1571 matrix, in column major order.
+  Time: 0.64336 ms
+  Throughput: 3.74094 GB/s
+PASSES
+
+Checking results for transpose of a 1666 x 1413 matrix, in column major order.
+  Time: 2.14304 ms
+  Throughput: 4.39387 GB/s
+PASSES
+
+Checking results for transpose of a 1697 x 1600 matrix, in column major order.
+  Time: 2.5375 ms
+  Throughput: 4.28011 GB/s
+PASSES
+
+Checking results for transpose of a 3071 x 311 matrix, in row major order.
+  Time: 1.07101 ms
+  Throughput: 3.56704 GB/s
+PASSES
+
+Checking results for transpose of a 672 x 2442 matrix, in column major order.
+  Time: 1.79862 ms
+  Throughput: 3.64951 GB/s
+PASSES
+
+Checking results for transpose of a 243 x 3053 matrix, in row major order.
+  Time: 0.679168 ms
+  Throughput: 4.36934 GB/s
+PASSES
+
+Checking results for transpose of a 1144 x 2032 matrix, in column major order.
+  Time: 2.23226 ms
+  Throughput: 4.16549 GB/s
+PASSES
+
+Checking results for transpose of a 993 x 1650 matrix, in row major order.
+  Time: 1.52093 ms
+  Throughput: 4.30908 GB/s
+PASSES
+
+Checking results for transpose of a 1441 x 2830 matrix, in row major order.
+  Time: 3.57408 ms
+  Throughput: 4.56401 GB/s
+PASSES
+
+Checking results for transpose of a 512 x 1050 matrix, in row major order.
+  Time: 0.596576 ms
+  Throughput: 3.60457 GB/s
+PASSES
+
+Checking results for transpose of a 2790 x 1434 matrix, in row major order.
+  Time: 3.87632 ms
+  Throughput: 4.12851 GB/s
+PASSES
+
+Checking results for transpose of a 1790 x 28 matrix, in row major order.
+  Time: 0.377056 ms
+  Throughput: 0.531698 GB/s
+PASSES
+
+Checking results for transpose of a 2856 x 2749 matrix, in row major order.
+  Time: 6.97149 ms
+  Throughput: 4.50472 GB/s
+PASSES
+
+Checking results for transpose of a 548 x 2748 matrix, in row major order.
+  Time: 1.45085 ms
+  Throughput: 4.15179 GB/s
+PASSES
+
+Checking results for transpose of a 78 x 1372 matrix, in column major order.
+  Time: 0.344064 ms
+  Throughput: 1.24414 GB/s
+PASSES
+
+Checking results for transpose of a 691 x 1615 matrix, in row major order.
+  Time: 0.92048 ms
+  Throughput: 4.84949 GB/s
+PASSES
+
+Checking results for transpose of a 58 x 712 matrix, in row major order.
+  Time: 0.147264 ms
+  Throughput: 1.12169 GB/s
+PASSES
+
+Checking results for transpose of a 2734 x 2729 matrix, in column major order.
+  Time: 5.32752 ms
+  Throughput: 5.60192 GB/s
+PASSES
+
+Checking results for transpose of a 96 x 2123 matrix, in row major order.
+  Time: 0.28784 ms
+  Throughput: 2.83224 GB/s
+PASSES
+
+Checking results for transpose of a 1987 x 2635 matrix, in column major order.
+  Time: 4.68589 ms
+  Throughput: 4.46937 GB/s
+PASSES
+
+Checking results for transpose of a 1577 x 305 matrix, in row major order.
+  Time: 0.556384 ms
+  Throughput: 3.45794 GB/s
+PASSES
+
+Checking results for transpose of a 2739 x 48 matrix, in row major order.
+  Time: 0.632992 ms
+  Throughput: 0.830797 GB/s
+PASSES
+
+Checking results for transpose of a 194 x 2904 matrix, in row major order.
+  Time: 0.756896 ms
+  Throughput: 2.9773 GB/s
+PASSES
+
+Checking results for transpose of a 2322 x 380 matrix, in row major order.
+  Time: 1.00602 ms
+  Throughput: 3.50833 GB/s
+PASSES
+
+Checking results for transpose of a 1688 x 1482 matrix, in column major order.
+  Time: 2.51053 ms
+  Throughput: 3.9858 GB/s
+PASSES
+
+Checking results for transpose of a 1449 x 2173 matrix, in row major order.
+  Time: 2.34461 ms
+  Throughput: 5.37178 GB/s
+PASSES
+
+Checking results for transpose of a 2215 x 2231 matrix, in row major order.
+  Time: 3.86643 ms
+  Throughput: 5.11238 GB/s
+PASSES
+
+Checking results for transpose of a 1941 x 2917 matrix, in column major order.
+  Time: 4.27219 ms
+  Throughput: 5.30116 GB/s
+PASSES
+
+Checking results for transpose of a 1269 x 3013 matrix, in column major order.
+  Time: 3.18662 ms
+  Throughput: 4.79943 GB/s
+PASSES
+
+Checking results for transpose of a 355 x 2952 matrix, in row major order.
+  Time: 0.892192 ms
+  Throughput: 4.69836 GB/s
+PASSES
+
+Checking results for transpose of a 492 x 1458 matrix, in column major order.
+  Time: 0.748736 ms
+  Throughput: 3.83225 GB/s
+PASSES
+
+Checking results for transpose of a 2062 x 2149 matrix, in column major order.
+  Time: 3.95309 ms
+  Throughput: 4.48382 GB/s
+PASSES
+
+Checking results for transpose of a 1613 x 2344 matrix, in column major order.
+  Time: 3.38544 ms
+  Throughput: 4.46722 GB/s
+PASSES
+
+Checking results for transpose of a 1864 x 1594 matrix, in column major order.
+  Time: 2.83088 ms
+  Throughput: 4.19829 GB/s
+PASSES
+
+Checking results for transpose of a 1792 x 1234 matrix, in row major order.
+  Time: 2.23315 ms
+  Throughput: 3.96091 GB/s
+PASSES
+
+Checking results for transpose of a 1044 x 636 matrix, in column major order.
+  Time: 0.715808 ms
+  Throughput: 3.7104 GB/s
+PASSES
+
+Checking results for transpose of a 1911 x 2851 matrix, in row major order.
+  Time: 4.79741 ms
+  Throughput: 4.54267 GB/s
+PASSES
+
+Checking results for transpose of a 1443 x 1721 matrix, in column major order.
+  Time: 2.29139 ms
+  Throughput: 4.33519 GB/s
+PASSES
+
+Checking results for transpose of a 632 x 942 matrix, in row major order.
+  Time: 0.6168 ms
+  Throughput: 3.86086 GB/s
+PASSES
+
+Checking results for transpose of a 1944 x 1298 matrix, in row major order.
+  Time: 2.08666 ms
+  Throughput: 4.83704 GB/s
+PASSES
+
+Checking results for transpose of a 771 x 1790 matrix, in column major order.
+  Time: 1.35693 ms
+  Throughput: 4.06828 GB/s
+PASSES
+
+Checking results for transpose of a 927 x 1804 matrix, in row major order.
+  Time: 1.47533 ms
+  Throughput: 4.53406 GB/s
+PASSES
+
+Checking results for transpose of a 1132 x 345 matrix, in row major order.
+  Time: 0.419392 ms
+  Throughput: 3.72482 GB/s
+PASSES
+
+Checking results for transpose of a 2192 x 162 matrix, in column major order.
+  Time: 0.542272 ms
+  Throughput: 2.61938 GB/s
+PASSES
+
+Checking results for transpose of a 1585 x 1954 matrix, in row major order.
+  Time: 2.78691 ms
+  Throughput: 4.44519 GB/s
+PASSES
+
+Checking results for transpose of a 2459 x 2998 matrix, in row major order.
+  Time: 6.48432 ms
+  Throughput: 4.54764 GB/s
+PASSES
+
+Checking results for transpose of a 387 x 2861 matrix, in row major order.
+  Time: 0.938784 ms
+  Throughput: 4.71762 GB/s
+PASSES
+
+Checking results for transpose of a 1571 x 2256 matrix, in row major order.
+  Time: 3.18653 ms
+  Throughput: 4.44895 GB/s
+PASSES
+
+Checking results for transpose of a 2600 x 2888 matrix, in row major order.
+  Time: 6.28938 ms
+  Throughput: 4.77555 GB/s
+PASSES
+
+Checking results for transpose of a 1522 x 1760 matrix, in column major order.
+  Time: 2.67024 ms
+  Throughput: 4.0127 GB/s
+PASSES
+
+Checking results for transpose of a 325 x 483 matrix, in row major order.
+  Time: 0.170176 ms
+  Throughput: 3.68971 GB/s
+PASSES
+
+Checking results for transpose of a 2634 x 1411 matrix, in row major order.
+  Time: 3.3031 ms
+  Throughput: 4.5007 GB/s
+PASSES
+
+Checking results for transpose of a 2997 x 495 matrix, in column major order.
+  Time: 1.50886 ms
+  Throughput: 3.9328 GB/s
+PASSES
+
+Checking results for transpose of a 583 x 2687 matrix, in row major order.
+  Time: 1.34438 ms
+  Throughput: 4.66093 GB/s
+PASSES
+
+Checking results for transpose of a 2836 x 2224 matrix, in column major order.
+  Time: 6.03542 ms
+  Throughput: 4.18016 GB/s
+PASSES
+
+Checking results for transpose of a 1203 x 1612 matrix, in row major order.
+  Time: 1.70746 ms
+  Throughput: 4.54298 GB/s
+PASSES
+
+Checking results for transpose of a 2254 x 3023 matrix, in row major order.
+  Time: 6.02109 ms
+  Throughput: 4.52665 GB/s
+PASSES
+
+Checking results for transpose of a 2060 x 1522 matrix, in column major order.
+  Time: 2.92406 ms
+  Throughput: 4.28899 GB/s
+PASSES
+
+Checking results for transpose of a 516 x 1050 matrix, in column major order.
+  Time: 0.622944 ms
+  Throughput: 3.47896 GB/s
+PASSES
+
+Checking results for transpose of a 938 x 2573 matrix, in column major order.
+  Time: 2.24355 ms
+  Throughput: 4.30295 GB/s
+PASSES
+
+Checking results for transpose of a 1634 x 850 matrix, in column major order.
+  Time: 1.33462 ms
+  Throughput: 4.16267 GB/s
+PASSES
+
+Checking results for transpose of a 2072 x 413 matrix, in row major order.
+  Time: 0.82704 ms
+  Throughput: 4.13879 GB/s
+PASSES
+
+Checking results for transpose of a 1242 x 1362 matrix, in row major order.
+  Time: 1.70598 ms
+  Throughput: 3.96628 GB/s
+PASSES
+
+Checking results for transpose of a 1782 x 1945 matrix, in row major order.
+  Time: 2.7673 ms
+  Throughput: 5.00993 GB/s
+PASSES
+
+Checking results for transpose of a 2484 x 1709 matrix, in row major order.
+  Time: 3.69101 ms
+  Throughput: 4.60054 GB/s
+PASSES
+
+Checking results for transpose of a 20 x 864 matrix, in row major order.
+  Time: 0.143744 ms
+  Throughput: 0.480855 GB/s
+PASSES
+
+Checking results for transpose of a 554 x 46 matrix, in row major order.
+  Time: 0.141152 ms
+  Throughput: 0.722172 GB/s
+PASSES
+
+Checking results for transpose of a 2926 x 59 matrix, in column major order.
+  Time: 0.311904 ms
+  Throughput: 2.21394 GB/s
+PASSES
+
+Checking results for transpose of a 386 x 1599 matrix, in row major order.
+  Time: 0.541152 ms
+  Throughput: 4.56222 GB/s
+PASSES
+
+Checking results for transpose of a 734 x 2537 matrix, in column major order.
+  Time: 1.86646 ms
+  Throughput: 3.99077 GB/s
+PASSES
+
+Checking results for transpose of a 1819 x 2123 matrix, in row major order.
+  Time: 2.89075 ms
+  Throughput: 5.34357 GB/s
+PASSES
+
+Checking results for transpose of a 316 x 1123 matrix, in row major order.
+  Time: 0.344416 ms
+  Throughput: 4.12139 GB/s
+PASSES
+
+Checking results for transpose of a 1247 x 317 matrix, in column major order.
+  Time: 0.364096 ms
+  Throughput: 4.3428 GB/s
+PASSES
+
+Checking results for transpose of a 2674 x 52 matrix, in row major order.
+  Time: 0.617984 ms
+  Throughput: 0.90001 GB/s
+PASSES
+
+Checking results for transpose of a 1668 x 488 matrix, in column major order.
+  Time: 0.859232 ms
+  Throughput: 3.78936 GB/s
+PASSES
+
+Checking results for transpose of a 2886 x 1533 matrix, in column major order.
+  Time: 3.89981 ms
+  Throughput: 4.5379 GB/s
+PASSES
+
+Checking results for transpose of a 597 x 39 matrix, in row major order.
+  Time: 0.151456 ms
+  Throughput: 0.614911 GB/s
+PASSES
+
+Checking results for transpose of a 2355 x 2965 matrix, in row major order.
+  Time: 6.50192 ms
+  Throughput: 4.2957 GB/s
+PASSES
+
+Checking results for transpose of a 1539 x 279 matrix, in column major order.
+  Time: 0.523872 ms
+  Throughput: 3.27852 GB/s
+PASSES
+
+Checking results for transpose of a 750 x 2038 matrix, in row major order.
+  Time: 1.46723 ms
+  Throughput: 4.16703 GB/s
+PASSES
+
+Checking results for transpose of a 2534 x 785 matrix, in column major order.
+  Time: 1.70778 ms
+  Throughput: 4.65914 GB/s
+PASSES
+
+Checking results for transpose of a 2097 x 1101 matrix, in column major order.
+  Time: 2.18365 ms
+  Throughput: 4.22925 GB/s
+PASSES
+
+Checking results for transpose of a 24 x 301 matrix, in row major order.
+  Time: 0.042272 ms
+  Throughput: 0.683573 GB/s
+PASSES
+
+Checking results for transpose of a 2386 x 2975 matrix, in row major order.
+  Time: 6.65507 ms
+  Throughput: 4.26643 GB/s
+PASSES
+
+Checking results for transpose of a 1573 x 1571 matrix, in row major order.
+  Time: 1.90496 ms
+  Throughput: 5.18894 GB/s
+PASSES
+
+Checking results for transpose of a 2469 x 2409 matrix, in row major order.
+  Time: 5.7504 ms
+  Throughput: 4.13733 GB/s
+PASSES
+
+Checking results for transpose of a 1158 x 958 matrix, in row major order.
+  Time: 1.16237 ms
+  Throughput: 3.8176 GB/s
+PASSES
+
+Checking results for transpose of a 1942 x 241 matrix, in column major order.
+  Time: 0.43936 ms
+  Throughput: 4.26094 GB/s
+PASSES
+
+Checking results for transpose of a 2784 x 2805 matrix, in column major order.
+  Time: 6.81613 ms
+  Throughput: 4.58273 GB/s
+PASSES
+
+Checking results for transpose of a 1130 x 483 matrix, in row major order.
+  Time: 0.510976 ms
+  Throughput: 4.27253 GB/s
+PASSES
+
+Checking results for transpose of a 3036 x 3018 matrix, in row major order.
+  Time: 7.75584 ms
+  Throughput: 4.72555 GB/s
+PASSES
+
+Checking results for transpose of a 1946 x 3067 matrix, in column major order.
+  Time: 5.30781 ms
+  Throughput: 4.49781 GB/s
+PASSES
+
+Checking results for transpose of a 1978 x 1043 matrix, in row major order.
+  Time: 2.01062 ms
+  Throughput: 4.10431 GB/s
+PASSES
+
+Checking results for transpose of a 280 x 1381 matrix, in column major order.
+  Time: 0.44048 ms
+  Throughput: 3.51144 GB/s
+PASSES
+
+Checking results for transpose of a 1706 x 2954 matrix, in column major order.
+  Time: 4.9047 ms
+  Throughput: 4.10995 GB/s
+PASSES
+
+Checking results for transpose of a 1573 x 304 matrix, in column major order.
+  Time: 0.447008 ms
+  Throughput: 4.27905 GB/s
+PASSES
+
+Checking results for transpose of a 924 x 2486 matrix, in column major order.
+  Time: 2.34349 ms
+  Throughput: 3.92076 GB/s
+PASSES
+
+Checking results for transpose of a 2363 x 1356 matrix, in column major order.
+  Time: 2.85072 ms
+  Throughput: 4.49603 GB/s
+PASSES
+
+Checking results for transpose of a 1648 x 1069 matrix, in row major order.
+  Time: 1.71635 ms
+  Throughput: 4.10571 GB/s
+PASSES
+
+Checking results for transpose of a 188 x 151 matrix, in row major order.
+  Time: 0.066912 ms
+  Throughput: 1.69703 GB/s
+PASSES
+
+Checking results for transpose of a 1790 x 1139 matrix, in column major order.
+  Time: 1.54349 ms
+  Throughput: 5.28364 GB/s
+PASSES
+
+Checking results for transpose of a 2129 x 13 matrix, in row major order.
+  Time: 0.394752 ms
+  Throughput: 0.28045 GB/s
+PASSES
+
+Checking results for transpose of a 498 x 1992 matrix, in row major order.
+  Time: 0.983744 ms
+  Throughput: 4.03363 GB/s
+PASSES
+
+Checking results for transpose of a 192 x 2272 matrix, in column major order.
+  Time: 0.669824 ms
+  Throughput: 2.60501 GB/s
+PASSES
+
+Checking results for transpose of a 2861 x 1931 matrix, in row major order.
+  Time: 4.96147 ms
+  Throughput: 4.45399 GB/s
+PASSES
+
+Checking results for transpose of a 957 x 1456 matrix, in row major order.
+  Time: 1.22483 ms
+  Throughput: 4.55048 GB/s
+PASSES
+
+Checking results for transpose of a 439 x 2380 matrix, in column major order.
+  Time: 1.0808 ms
+  Throughput: 3.86684 GB/s
+PASSES
+
+Checking results for transpose of a 2927 x 1672 matrix, in column major order.
+  Time: 3.60304 ms
+  Throughput: 5.43313 GB/s
+PASSES
+
+Checking results for transpose of a 536 x 1272 matrix, in row major order.
+  Time: 0.70464 ms
+  Throughput: 3.8703 GB/s
+PASSES
+
+Checking results for transpose of a 951 x 2484 matrix, in column major order.
+  Time: 2.40643 ms
+  Throughput: 3.92662 GB/s
+PASSES
+
+Checking results for transpose of a 2873 x 2226 matrix, in column major order.
+  Time: 5.6328 ms
+  Throughput: 4.54147 GB/s
+PASSES
+
+Checking results for transpose of a 2693 x 1283 matrix, in row major order.
+  Time: 2.98922 ms
+  Throughput: 4.62345 GB/s
+PASSES
+
+Checking results for transpose of a 460 x 2806 matrix, in row major order.
+  Time: 1.27962 ms
+  Throughput: 4.03484 GB/s
+PASSES
+
+Checking results for transpose of a 2342 x 2998 matrix, in row major order.
+  Time: 6.40554 ms
+  Throughput: 4.38453 GB/s
+PASSES
+
+Checking results for transpose of a 2534 x 740 matrix, in row major order.
+  Time: 1.99955 ms
+  Throughput: 3.75116 GB/s
+PASSES
+
+Checking results for transpose of a 561 x 2721 matrix, in row major order.
+  Time: 1.55677 ms
+  Throughput: 3.92218 GB/s
+PASSES
+
+Checking results for transpose of a 2987 x 88 matrix, in row major order.
+  Time: 0.705056 ms
+  Throughput: 1.49126 GB/s
+PASSES
+
+Checking results for transpose of a 732 x 3015 matrix, in row major order.
+  Time: 2.14474 ms
+  Throughput: 4.11609 GB/s
+PASSES
+
+Checking results for transpose of a 858 x 480 matrix, in row major order.
+  Time: 0.465856 ms
+  Throughput: 3.5362 GB/s
+PASSES
+
+Checking results for transpose of a 2052 x 2455 matrix, in row major order.
+  Time: 4.46726 ms
+  Throughput: 4.51073 GB/s
+PASSES
+
+Checking results for transpose of a 1350 x 208 matrix, in column major order.
+  Time: 0.38496 ms
+  Throughput: 2.91771 GB/s
+PASSES
+
+Checking results for transpose of a 1787 x 2901 matrix, in column major order.
+  Time: 4.46925 ms
+  Throughput: 4.63978 GB/s
+PASSES
+
+Checking results for transpose of a 2237 x 1313 matrix, in row major order.
+  Time: 2.68554 ms
+  Throughput: 4.37482 GB/s
+PASSES
+
+Checking results for transpose of a 1608 x 583 matrix, in column major order.
+  Time: 0.842496 ms
+  Throughput: 4.45089 GB/s
+PASSES
+
+Checking results for transpose of a 1203 x 1070 matrix, in column major order.
+  Time: 1.03837 ms
+  Throughput: 4.95859 GB/s
+PASSES
+
+Checking results for transpose of a 2729 x 2655 matrix, in row major order.
+  Time: 6.4217 ms
+  Throughput: 4.51313 GB/s
+PASSES
+
+Checking results for transpose of a 591 x 2570 matrix, in row major order.
+  Time: 1.31936 ms
+  Throughput: 4.60487 GB/s
+PASSES
+
+Checking results for transpose of a 2881 x 231 matrix, in row major order.
+  Time: 0.830528 ms
+  Throughput: 3.20524 GB/s
+PASSES
+
+Checking results for transpose of a 2748 x 2113 matrix, in row major order.
+  Time: 4.72285 ms
+  Throughput: 4.91782 GB/s
+PASSES
+
+Checking results for transpose of a 2862 x 1093 matrix, in column major order.
+  Time: 3.736 ms
+  Throughput: 3.34921 GB/s
+PASSES
+
+Checking results for transpose of a 341 x 395 matrix, in column major order.
+  Time: 0.153472 ms
+  Throughput: 3.51061 GB/s
+PASSES
+
+Checking results for transpose of a 45 x 2182 matrix, in row major order.
+  Time: 0.223808 ms
+  Throughput: 1.7549 GB/s
+PASSES
+
+Checking results for transpose of a 1033 x 1348 matrix, in row major order.
+  Time: 1.2456 ms
+  Throughput: 4.47169 GB/s
+PASSES
+
+Checking results for transpose of a 1755 x 908 matrix, in row major order.
+  Time: 1.51318 ms
+  Throughput: 4.21242 GB/s
+PASSES
+
+Checking results for transpose of a 1380 x 63 matrix, in column major order.
+  Time: 0.2536 ms
+  Throughput: 1.37129 GB/s
+PASSES
+
+Checking results for transpose of a 720 x 2792 matrix, in row major order.
+  Time: 1.94618 ms
+  Throughput: 4.13167 GB/s
+PASSES
+
+Checking results for transpose of a 734 x 1335 matrix, in row major order.
+  Time: 0.814272 ms
+  Throughput: 4.81358 GB/s
+PASSES
+
+Checking results for transpose of a 2885 x 1144 matrix, in column major order.
+  Time: 2.77139 ms
+  Throughput: 4.76358 GB/s
+PASSES
+
+Checking results for transpose of a 2931 x 1844 matrix, in row major order.
+  Time: 4.86397 ms
+  Throughput: 4.44474 GB/s
+PASSES
+
+Checking results for transpose of a 1409 x 2659 matrix, in row major order.
+  Time: 3.17654 ms
+  Throughput: 4.71774 GB/s
+PASSES
+
+Checking results for transpose of a 294 x 3000 matrix, in row major order.
+  Time: 0.9968 ms
+  Throughput: 3.53933 GB/s
+PASSES
+
+Checking results for transpose of a 2459 x 3045 matrix, in column major order.
+  Time: 6.4737 ms
+  Throughput: 4.62651 GB/s
+PASSES
+
+Checking results for transpose of a 2405 x 1007 matrix, in column major order.
+  Time: 2.03034 ms
+  Throughput: 4.7713 GB/s
+PASSES
+
+Checking results for transpose of a 592 x 714 matrix, in column major order.
+  Time: 0.50512 ms
+  Throughput: 3.34723 GB/s
+PASSES
+
+Checking results for transpose of a 2434 x 2094 matrix, in column major order.
+  Time: 4.92941 ms
+  Throughput: 4.13583 GB/s
+PASSES
+
+Checking results for transpose of a 2275 x 767 matrix, in column major order.
+  Time: 1.72653 ms
+  Throughput: 4.04262 GB/s
+PASSES
+
+Checking results for transpose of a 2722 x 1501 matrix, in row major order.
+  Time: 3.66842 ms
+  Throughput: 4.45503 GB/s
+PASSES
+
+Checking results for transpose of a 2668 x 1314 matrix, in column major order.
+  Time: 3.47824 ms
+  Throughput: 4.03164 GB/s
+PASSES
+
+Checking results for transpose of a 797 x 2197 matrix, in column major order.
+  Time: 1.63587 ms
+  Throughput: 4.28153 GB/s
+PASSES
+
+Checking results for transpose of a 1039 x 1558 matrix, in row major order.
+  Time: 1.25606 ms
+  Throughput: 5.15503 GB/s
+PASSES
+
+Checking results for transpose of a 1351 x 2876 matrix, in row major order.
+  Time: 3.42285 ms
+  Throughput: 4.54064 GB/s
+PASSES
+
+Checking results for transpose of a 1034 x 215 matrix, in column major order.
+  Time: 0.243232 ms
+  Throughput: 3.65593 GB/s
+PASSES
+
+Checking results for transpose of a 2899 x 2620 matrix, in column major order.
+  Time: 6.71965 ms
+  Throughput: 4.5213 GB/s
+PASSES
+
+Checking results for transpose of a 2017 x 140 matrix, in row major order.
+  Time: 0.515648 ms
+  Throughput: 2.19049 GB/s
+PASSES
+
+Checking results for transpose of a 1018 x 527 matrix, in column major order.
+  Time: 0.496928 ms
+  Throughput: 4.31842 GB/s
+PASSES
+
+Checking results for transpose of a 83 x 754 matrix, in column major order.
+  Time: 0.182624 ms
+  Throughput: 1.37073 GB/s
+PASSES
+
+Checking results for transpose of a 2963 x 404 matrix, in column major order.
+  Time: 0.988544 ms
+  Throughput: 4.8437 GB/s
+PASSES
+
+Checking results for transpose of a 2059 x 1025 matrix, in column major order.
+  Time: 1.62029 ms
+  Throughput: 5.21012 GB/s
+PASSES
+
+Checking results for transpose of a 2299 x 2846 matrix, in column major order.
+  Time: 5.6064 ms
+  Throughput: 4.6682 GB/s
+PASSES
+
+Checking results for transpose of a 2335 x 1838 matrix, in column major order.
+  Time: 3.84179 ms
+  Throughput: 4.46847 GB/s
+PASSES
+
+Checking results for transpose of a 1959 x 117 matrix, in column major order.
+  Time: 0.416128 ms
+  Throughput: 2.2032 GB/s
+PASSES
+
+Checking results for transpose of a 2534 x 1151 matrix, in column major order.
+  Time: 2.25056 ms
+  Throughput: 5.18384 GB/s
+PASSES
+
+Checking results for transpose of a 11 x 2002 matrix, in column major order.
+  Time: 0.37648 ms
+  Throughput: 0.233978 GB/s
+PASSES
+
+Checking results for transpose of a 543 x 947 matrix, in column major order.
+  Time: 0.52512 ms
+  Throughput: 3.91698 GB/s
+PASSES
+
+Checking results for transpose of a 1790 x 1966 matrix, in column major order.
+  Time: 3.42323 ms
+  Throughput: 4.11207 GB/s
+PASSES
+
+Checking results for transpose of a 2059 x 1 matrix, in row major order.
+  Time: 0.376448 ms
+  Throughput: 0.0218782 GB/s
+PASSES
+
+Checking results for transpose of a 1047 x 916 matrix, in row major order.
+  Time: 0.792992 ms
+  Throughput: 4.83764 GB/s
+PASSES
+
+Checking results for transpose of a 1536 x 927 matrix, in row major order.
+  Time: 1.45306 ms
+  Throughput: 3.91966 GB/s
+PASSES
+
