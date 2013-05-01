@@ -61,7 +61,8 @@ int main() {
     // int n = 64;
     // int m = 33;
     // int n = 16;
-    thrust::device_vector<int> x(m * n);
+    typedef long long T;
+    thrust::device_vector<T> x(m * n);
     thrust::copy(thrust::counting_iterator<int>(0),
                  thrust::counting_iterator<int>(0) + m * n,
                  x.begin());
@@ -86,7 +87,7 @@ int main() {
     cudaEventElapsedTime(&time, start, stop);
     
     std::cout << "  Time: " << time << " ms" << std::endl;
-    float gbs = (float)(m * n * sizeof(float) * 2) / (time * 1000000);
+    float gbs = (float)(m * n * sizeof(T) * 2) / (time * 1000000);
     std::cout << "  Throughput: " << gbs << " GB/s" << std::endl;
 
     // thrust::device_vector<int> y(m*n);
