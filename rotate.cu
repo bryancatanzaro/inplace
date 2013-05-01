@@ -69,7 +69,7 @@ int main() {
     // print_array(x, inplace::row_major_index(m, n));
     std::cout << std::endl;
 
- 
+
     
     cudaEvent_t start,stop;
     float time=0;
