@@ -13,8 +13,8 @@ struct shuffle {
     shuffle(int _m, int _n, int _c, int _k) : m(_m), n(_n), c(_c), k(_k) {}
     int i;
     __host__ __device__ __forceinline__
-    void set_i(const int& i) {
-        i = i;
+    void set_i(const int& _i) {
+        i = _i;
     }
     //This returns long long to avoid integer overflow in intermediate
     //computation
@@ -42,3 +42,4 @@ struct shuffle {
 }
 
 #include "memory_ops.h"
+#include "smem_ops.h"

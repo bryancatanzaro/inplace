@@ -13,19 +13,42 @@ __global__ void register_row_shuffle(int, int, T*, shuffle);
 
 
 template<typename T, typename Schedule, typename SM>
-struct shuffle_enactor {
+struct shuffle_enactor {};
+
+template<typename T, typename SM>
+struct shuffle_enactor<T, smem<T, SM>, SM> {
     T* data;
     int m, n;
     shuffle s;
     bool enabled;
+    static const int blk = smem<T, SM>::blk;
     shuffle_enactor(T* _data, int _m, int _n, int _c, int _k,
                     temporary_storage<T> _temp)
         : data(_data), m(_m), n(_n), s(_m, _n, _c, _k) {
-        enabled = (n <= Schedule::lim);
+        enabled = (n <= smem<T, SM>::lim);
     }
     void operator()() {
-        register_row_shuffle<SM, T, Schedule::wpt>
-            <<<m, Schedule::blk>>>(m, n, data, s);
+        int smem_bytes = sizeof(T) * n;
+        smem_row_shuffle<<<m, blk, smem_bytes>>>(m, n, data, s);
+    }
+};
+
+template<typename T, typename SM, int w, int b>
+struct shuffle_enactor<T, reg<w, b>, SM> {
+    T* data;
+    int m, n;
+    shuffle s;
+    bool enabled;
+    static const int wpt = reg<w, b>::wpt;
+    static const int blk = reg<w, b>::blk;
+    shuffle_enactor(T* _data, int _m, int _n, int _c, int _k,
+                    temporary_storage<T> _temp)
+        : data(_data), m(_m), n(_n), s(_m, _n, _c, _k) {
+        enabled = (n <= reg<w, b>::lim);
+    }
+    void operator()() {
+        register_row_shuffle<SM, T, wpt>
+            <<<m, blk>>>(m, n, data, s);
     }
 };
 
@@ -51,7 +74,8 @@ struct shuffle_enactor<T, memory, SM> {
 template<typename SM, typename T, typename Schedule, template<class, class, class> class Enactor>
 struct enact_schedule {
     static void impl(T* data, int m, int n, int c, int k, temporary_storage<T> temp) {
-        Enactor<T, Schedule, SM> enactor(data, m, n, c, k, temp);
+        Enactor<T, typename Schedule::head, SM>
+            enactor(data, m, n, c, k, temp);
         if (enactor.enabled) {
             enactor();
         } else {
@@ -102,9 +126,9 @@ void transpose_fn(bool row_major, T* data, int m, int n, T* tmp) {
     } else {
         k = t;
     }
-    detail::prerotate_fn(data, m, n, c, k, temp_storage);
+    //detail::prerotate_fn(data, m, n, c, k, temp_storage);
     detail::shuffle_fn(data, m, n, c, k, temp_storage);
-    detail::postpermute_fn(data, m, n, c, k, temp_storage);
+    //detail::postpermute_fn(data, m, n, c, k, temp_storage);
 }
 
 
