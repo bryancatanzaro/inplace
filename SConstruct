@@ -26,6 +26,6 @@ env.Append(LIBS='stdc++')
 
 Export('env')
 
-#Build tests
+#Build library
 SConscript(os.path.join('src', 'SConscript'))
 

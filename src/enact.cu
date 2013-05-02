@@ -8,48 +8,9 @@
 namespace inplace {
 namespace detail {
 
-template<typename SM, typename T, typename F, int WPT>
-__global__ void register_col_op(int, int, T*, F);
-
 template<typename SM, typename T, int WPT>
 __global__ void register_row_shuffle(int, int, T*, shuffle);
 
-
-template<typename T, typename Schedule, typename SM>
-struct prerotate_enactor {
-    T* data;
-    int m, n;
-    prerotator p;
-    bool enabled;
-    temporary_storage<T> temp;
-    prerotate_enactor(T* _data, int _m, int _n, int _c, int _k,
-                      temporary_storage<T> _temp)
-        : data(_data), m(_m), n(_n), p(_m, _n, _c), temp(_temp) {
-        enabled = (_c > 1) && (m <= Schedule::lim);
-    }
-    void operator()() {
-        register_col_op<SM, T, prerotator, Schedule::wpt>
-            <<<n, Schedule::blk>>>(m, n, data, p);
-    }
-};
-
-template<typename T, typename SM>
-struct prerotate_enactor<T, memory, SM> {
-    T* data;
-    int m, n;
-    prerotator p;
-    bool enabled;
-    temporary_storage<T> temp;
-    prerotate_enactor(T* _data, int _m, int _n, int _c, int _k,
-                      temporary_storage<T> _temp)
-        : data(_data), m(_m), n(_n), p(_m, _n, _c), temp(_temp) {
-        enabled = (_c > 1);
-    }
-    void operator()() {
-        memory_col_op<T, prerotator>
-            <<<n_ctas(), n_threads()>>>(m, n, data, static_cast<T*>(temp), p);
-    }
-};
 
 template<typename T, typename Schedule, typename SM>
 struct shuffle_enactor {
@@ -87,42 +48,6 @@ struct shuffle_enactor<T, memory, SM> {
     }
 };
 
-template<typename T, typename Schedule, typename SM>
-struct postpermute_enactor {
-    T* data;
-    int m, n;
-    postpermuter p;
-    bool enabled;
-    postpermute_enactor(T* _data, int _m, int _n, int _c, int _k,
-                        temporary_storage<T> _temp)
-        : data(_data), m(_m), n(_n), p(_m, _n, _c) {
-        enabled = (m <= Schedule::lim);
-    }
-    void operator()() {
-        register_col_op<SM, T, postpermuter, Schedule::wpt>
-            <<<n, Schedule::blk>>>(m, n, data, p);
-    }
-};
-
-template<typename T, typename SM>
-struct postpermute_enactor<T, memory, SM> {
-    T* data;
-    int m, n;
-    postpermuter p;
-    bool enabled;
-    temporary_storage<T> temp;
-    postpermute_enactor(T* _data, int _m, int _n, int _c, int _k,
-                    temporary_storage<T> _temp)
-        : data(_data), m(_m), n(_n), p(_m, _n, _c), temp(_temp) {
-        enabled = true;
-    }
-    void operator()() {
-        memory_col_op<T>
-            <<<n_ctas(), n_threads()>>>(m, n, data, static_cast<T*>(temp), p);
-    }
-};
-
-
 template<typename SM, typename T, typename Schedule, template<class, class, class> class Enactor>
 struct enact_schedule {
     static void impl(T* data, int m, int n, int c, int k, temporary_storage<T> temp) {
@@ -148,18 +73,6 @@ struct enact_schedule<SM, T, memory, Enactor> {
 
 
 template<typename T>
-void prerotate_fn(T* data, int m, int n, int c, int k, temporary_storage<T> temp) {
-    int arch = current_sm();
-    if (arch >= 350) {
-        enact_schedule<sm_35, T, typename schedule<T, sm_35>::type, prerotate_enactor>
-            ::impl(data, m, n, c, k, temp);
-    } else if (arch >= 200) {
-        enact_schedule<sm_20, T, typename schedule<T, sm_20>::type, prerotate_enactor>
-            ::impl(data, m, n, c, k, temp);
-    }
-}
-
-template<typename T>
 void shuffle_fn(T* data, int m, int n, int c, int k, temporary_storage<T> temp) {
     int arch = current_sm();
     if (arch >= 350) {
@@ -170,20 +83,6 @@ void shuffle_fn(T* data, int m, int n, int c, int k, temporary_storage<T> temp) 
             ::impl(data, m, n, c, k, temp);
     }
 }
-
-template<typename T>
-void postpermute_fn(T* data, int m, int n, int c, int k, temporary_storage<T> temp) {
-    
-    int arch = current_sm();
-    if (arch >= 350) {
-        enact_schedule<sm_35, T, typename schedule<T, sm_35>::type, postpermute_enactor>
-            ::impl(data, m, n, c, k, temp);
-    } else if (arch >= 200) {
-        enact_schedule<sm_20, T, typename schedule<T, sm_20>::type, postpermute_enactor>
-            ::impl(data, m, n, c, k, temp);
-    }
-}
-
 
 }
 
