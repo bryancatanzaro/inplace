@@ -79,7 +79,7 @@ int main() {
     cudaEventRecord(start, 0);
 
     
-    inplace::post_rotate(m, n, thrust::raw_pointer_cast(x.data()));
+    inplace::detail::postrotate(m, n, thrust::raw_pointer_cast(x.data()));
    
     
     cudaEventRecord(stop, 0);

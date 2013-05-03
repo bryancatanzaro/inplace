@@ -3,6 +3,7 @@
 
 #include "index.h"
 namespace inplace {
+namespace detail {
 
 __device__ __forceinline__
 unsigned int ctz(unsigned int x) {
@@ -27,15 +28,43 @@ unsigned int gcd(unsigned int x, unsigned int y) {
     return x << cf2;
 }
 
-__device__ __forceinline__
+__host__ __device__ __forceinline__
 unsigned int div_up(unsigned int a, unsigned int b) {
     return (a-1)/b + 1;
 }
 
-__device__ __forceinline__
+__host__ __device__ __forceinline__
 unsigned int div_down(unsigned int a, unsigned int b) {
     return a / b;
 }
+
+
+struct prerotate_fn {
+    int b;
+    __host__ __device__ prerotate_fn(int _b) : b(_b) {}
+    __host__ __device__
+    int operator()(int j) const {
+        return div_down(j, b);
+    }
+    __host__ __device__
+    bool fine() const {
+        return (b % 32) == 0;
+    }
+};
+
+
+struct postrotate_fn {
+    int m;
+    __host__ __device__ postrotate_fn(int _m) : m(_m) {}
+    __host__ __device__
+    int operator()(int j) const {
+        return j % m;
+    }
+    __host__ __device__
+    bool fine() const {
+        return true;
+    }
+};
 
 
 template<typename T, int U>
@@ -65,11 +94,11 @@ void unroll_rotate(T& prior, int& pos, int col, row_major_index rm, int inc, T* 
 
 }
 
-template<typename T, int U>
-__global__ void coarse_col_rotate(int m, int n, T* d) {
+template<typename F, typename T, int U>
+__global__ void coarse_col_rotate(F fn, int m, int n, T* d) {
     int warp_id = threadIdx.x & 0x1f;
     int global_index = threadIdx.x + blockIdx.x * blockDim.x;
-    int rotation_amount = (global_index - warp_id) % m;
+    int rotation_amount = fn(global_index - warp_id);
     int col = global_index;
     
     if ((col < n) && (rotation_amount > 0)) {
@@ -98,15 +127,15 @@ __global__ void coarse_col_rotate(int m, int n, T* d) {
 
 
 
-template<typename T>
-__global__ void fine_col_rotate(int m, int n, T* d) {
+template<typename F, typename T>
+__global__ void fine_col_rotate(F fn, int m, int n, T* d) {
     __shared__ T smem[32 * 32]; 
 
     int col = threadIdx.x + blockIdx.x * blockDim.x;
     if (col < n) {
         int warp_id = threadIdx.x & 0x1f;
-        int coarse_rotation_amount = (col - warp_id) % m;
-        int overall_rotation_amount = col % m;
+        int coarse_rotation_amount = fn(col - warp_id);
+        int overall_rotation_amount = fn(col);
         int fine_rotation_amount = overall_rotation_amount - coarse_rotation_amount;
         if (fine_rotation_amount < 0) fine_rotation_amount += m;
 
@@ -170,16 +199,27 @@ __global__ void fine_col_rotate(int m, int n, T* d) {
     }
 }
 
-template<typename T>
-void post_rotate(int m, int n, T* data) {
-    inplace::fine_col_rotate<<<(n-1)/32+1, dim3(32,32)>>>(m, n, data);
+template<typename F, typename T>
+void full_rotate(F fn, int m, int n, T* data) {
+    if (fn.fine())
+        fine_col_rotate<<<div_down(n, 32), dim3(32,32)>>>(fn, m, n, data);
 
     int block_size = 256;
-    int n_blocks = (n-1)/block_size + 1;
-    inplace::coarse_col_rotate<T, 4><<<n_blocks, block_size>>>(
-        m, n, data);
-   
+    int n_blocks = div_down(n, block_size);
+    coarse_col_rotate<F, T, 4><<<n_blocks, block_size>>>(
+        fn, m, n, data);
+}
+
+template<typename T>
+void prerotate(int c, int m, int n, T* data) {
+    full_rotate(prerotate_fn(n/c), m, n, data);
 }
 
 
+template<typename T>
+void postrotate(int m, int n, T* data) {
+    full_rotate(postrotate_fn(m), m, n, data);
+}
+
+}
 }

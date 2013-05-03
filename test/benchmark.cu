@@ -123,5 +123,4 @@ int main() {
         generate_random_size(m, n);
         time_test<double>(m, n);
     }
-
 }

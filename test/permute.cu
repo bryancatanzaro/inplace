@@ -56,9 +56,9 @@ int main() {
     cudaEventRecord(goahead);
     thrust::device_vector<int> tmp(m);
 
-    inplace::row_permute(goahead, m, n,
-                         thrust::raw_pointer_cast(data.data()),
-                         thrust::raw_pointer_cast(tmp.data()));
+    inplace::detail::postpermute(goahead, m, n, c,
+                                 thrust::raw_pointer_cast(data.data()),
+                                 thrust::raw_pointer_cast(tmp.data()));
     assert(thrust::equal(
                data.begin(), data.end(),
                thrust::make_transform_iterator(x, golden_permute(m, n, c))));

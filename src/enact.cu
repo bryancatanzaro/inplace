@@ -4,6 +4,8 @@
 #include "temporary.h"
 #include "introspect.h"
 #include "sm.h"
+#include "rotate.h"
+#include "permute.h"
 
 namespace inplace {
 namespace detail {
@@ -126,8 +128,14 @@ void transpose_fn(bool row_major, T* data, int m, int n, T* tmp) {
     } else {
         k = t;
     }
-    //detail::prerotate_fn(data, m, n, c, k, temp_storage);
+    if (c > 1)
+        detail::prerotate(c, m, n, data);
     detail::shuffle_fn(data, m, n, c, k, temp_storage);
+    cudaEvent_t goahead;
+    cudaEventCreate(&goahead);
+    detail::postrotate(m, n, data);
+    int* temp_int = (int*)(static_cast<T*>(temp_storage));
+    detail::postpermute(goahead, m, n, c, data, temp_int);
     //detail::postpermute_fn(data, m, n, c, k, temp_storage);
 }
 

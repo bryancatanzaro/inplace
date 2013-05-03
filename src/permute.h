@@ -8,13 +8,13 @@
 #include "introspect.h"
 
 namespace inplace {
+namespace detail {
 
 struct scatter_permutes {
     typedef int result_type;
     int m; int n; int c; int a; int b; int q;
     __host__
-    scatter_permutes(int _m, int _n) : m(_m), n(_n) {
-        extended_gcd(m, n, c, q);
+    scatter_permutes(int _m, int _n, int _c) : m(_m), n(_n), c(_c) {
         int d;
         extended_gcd(n/c, m/c, d, q);
         a = m / c;
@@ -118,10 +118,10 @@ __global__ void cycle_row_permute(scatter_permutes f, T* data, int* heads,
 
 
 template<typename T>
-void row_permute(cudaEvent_t goahead,
-                 int m, int n, T* data, T* tmp) {
-    scatter_permutes f(m, n);
-    std::vector<T> heads = scatter_cycles(f);
+void postpermute(cudaEvent_t goahead,
+                 int m, int n, int c, T* data, int* tmp) {
+    scatter_permutes f(m, n, c);
+    std::vector<int> heads = scatter_cycles(f);
     cudaEventSynchronize(goahead);
     cudaMemcpyAsync((int*)tmp, heads.data(), sizeof(int)*heads.size(),
                     cudaMemcpyHostToDevice);
@@ -133,5 +133,5 @@ void row_permute(cudaEvent_t goahead,
 }
 
 }
-
+}
 

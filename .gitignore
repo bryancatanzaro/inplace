@@ -6,3 +6,8 @@
 *.pyc
 core
 cuda_profile*
+*.log
+*.a
+test/benchmark
+test/permute
+test/rotate
