@@ -48,7 +48,7 @@ void unroll_rotate(T& prior, int& pos, int col, row_major_index rm, int inc, T* 
     for(int i = 0; i < U; i++) {
         positions[i] = pos;
         pos += inc;
-        if (pos >= rm.m_m) pos -= rm.m_m;
+        if (pos >= rm.m) pos -= rm.m;
     }
     //Load temporaries
 #pragma unroll

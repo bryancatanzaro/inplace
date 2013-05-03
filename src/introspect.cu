@@ -27,10 +27,9 @@ size_t gpu_memory_size() {
     return cached_properties.properties.totalGlobalMem;
 }
 
-int sm_arch() {
+int current_sm() {
     return cached_properties.properties.major * 100 +
         cached_properties.properties.minor;
 }
-
 
 }

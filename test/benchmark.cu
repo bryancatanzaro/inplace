@@ -20,8 +20,8 @@ bool is_ordered(const thrust::device_vector<T>& d,
 
 template<typename T, typename Fn>
 void print_array(const thrust::device_vector<T>& d, Fn index) {
-    int m = index.m_m;
-    int n = index.m_n;
+    int m = index.m;
+    int n = index.n;
     thrust::host_vector<T> h = d;
     for(int i = 0; i < m; i++) {
         for(int j = 0; j < n; j++) {

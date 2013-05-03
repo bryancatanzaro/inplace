@@ -48,4 +48,5 @@ for sm_arch, datatype, wpts in schedule:
         custom_env.Append(SHNVCCFLAGS='-DSM=%s ' % sm_arch)
         instantiations.append(custom_env.SharedObject(target='instantiation%s%s%s.os' % (sm_arch, datatype, wpt), source='instantiation.cu'))
 
-env.SharedLibrary('inplace', instantiations + sources)
+libinplace = env.SharedLibrary('inplace', instantiations + sources)
+Return('libinplace')

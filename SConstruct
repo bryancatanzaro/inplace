@@ -27,5 +27,14 @@ env.Append(LIBS='stdc++')
 Export('env')
 
 #Build library
-SConscript(os.path.join('src', 'SConscript'))
+libinplace = SConscript(os.path.join('src', 'SConscript'))
+
+#Testenv adds libinplace
+test_env = env.Clone()
+test_env.Append(LIBS=libinplace)
+test_env.Append(CPPPATH='src')
+Export('test_env')
+
+#Build tests
+SConscript(os.path.join('test', 'SConscript'))
 
