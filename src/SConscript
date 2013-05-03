@@ -11,7 +11,7 @@ if 'instantiation.cu' in sources:
 
 def schedule_parser(filename):
     schedule_type_extractor = re.compile(r'schedule\<(.*)\,(.*)\>')
-    schedule_extractor = re.compile(r'cons_tup\<(\d+),(.*)\>')
+    schedule_extractor = re.compile(r'reg\<(\d+),(.*)\>')
     f = open(filename, 'r')
     schedules =[]
     for line in f:
