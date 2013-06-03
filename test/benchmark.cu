@@ -6,52 +6,26 @@
 #include <thrust/iterator/transform_iterator.h>
 #include <thrust/functional.h>
 #include <cstdlib>
+#include "util.h"
 
 using namespace inplace;
 
-template<typename T, typename F>
-bool is_ordered(const thrust::device_vector<T>& d,
-                F fn) {
-    return thrust::equal(d.begin(), d.end(),
-                         thrust::make_transform_iterator(
-                             thrust::counting_iterator<int>(0),
-                             fn));
-}
-
-template<typename T, typename Fn>
-void print_array(const thrust::device_vector<T>& d, Fn index) {
-    int m = index.m;
-    int n = index.n;
-    thrust::host_vector<T> h = d;
-    for(int i = 0; i < m; i++) {
-        for(int j = 0; j < n; j++) {
-            T x = h[index(i, j)];
-            if (x < 100) {
-                std::cout << " ";
-            }
-            if (x < 10) {
-                std::cout << " ";
-            }
-            std::cout << x << " ";
-        }
-        std::cout << std::endl;
-    }
-}
 
 void visual_test(int m, int n) {
     thrust::device_vector<float> x(m*n);
     thrust::counting_iterator<int> c(0);
     thrust::transform(c, c+(m*n), x.begin(), thrust::identity<int>());
-    print_array(x, column_major_index(m, n));
-    transpose(false, thrust::raw_pointer_cast(x.data()), m, n);
+    print_array(x, row_major_index(m, n));
+    transpose(true, thrust::raw_pointer_cast(x.data()), m, n);
     std::cout << std::endl;
-    print_array(x, column_major_index(n, m));
+    print_array(x, row_major_index(n, m));
+    //print_array(x, column_major_index(n, m));
 }
 
 
 template<typename T>
 void time_test(int m, int n) {
-    bool row_major = rand() & 2;
+    bool row_major = true;//rand() & 2;
 
     std::cout << "Checking results for transpose of a " << m << " x " <<
         n << " matrix, in ";
@@ -88,9 +62,9 @@ void time_test(int m, int n) {
     
     bool correct;
     if (row_major) {
-        correct = is_ordered(x, tx_row_major_order<T>(n, m));
+        correct = is_tx_row_major(x, m, n);
     } else {
-        correct = is_ordered(x, tx_column_major_order<T>(n, m));
+        correct = is_tx_col_major(x, m, n);
     }
     if (correct) {
         std::cout << "PASSES" << std::endl << std::endl;
@@ -117,10 +91,18 @@ void generate_random_size(int& m, int &n) {
 }
 
 int main() {
-    
-    for(int i = 0; i < 1000; i++) {
-        int m, n;
-        generate_random_size(m, n);
-        time_test<double>(m, n);
-    }
+    time_test<double>(32, 34);
+    // for(int m = 32; m < 1000; m++) {
+    //     for(int n = 1; n < 1000; n++) {
+    //         time_test<double>(m, n);
+    //     }
+    // }
+    //visual_test(32, 6);
+    // time_test<double>(32, 6);
+    // time_test<double>(29999, 2500);
+    // for(int i = 0; i < 1000; i++) {
+    //     int m, n;
+    //     generate_random_size(m, n);
+    //     time_test<double>(m, n);
+    // }
 }

@@ -12,9 +12,9 @@ def shuffle_transpose(a):
 
 if __name__ == '__main__':
 #a = make_row_array(4,4)
-    a = make_row_array(1001,1502)
+    a = make_row_array(32, 6)
     at = shuffle_transpose(a)
-    ap = shuffle_transpose(at)
+    # ap = shuffle_transpose(at)
     
     assert((a.d.T == at.d).all())
-    assert((at.d.T == ap.d).all())
+    # assert((at.d.T == ap.d).all())

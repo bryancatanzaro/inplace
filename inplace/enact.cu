@@ -6,6 +6,9 @@
 #include "sm.h"
 #include "rotate.h"
 #include "permute.h"
+#include "smem_ops.h"
+#include "register_ops.h"
+#include "memory_ops.h"
 
 namespace inplace {
 namespace detail {
@@ -119,6 +122,7 @@ void transpose_fn(bool row_major, T* data, int m, int n, T* tmp) {
         m = n;
         n = o;
     }
+    std::cout << "Doing transpose of " << m << ", " << n << std::endl;
     temporary_storage<T> temp_storage(m, n, tmp);
 
     int c, t, k;
@@ -128,15 +132,13 @@ void transpose_fn(bool row_major, T* data, int m, int n, T* tmp) {
     } else {
         k = t;
     }
-    if (c > 1)
+    if (c > 1) {
         detail::prerotate(c, m, n, data);
+    }
     detail::shuffle_fn(data, m, n, c, k, temp_storage);
-    cudaEvent_t goahead;
-    cudaEventCreate(&goahead);
     detail::postrotate(m, n, data);
     int* temp_int = (int*)(static_cast<T*>(temp_storage));
-    detail::postpermute(goahead, m, n, c, data, temp_int);
-    //detail::postpermute_fn(data, m, n, c, k, temp_storage);
+    detail::postpermute(m, n, c, data, temp_int);
 }
 
 

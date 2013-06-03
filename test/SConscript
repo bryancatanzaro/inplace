@@ -1,6 +1,7 @@
 import glob
 
 Import('test_env')
-sources = glob.glob('*.cu')
+sources = glob.glob('*.cu') + glob.glob('*.cpp')
+
 for source in sources:
     test_env.Program(source)

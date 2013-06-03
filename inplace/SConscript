@@ -4,10 +4,12 @@ import re
 
 Import('env')
 
-sources = glob.glob('*.cu')
-if 'instantiation.cu' in sources:
-    sources.remove('instantiation.cu')
 
+gcd = env.Object('gcd', 'gcd.cpp')
+sequential = env.Object('sequential', 'sequential.cpp')
+
+
+sources = ['enact.cu', 'introspect.cu', 'save_array.cu']
 
 def schedule_parser(filename):
     schedule_type_extractor = re.compile(r'schedule\<(.*)\,(.*)\>')
@@ -33,7 +35,8 @@ def schedule_parser(filename):
             schedules.append((sm_arch, data_type, unique_schedules))
     return schedules
 
-schedule = schedule_parser('schedule.h')
+schedule = schedule_parser(
+    os.path.join(os.path.pardir, 'inplace', 'schedule.h'))
 assert(schedule is not None)
 
 instantiations = []
@@ -48,5 +51,6 @@ for sm_arch, datatype, wpts in schedule:
         custom_env.Append(NVCCFLAGS='-DSM=%s ' % sm_arch)
         instantiations.append(custom_env.Object(target='instantiation%s%s%s.o' % (sm_arch, datatype, wpt), source='instantiation.cu'))
 
-inplace = env.Library('inplace', instantiations + sources)
+inplace = env.Library('inplace', instantiations + sources + [gcd, sequential])
 Return('inplace')
+

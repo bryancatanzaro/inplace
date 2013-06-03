@@ -51,12 +51,9 @@ int main() {
     thrust::device_vector<int> data(m * n);
     thrust::counting_iterator<int> x(0);
     thrust::copy(x, x+(m*n), data.begin());
-    cudaEvent_t goahead;
-    cudaEventCreate(&goahead);
-    cudaEventRecord(goahead);
     thrust::device_vector<int> tmp(m);
 
-    inplace::detail::postpermute(goahead, m, n, c,
+    inplace::detail::postpermute(m, n, c,
                                  thrust::raw_pointer_cast(data.data()),
                                  thrust::raw_pointer_cast(tmp.data()));
     assert(thrust::equal(

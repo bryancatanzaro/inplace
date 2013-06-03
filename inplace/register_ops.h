@@ -1,4 +1,6 @@
 #pragma once
+#include "array.h"
+#include "index.h"
 
 namespace inplace {
 namespace detail {

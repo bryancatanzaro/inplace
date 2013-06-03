@@ -1,5 +1,7 @@
 #pragma once
 
+#include "index.h"
+
 namespace inplace {
 namespace detail {
 

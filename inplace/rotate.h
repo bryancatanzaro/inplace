@@ -48,7 +48,7 @@ struct prerotate_fn {
     }
     __host__ __device__
     bool fine() const {
-        return (b % 32) == 0;
+        return (b % 32) != 0;
     }
 };
 
@@ -142,7 +142,7 @@ __global__ void fine_col_rotate(F fn, int m, int n, T* d) {
         int row = threadIdx.y;
         int idx = row * n + col;
         T* read_ptr = d + idx;
-  
+        
         int smem_idx = threadIdx.y * 32 + threadIdx.x;
 
         T first = -2;
@@ -201,9 +201,9 @@ __global__ void fine_col_rotate(F fn, int m, int n, T* d) {
 
 template<typename F, typename T>
 void full_rotate(F fn, int m, int n, T* data) {
-    if (fn.fine())
-        fine_col_rotate<<<div_down(n, 32), dim3(32,32)>>>(fn, m, n, data);
-
+    if (fn.fine()) {
+        fine_col_rotate<<<div_up(n, 32), dim3(32,32)>>>(fn, m, n, data);
+    }
     int block_size = 256;
     int n_blocks = div_down(n, block_size);
     coarse_col_rotate<F, T, 4><<<n_blocks, block_size>>>(

@@ -118,18 +118,16 @@ __global__ void cycle_row_permute(scatter_permutes f, T* data, int* heads,
 
 
 template<typename T>
-void postpermute(cudaEvent_t goahead,
-                 int m, int n, int c, T* data, int* tmp) {
+void postpermute(int m, int n, int c, T* data, int* tmp) {
     scatter_permutes f(m, n, c);
     std::vector<int> heads = scatter_cycles(f);
-    cudaEventSynchronize(goahead);
-    cudaMemcpyAsync((int*)tmp, heads.data(), sizeof(int)*heads.size(),
-                    cudaMemcpyHostToDevice);
+    cudaMemcpy(tmp, heads.data(), sizeof(int)*heads.size(),
+               cudaMemcpyHostToDevice);
     int n_blocks = 14*8;//n_ctas();
     int n_threads = 256;
     cycle_row_permute<T, 4><<<n_blocks, n_threads>>>
-        (f, data, (int*)tmp, heads.size());
- 
+        (f, data, tmp, heads.size());
+    
 }
 
 }

@@ -6,8 +6,8 @@
 
 template<typename T, typename Fn>
 void print_array(const thrust::device_vector<T>& d, Fn index) {
-    int m = index.m_m;
-    int n = index.m_n;
+    int m = index.m;
+    int n = index.n;
     thrust::host_vector<T> h = d;
     for(int i = 0; i < m; i++) {
         for(int j = 0; j < n; j++) {
@@ -53,10 +53,10 @@ struct overall_rotate_gold {
 };
 
 int main() {
-    //int m = 6;
-    //int n = 23;
-    int m = 511;
-    int n = 64000;
+    int m = 6;
+    int n = 23;
+    // int m = 511;
+    // int n = 64000;
     // int m = 32;
     // int n = 64;
     // int m = 33;
@@ -67,7 +67,7 @@ int main() {
                  thrust::counting_iterator<int>(0) + m * n,
                  x.begin());
 
-    // print_array(x, inplace::row_major_index(m, n));
+    print_array(x, inplace::row_major_index(m, n));
     std::cout << std::endl;
 
 
@@ -96,7 +96,7 @@ int main() {
     
     // print_array(y, inplace::row_major_index(m, n));
 
-    //print_array(x, inplace::row_major_index(m, n));
+    print_array(x, inplace::row_major_index(m, n));
     
     assert(thrust::equal(x.begin(), x.end(), thrust::make_transform_iterator(
                              thrust::counting_iterator<int>(0),

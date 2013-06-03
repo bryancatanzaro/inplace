@@ -193,11 +193,13 @@ def c2r_comp_transpose(a):
     prerotated = col_rotate(a, c2r_comp_prerotates(m, n))
     #np.save("golden_prerotate", prerotated.d)
     shuffled = row_shuffle(prerotated, c2r_comp_shuffles(m, n))
-    np.save("golden_shuffle_idxes", c2r_comp_shuffles(m, n).d)
+    #np.save("golden_shuffle_idxes", c2r_comp_shuffles(m, n).d)
     #np.save("golden_shuffle", shuffled.d)
     rotated = col_rotate(shuffled, c2r_comp_rotates(m, n))
+
     #np.save("golden_postrotate", rotated.d)
     permuted = row_permute(rotated, c2r_comp_permutes(m, n))
+    print(permuted)
     #np.save("golden_postpermute", permuted.d)
     return permuted
 
