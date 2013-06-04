@@ -39,9 +39,11 @@ struct postpermuter {
 
 
 struct shuffle {
-    int m, n, c, k;
+    int m, n, c, k, b;
     __host__ __device__ 
-    shuffle(int _m, int _n, int _c, int _k) : m(_m), n(_n), c(_c), k(_k) {}
+    shuffle(int _m, int _n, int _c, int _k) : m(_m), n(_n), c(_c), k(_k) {
+        b = n / c;
+    }
     int i;
     __host__ __device__ 
     void set_i(const int& _i) {
@@ -52,7 +54,7 @@ struct shuffle {
     __host__ __device__ 
     long long f(const int& j) {
         long long r = j + i *(n - 1);
-        if (i < (m + 1 - c + (j % c))) {
+        if ((i - (j % c)) <= (m - c)) {
             return r;
         } else {
             return r + m;
@@ -62,8 +64,8 @@ struct shuffle {
     __host__ __device__ 
     int operator()(const int& j) {
         long long fij = f(j);
-        int term1 = (k *(fij/c)) % (n/c);
-        int term2 = (fij % c) * (n/c);
+        int term1 = (k *(fij/c)) % b;
+        int term2 = (fij % c) * b;
         return term1 + term2;
     }
 };
