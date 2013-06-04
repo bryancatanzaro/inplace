@@ -64,7 +64,7 @@ struct shuffle {
         long long fij = f(j);
         int term1 = (k *(fij/c)) % (n/c);
         int term2 = (fij % c) * (n/c);
-        return (term1 + term2) % n;
+        return term1 + term2;
     }
 };
 
