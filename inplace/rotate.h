@@ -1,7 +1,11 @@
 #pragma once
 #include <stdio.h>
-
+#include <iostream>
+#include <iterator>
 #include "index.h"
+#include <thrust/host_vector.h>
+#include <thrust/iterator/counting_iterator.h>
+#include <thrust/transform.h>
 namespace inplace {
 namespace detail {
 
@@ -40,6 +44,7 @@ unsigned int div_down(unsigned int a, unsigned int b) {
 
 
 struct prerotate_fn {
+    typedef int result_type;
     int b;
     __host__ __device__ prerotate_fn(int _b) : b(_b) {}
     __host__ __device__
@@ -205,10 +210,13 @@ void full_rotate(F fn, int m, int n, T* data) {
         fine_col_rotate<<<div_up(n, 32), dim3(32,32)>>>(fn, m, n, data);
     }
     int block_size = 256;
-    int n_blocks = div_down(n, block_size);
+    int n_blocks = div_up(n, block_size);
     coarse_col_rotate<F, T, 4><<<n_blocks, block_size>>>(
         fn, m, n, data);
 }
+
+
+
 
 template<typename T>
 void prerotate(int c, int m, int n, T* data) {

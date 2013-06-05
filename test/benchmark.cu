@@ -18,8 +18,8 @@ void visual_test(int m, int n) {
     print_array(x, row_major_index(m, n));
     transpose(true, thrust::raw_pointer_cast(x.data()), m, n);
     std::cout << std::endl;
+    //print_array(x, row_major_index(m, n));
     print_array(x, row_major_index(n, m));
-    //print_array(x, column_major_index(n, m));
 }
 
 
@@ -79,8 +79,8 @@ void generate_random_size(int& m, int &n) {
     size_t ints_size = memory_size / sizeof(int);
     size_t e = 29440;//(size_t)sqrt(double(ints_size));
     while(true) {
-        long long lm = rand() % e;
-        long long ln = rand() % e;
+        long long lm = 32 + rand() % e;
+        long long ln = 32 + rand() % e;
         size_t extra = n_ctas() * max(lm, ln);
         if ((lm * ln > 0) && ((lm * (ln + extra)) < ints_size)) {
             m = (int)lm;
@@ -91,7 +91,6 @@ void generate_random_size(int& m, int &n) {
 }
 
 int main() {
-    time_test<double>(32, 34);
     // for(int m = 32; m < 1000; m++) {
     //     for(int n = 1; n < 1000; n++) {
     //         time_test<double>(m, n);
@@ -99,10 +98,10 @@ int main() {
     // }
     //visual_test(32, 6);
     // time_test<double>(32, 6);
-    // time_test<double>(29999, 2500);
-    // for(int i = 0; i < 1000; i++) {
-    //     int m, n;
-    //     generate_random_size(m, n);
-    //     time_test<double>(m, n);
-    // }
+    //time_test<double>(29999, 2500);
+    for(int i = 0; i < 1000; i++) {
+        int m, n;
+        generate_random_size(m, n);
+        time_test<double>(m, n);
+    }
 }

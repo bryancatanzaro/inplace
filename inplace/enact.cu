@@ -9,7 +9,7 @@
 #include "smem_ops.h"
 #include "register_ops.h"
 #include "memory_ops.h"
-
+#include <algorithm>
 namespace inplace {
 namespace detail {
 
@@ -118,9 +118,7 @@ void shuffle_fn(T* data, int m, int n, int c, int k, temporary_storage<T> temp) 
 template<typename T>
 void transpose_fn(bool row_major, T* data, int m, int n, T* tmp) {
     if (!row_major) {
-        int o = m;
-        m = n;
-        n = o;
+        std::swap(m, n);
     }
     std::cout << "Doing transpose of " << m << ", " << n << std::endl;
     temporary_storage<T> temp_storage(m, n, tmp);
