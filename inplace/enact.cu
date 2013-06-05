@@ -10,6 +10,8 @@
 #include "register_ops.h"
 #include "memory_ops.h"
 #include <algorithm>
+#include <typeinfo>
+
 namespace inplace {
 namespace detail {
 
@@ -30,7 +32,7 @@ struct shuffle_enactor<T, smem<T, SM>, SM> {
     shuffle_enactor(T* _data, int _m, int _n, int _c, int _k,
                     temporary_storage<T> _temp)
         : data(_data), m(_m), n(_n), s(_m, _n, _c, _k) {
-        enabled = (n <= smem<T, SM>::lim);
+        enabled = (n <= (smem<T, SM>::lim / int(sizeof(T))));
     }
     void operator()() {
         int smem_bytes = sizeof(T) * n;
@@ -104,7 +106,7 @@ struct enact_schedule<SM, T, memory, Enactor> {
 template<typename T>
 void shuffle_fn(T* data, int m, int n, int c, int k, temporary_storage<T> temp) {
     int arch = current_sm();
-    if (arch >= 350) {
+    if (arch >= 305) {
         enact_schedule<sm_35, T, typename schedule<T, sm_35>::type, shuffle_enactor>
             ::impl(data, m, n, c, k, temp);
     } else if (arch >= 200) {

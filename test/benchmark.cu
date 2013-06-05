@@ -56,7 +56,7 @@ void time_test(int m, int n) {
     cudaEventSynchronize(stop);
     cudaEventElapsedTime(&time, start, stop);
     std::cout << "  Time: " << time << " ms" << std::endl;
-    float gbs = (float)(m * n * sizeof(T)) / (time * 1000000);
+    float gbs = (float)(2 * m * n * sizeof(T)) / (time * 1000000);
     std::cout << "  Throughput: " << gbs << " GB/s" << std::endl;
 
     
@@ -98,10 +98,10 @@ int main() {
     // }
     //visual_test(32, 6);
     // time_test<double>(32, 6);
-    //time_test<double>(29999, 2500);
-    for(int i = 0; i < 1000; i++) {
-        int m, n;
-        generate_random_size(m, n);
-        time_test<double>(m, n);
-    }
+    time_test<double>(13985, 4096);
+    //for(int i = 0; i < 1000; i++) {
+    //    int m, n;
+    //    generate_random_size(m, n);
+    //    time_test<double>(m, n);
+    //}
 }
