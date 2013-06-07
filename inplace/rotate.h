@@ -3,6 +3,7 @@
 #include <iostream>
 #include <iterator>
 #include "index.h"
+#include "util.h"
 #include <thrust/host_vector.h>
 #include <thrust/iterator/counting_iterator.h>
 #include <thrust/transform.h>
@@ -30,16 +31,6 @@ unsigned int gcd(unsigned int x, unsigned int y) {
         y -= x;
     }
     return x << cf2;
-}
-
-__host__ __device__ __forceinline__
-unsigned int div_up(unsigned int a, unsigned int b) {
-    return (a-1)/b + 1;
-}
-
-__host__ __device__ __forceinline__
-unsigned int div_down(unsigned int a, unsigned int b) {
-    return a / b;
 }
 
 

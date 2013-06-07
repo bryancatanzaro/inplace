@@ -2,6 +2,7 @@
 #include <thrust/device_vector.h>
 #include <thrust/iterator/counting_iterator.h>
 #include <cassert>
+#include "util.h"
 
 struct gather_permute {
     int m, n, c;
@@ -27,25 +28,10 @@ struct golden_permute {
     }
 };
 
-template<typename T, typename Fn>
-void print_array(const thrust::device_vector<T>& d, Fn index) {
-    int m = index.m_m;
-    int n = index.m_n;
-    thrust::host_vector<T> h = d;
-    for(int i = 0; i < m; i++) {
-        for(int j = 0; j < n; j++) {
-            T x = h[index(i, j)];
-            std::cout.width(5); std::cout << std::right;
-            std::cout << x << " ";
-        }
-        std::cout << std::endl;
-    }
-}
-
 
 int main() {
-    //int m = 6; int n = 32;
-    int m = 999; int n = 100000;
+    int m = 30; int n = 32;
+    //int m = 999; int n = 100000;
     int c, q;
     inplace::extended_gcd(m, n, c, q);
     thrust::device_vector<int> data(m * n);
@@ -56,9 +42,10 @@ int main() {
     inplace::detail::postpermute(m, n, c,
                                  thrust::raw_pointer_cast(data.data()),
                                  thrust::raw_pointer_cast(tmp.data()));
+    print_array(data, inplace::row_major_index(m, n));
+
     assert(thrust::equal(
                data.begin(), data.end(),
                thrust::make_transform_iterator(x, golden_permute(m, n, c))));
 
-    //print_array(data, inplace::row_major_index(m, n));
 }

@@ -22,17 +22,18 @@ __global__ void register_row_shuffle(int, int, T*, shuffle);
 template<typename T, typename Schedule, typename SM>
 struct shuffle_enactor {};
 
-template<typename T, typename SM>
-struct shuffle_enactor<T, smem<T, SM>, SM> {
+template<typename T, typename SM, int blks>
+struct shuffle_enactor<T, smem<T, SM, blks>, SM> {
     T* data;
     int m, n;
     shuffle s;
     bool enabled;
-    static const int blk = smem<T, SM>::blk;
+    static const int blk = smem<T, SM, blks>::blk;
+    static const int lim = smem<T, SM, blks>::lim;
     shuffle_enactor(T* _data, int _m, int _n, int _c, int _k,
                     temporary_storage<T> _temp)
         : data(_data), m(_m), n(_n), s(_m, _n, _c, _k) {
-        enabled = (n <= (smem<T, SM>::lim / int(sizeof(T))));
+        enabled = (n <= lim);
     }
     void operator()() {
         int smem_bytes = sizeof(T) * n;

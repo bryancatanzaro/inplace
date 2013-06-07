@@ -98,10 +98,10 @@ int main() {
     // }
     //visual_test(32, 6);
     // time_test<double>(32, 6);
-    time_test<double>(13985, 4096);
-    //for(int i = 0; i < 1000; i++) {
+    time_test<double>(13985, 512);
+    // for(int i = 0; i < 1000; i++) {
     //    int m, n;
     //    generate_random_size(m, n);
     //    time_test<double>(m, n);
-    //}
+    // }
 }

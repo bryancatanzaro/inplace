@@ -1,5 +1,5 @@
 #pragma once
-
+#include "c2r.h"
 #include "index.h"
 
 namespace inplace {
