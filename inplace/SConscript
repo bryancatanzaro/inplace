@@ -50,7 +50,7 @@ for sm_arch, datatype, wpts in schedule:
         custom_env.Append(NVCCFLAGS='-DWPT=%s ' % wpt)
         custom_env.Append(NVCCFLAGS='-DSM=%s ' % sm_arch)
         instantiations.append(custom_env.Object(target='instantiation%s%s%s.o' % (sm_arch, datatype, wpt), source='instantiation.cu'))
-
+env.Append(NVCCFLAGS=['-Xptxas', '-v'])
 inplace = env.Library('inplace', instantiations + sources + [gcd, sequential])
 Return('inplace')
 
