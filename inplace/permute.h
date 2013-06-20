@@ -1,3 +1,4 @@
+#pragma once
 #include <set>
 #include <vector>
 #include <thrust/iterator/counting_iterator.h>
