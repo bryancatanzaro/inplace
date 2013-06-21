@@ -57,60 +57,45 @@ struct postrotate_fn {
 };
 
 
-template<typename T, int U>
-__device__ __forceinline__
-void unroll_rotate(T& prior, int& pos, int col, row_major_index rm, int inc, T* d) {
-    T tmp[U];
-    int positions[U];
-    //Compute positions
-#pragma unroll
-    for(int i = 0; i < U; i++) {
-        positions[i] = pos;
-        pos += inc;
-        if (pos >= rm.m) pos -= rm.m;
-    }
-    //Load temporaries
-#pragma unroll
-    for(int i = 0; i < U; i++) {
-        tmp[i] = d[rm(positions[i], col)];
-    }
-    //Store results
-    d[rm(positions[0], col)] = prior;
-#pragma unroll
-    for(int i = 0; i < U-1; i++) {
-        d[rm(positions[i+1], col)] = tmp[i];
-    }
-    prior = tmp[U-1];
-
-}
-
-template<typename F, typename T, int U>
+template<typename F, typename T>
 __global__ void coarse_col_rotate(F fn, int m, int n, T* d) {
     int warp_id = threadIdx.x & 0x1f;
     int global_index = threadIdx.x + blockIdx.x * blockDim.x;
     int rotation_amount = fn(global_index - warp_id);
     int col = global_index;
+
+    __shared__ T smem[32 * 32];
     
     if ((col < n) && (rotation_amount > 0)) {
         row_major_index rm(m, n);
         int c = gcd(rotation_amount, m);
         int l = m / c;
         int inc = m - rotation_amount;
-        for(int b = 0; b < c; b++) {
-            int pos = b;
-            T prior = d[rm(pos, col)];
-            pos += inc;
-            if (pos >= m)
-                pos -= m;
-            int x = 0;
-            for(; x < l - U + 1; x += U) {
-                unroll_rotate<T, U>(prior, pos, col, rm, inc, d);
-            }
-            for(; x < l; x++) {
-                unroll_rotate<T, 1>(prior, pos, col, rm, inc, d);
-            }
-            d[rm(pos, col)] = prior;
+        int smem_write_idx = threadIdx.y * 32 + threadIdx.x;
+        int smem_read_wrap_col = l < 32 ? l - 1 : 31;
+        int smem_read_col = threadIdx.y == 0 ? smem_read_wrap_col : threadIdx.y - 1;
+        int smem_read_idx = smem_read_col * 32 + threadIdx.x;
 
+        for(int b = 0; b < c; b++) {
+            int x = threadIdx.y;
+            int pos = (b + x * inc) % m;            
+            smem[smem_write_idx] = d[rm(pos, col)];
+            __syncthreads();
+            T prior = smem[smem_read_idx];
+            if (x <= l) d[rm(pos, col)] = prior;
+            __syncthreads();
+            for(x += blockDim.y; x <= l; x += blockDim.y) {
+                int pos = (b + x * inc) % m;            
+                smem[smem_write_idx] = d[rm(pos, col)];
+                __syncthreads();
+                if (threadIdx.y > 0)
+                    prior = smem[smem_read_idx];
+                if (x <= l) d[rm(pos, col)] = prior;
+                if (threadIdx.y == 0)
+                    prior = smem[smem_read_idx];
+                __syncthreads();
+            }
+            
         }
     }
 }
@@ -191,12 +176,12 @@ __global__ void fine_col_rotate(F fn, int m, int n, T* d) {
 
 template<typename F, typename T>
 void full_rotate(F fn, int m, int n, T* data) {
+    int n_blocks = div_up(n, 32);
+    dim3 block_dim(32, 32);
     if (fn.fine()) {
-        fine_col_rotate<<<div_up(n, 32), dim3(32,32)>>>(fn, m, n, data);
+        //fine_col_rotate<<<n_blocks, block_dim>>>(fn, m, n, data);
     }
-    int block_size = 256;
-    int n_blocks = div_up(n, block_size);
-    coarse_col_rotate<F, T, 4><<<n_blocks, block_size>>>(
+    coarse_col_rotate<<<n_blocks, block_dim>>>(
         fn, m, n, data);
 }
 
