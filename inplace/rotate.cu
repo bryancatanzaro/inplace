@@ -1,6 +1,7 @@
 #include "rotate.h"
-
-
+#include "util.h"
+#include <cstdio>
+#include <thrust/device_vector.h>
 namespace inplace {
 namespace detail {
 
@@ -72,29 +73,41 @@ __global__ void coarse_col_rotate(F fn, int m, int n, T* d) {
         int l = m / c;
         int inc = m - rotation_amount;
         int smem_write_idx = threadIdx.y * 32 + threadIdx.x;
-        int smem_read_wrap_col = l < 32 ? l - 1 : 31;
-        int smem_read_col = threadIdx.y == 0 ? smem_read_wrap_col : threadIdx.y - 1;
+        int max_col = (l > 32) ? 31 : l - 1;
+        int smem_read_col = (threadIdx.y == 0) ? max_col : (threadIdx.y - 1);
         int smem_read_idx = smem_read_col * 32 + threadIdx.x;
-
+        
         for(int b = 0; b < c; b++) {
             int x = threadIdx.y;
             int pos = (b + x * inc) % m;            
             smem[smem_write_idx] = d[rm(pos, col)];
             __syncthreads();
             T prior = smem[smem_read_idx];
-            if (x <= l) d[rm(pos, col)] = prior;
+            if (x < l) d[rm(pos, col)] = prior;
             __syncthreads();
-            for(x += blockDim.y; x <= l; x += blockDim.y) {
+            int n_rounds = l / 32;
+            for(int i = 1; i < n_rounds; i++) {
+                x += blockDim.y;
                 int pos = (b + x * inc) % m;            
-                smem[smem_write_idx] = d[rm(pos, col)];
+                if (x < l) smem[smem_write_idx] = d[rm(pos, col)];
                 __syncthreads();
-                if (threadIdx.y > 0)
-                    prior = smem[smem_read_idx];
-                if (x <= l) d[rm(pos, col)] = prior;
-                if (threadIdx.y == 0)
-                    prior = smem[smem_read_idx];
+                T incoming = smem[smem_read_idx];
+                T outgoing = (threadIdx.y == 0) ? prior : incoming;
+                if (x < l) d[rm(pos, col)] = outgoing;
+                prior = incoming;
                 __syncthreads();
             }
+            //Last round/cleanup
+            x += blockDim.y;
+            pos = (b + x * inc) % m;
+            if (x <= l) smem[smem_write_idx] = d[rm(pos, col)];
+            __syncthreads();
+            int remainder_length = (l % 32);
+            int fin_smem_read_col = (threadIdx.y == 0) ? remainder_length : threadIdx.y - 1;
+            int fin_smem_read_idx = fin_smem_read_col * 32 + threadIdx.x;
+            T incoming = smem[fin_smem_read_idx];
+            T outgoing = (threadIdx.y == 0) ? prior : incoming;
+            if (x <= l) d[rm(pos, col)] = outgoing;
             
         }
     }
@@ -179,7 +192,7 @@ void full_rotate(F fn, int m, int n, T* data) {
     int n_blocks = div_up(n, 32);
     dim3 block_dim(32, 32);
     if (fn.fine()) {
-        //fine_col_rotate<<<n_blocks, block_dim>>>(fn, m, n, data);
+        fine_col_rotate<<<n_blocks, block_dim>>>(fn, m, n, data);
     }
     coarse_col_rotate<<<n_blocks, block_dim>>>(
         fn, m, n, data);
