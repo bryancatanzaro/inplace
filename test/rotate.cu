@@ -68,8 +68,8 @@ int main() {
     // int n = 64;
     // int m = 33;
     // int n = 16;
-    for(int m = 32; m < 1000; m++) {
-        for(int n = 32; n < 1000; n++) {
+    for(int m = 32; m < 100; m++) {
+        for(int n = 32; n < 100; n++) {
             //int m = 33; int n = 97;
             typedef long long T;
             thrust::device_vector<T> x(m * n);
