@@ -37,6 +37,10 @@ def is_odd(x):
 
     
 def mmi(a, b):
+    if b == 1:
+        return 0
+    if a == 1:
+        return 1
     for m in range(b):
         if (a * m) % b == 1:
             return m

@@ -52,6 +52,15 @@ struct overall_rotate_gold {
     }
 };
 
+template<typename C, typename I>
+void print_column(const C& c, const I& idx, int col) {
+    for(int i = 0; i < idx.m; i++) {
+        typename C::value_type x = c[idx(i, col)];
+        std::cout << x << " ";
+    }
+    std::cout << std::endl;
+}
+
 int main() {
     //int m = 64;
     //int n = 64;
@@ -59,16 +68,16 @@ int main() {
     // int n = 64;
     // int m = 33;
     // int n = 16;
-    // for(int m = 32; m < 100; m++) {
-    //     for(int n = 32; n < 100; n++) {
-    int m = 66; int n = 33;
+    for(int m = 32; m < 1000; m++) {
+        for(int n = 32; n < 1000; n++) {
+            //int m = 33; int n = 97;
             typedef long long T;
             thrust::device_vector<T> x(m * n);
             thrust::copy(thrust::counting_iterator<int>(0),
                          thrust::counting_iterator<int>(0) + m * n,
                          x.begin());
-
-            print_array(x, inplace::row_major_index(m, n));
+            //print_column(x, inplace::row_major_index(m, n), 96);
+            //print_array(x, inplace::row_major_index(m, n));
             std::cout << "m: " << m << " n: " << n << std::endl;
 
     
@@ -93,13 +102,13 @@ int main() {
             // thrust::device_vector<int> y(m*n);
             // thrust::counting_iterator<int> c(0);
             // thrust::transform(c, c+m*n, y.begin(), fine_rotate_gold(m, n));
-    
-            print_array(x, inplace::row_major_index(m, n));
+            //print_column(x, inplace::row_major_index(m, n), 96);    
+            //print_array(x, inplace::row_major_index(m, n));
     
             assert(thrust::equal(x.begin(), x.end(), thrust::make_transform_iterator(
                                      thrust::counting_iterator<int>(0),
                                      overall_rotate_gold(m, n))));
 
-    //     }
-    // }
+        }
+    }
 }
