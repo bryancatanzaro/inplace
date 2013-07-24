@@ -1,4 +1,6 @@
 #pragma once
+#include "reduced_math.h"
+
 namespace inplace {
 
 template<typename T>
@@ -94,6 +96,11 @@ struct row_major_index {
     row_major_index(const int& _m, const int& _n) :
         m(_m), n(_n) {}
 
+    __host__ __device__
+    row_major_index(const reduced_divisor& _m, const int& _n) :
+        m(_m.get()), n(_n) {}
+
+    
     __host__ __device__ int operator()(const int& i, const int& j) const {
         return j + i * n;
     }
