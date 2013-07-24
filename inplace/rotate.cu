@@ -1,7 +1,7 @@
 #include "rotate.h"
 #include "util.h"
-#include <cstdio>
-#include <thrust/device_vector.h>
+#include "reduced_math.h"
+
 namespace inplace {
 namespace detail {
 
@@ -31,11 +31,11 @@ unsigned int gcd(unsigned int x, unsigned int y) {
 
 struct prerotate_fn {
     typedef int result_type;
-    int b;
+    reduced_divisor b;
     __host__ __device__ prerotate_fn(int _b) : b(_b) {}
     __host__ __device__
     int operator()(int j) const {
-        return div_down(j, b);
+        return j / b;
     }
     __host__ __device__
     bool fine() const {
@@ -45,7 +45,7 @@ struct prerotate_fn {
 
 
 struct postrotate_fn {
-    int m;
+    reduced_divisor m;
     __host__ __device__ postrotate_fn(int _m) : m(_m) {}
     __host__ __device__
     int operator()(int j) const {
@@ -59,7 +59,7 @@ struct postrotate_fn {
 
 
 template<typename F, typename T>
-__global__ void coarse_col_rotate(F fn, int m, int n, T* d) {
+__global__ void coarse_col_rotate(F fn, reduced_divisor m, int n, T* d) {
     int warp_id = threadIdx.x & 0x1f;
     int global_index = threadIdx.x + blockIdx.x * blockDim.x;
     int rotation_amount = fn(global_index - warp_id);
@@ -69,7 +69,7 @@ __global__ void coarse_col_rotate(F fn, int m, int n, T* d) {
     
     if ((col < n) && (rotation_amount > 0)) {
         row_major_index rm(m, n);
-        int c = gcd(rotation_amount, m);
+        int c = gcd(rotation_amount, m.get());
         int l = m / c;
         int inc = m - rotation_amount;
         int smem_write_idx = threadIdx.y * 32 + threadIdx.x;

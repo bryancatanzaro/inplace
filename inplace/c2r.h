@@ -1,11 +1,14 @@
 #pragma once
 #include "index.h"
+#include "reduced_math.h"
 
 namespace inplace {
 namespace detail {
 
 struct prerotator {
-    int m, n, c, a;
+    int m, n;
+//reduced_divisor m, n;
+    int c, a;
     __host__ __device__ 
     prerotator(int _m, int _n, int _c) : m(_m), n(_n), c(_c) {}
     
@@ -21,7 +24,9 @@ struct prerotator {
 };
 
 struct postpermuter {
-    int m, n, c, j;
+    //reduced_divisor m;
+    int m;
+    int n, c, j;
     
     __host__ __device__ 
     postpermuter(int _m, int _n, int _c) : m(_m), n(_n), c(_c) {}
@@ -39,11 +44,12 @@ struct postpermuter {
 
 
 struct shuffle {
-    int m, n, c, k, b;
+    int m, n, k;
+    reduced_divisor b;
+    int c; //c can't be a reduced_divisor because it operates on long long
     __host__ __device__ 
-    shuffle(int _m, int _n, int _c, int _k) : m(_m), n(_n), c(_c), k(_k) {
-        b = n / c;
-    }
+    shuffle(int _m, int _n, int _c, int _k) : m(_m), n(_n), k(_k),
+                                              b(_n/_c), c(_c) {}
     int i;
     __host__ __device__ 
     void set_i(const int& _i) {
