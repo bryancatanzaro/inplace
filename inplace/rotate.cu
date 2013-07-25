@@ -31,25 +31,25 @@ unsigned int gcd(unsigned int x, unsigned int y) {
 
 struct prerotate_fn {
     typedef int result_type;
-    reduced_divisor b;
-    __host__ __device__ prerotate_fn(int _b) : b(_b) {}
+    reduced_divisor_32 b;
+    __host__ prerotate_fn(int _b) : b(_b) {}
     __host__ __device__
     int operator()(int j) const {
-        return j / b;
+        return b.div(j);
     }
     __host__ __device__
     bool fine() const {
-        return (b % 32) != 0;
+        return ((int)b.get() % 32) != 0;
     }
 };
 
 
 struct postrotate_fn {
-    reduced_divisor m;
+    reduced_divisor_32 m;
     __host__ __device__ postrotate_fn(int _m) : m(_m) {}
     __host__ __device__
     int operator()(int j) const {
-        return j % m;
+        return m.mod(j);
     }
     __host__ __device__
     bool fine() const {
@@ -59,7 +59,7 @@ struct postrotate_fn {
 
 
 template<typename F, typename T>
-__global__ void coarse_col_rotate(F fn, reduced_divisor m, int n, T* d) {
+__global__ void coarse_col_rotate(F fn, reduced_divisor_32 m, int n, T* d) {
     int warp_id = threadIdx.x & 0x1f;
     int global_index = threadIdx.x + blockIdx.x * blockDim.x;
     int rotation_amount = fn(global_index - warp_id);
@@ -70,8 +70,8 @@ __global__ void coarse_col_rotate(F fn, reduced_divisor m, int n, T* d) {
     if ((col < n) && (rotation_amount > 0)) {
         row_major_index rm(m, n);
         int c = gcd(rotation_amount, m.get());
-        int l = m / c;
-        int inc = m - rotation_amount;
+        int l = m.get() / c;
+        int inc = m.get() - rotation_amount;
         int smem_write_idx = threadIdx.y * 32 + threadIdx.x;
         int max_col = (l > 16) ? 15 : l - 1;
         int smem_read_col = (threadIdx.y == 0) ? max_col : (threadIdx.y - 1);
@@ -79,7 +79,7 @@ __global__ void coarse_col_rotate(F fn, reduced_divisor m, int n, T* d) {
         
         for(int b = 0; b < c; b++) {
             int x = threadIdx.y;
-            int pos = (b + x * inc) % m;            
+            int pos = m.mod(b + x * inc);            
             smem[smem_write_idx] = d[rm(pos, col)];
             __syncthreads();
             T prior = smem[smem_read_idx];
@@ -88,7 +88,7 @@ __global__ void coarse_col_rotate(F fn, reduced_divisor m, int n, T* d) {
             int n_rounds = l / 16;
             for(int i = 1; i < n_rounds; i++) {
                 x += blockDim.y;
-                int pos = (b + x * inc) % m;            
+                int pos = m.mod(b + x * inc);            
                 if (x < l) smem[smem_write_idx] = d[rm(pos, col)];
                 __syncthreads();
                 T incoming = smem[smem_read_idx];
@@ -99,7 +99,7 @@ __global__ void coarse_col_rotate(F fn, reduced_divisor m, int n, T* d) {
             }
             //Last round/cleanup
             x += blockDim.y;
-            pos = (b + x * inc) % m;
+            pos = m.mod(b + x * inc);
             if (x <= l) smem[smem_write_idx] = d[rm(pos, col)];
             __syncthreads();
             int remainder_length = (l % 16);

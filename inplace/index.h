@@ -97,7 +97,7 @@ struct row_major_index {
         m(_m), n(_n) {}
 
     __host__ __device__
-    row_major_index(const reduced_divisor& _m, const int& _n) :
+    row_major_index(const reduced_divisor_32& _m, const int& _n) :
         m(_m.get()), n(_n) {}
 
     

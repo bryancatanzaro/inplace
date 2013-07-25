@@ -6,6 +6,7 @@
 //These classes provide for reduced complexity division and modulus
 //on integers, for the case where the same divisor or modulus will
 //be used repeatedly.  
+#include <iostream>
 
 namespace inplace {
 
@@ -14,12 +15,24 @@ namespace detail {
 // Count leading zeros - start from most significant bit.
 __host__ __device__ __forceinline__
 int clz(int x) {
-#if __CUDA_ARCH__ >= 200
+#if __CUDA_ARCH__ >= 100
     return __clz(x);
 #else
     for(int i = 31; i >= 0; --i)
         if((1<< i) & x) return 31 - i;
     return 32;
+#endif
+}
+
+// Count leading zeros - start from most significant bit.
+__host__ __device__ __forceinline__
+int clz(long long x) {
+#if __CUDA_ARCH__ >= 100
+    return __clzll(x);
+#else
+    for(int i = 63; i >= 0; --i)
+        if((1ll<< i) & x) return 63 - i;
+    return 64;
 #endif
 }
 
@@ -33,12 +46,29 @@ int find_log_2(int x, bool round_up = false) {
 }
 
 __host__ __device__ __forceinline__
+int find_log_2(long long x, bool round_up = false) {
+    int a = 63 - clz(x);
+    if (round_up) a += !INPLACE_IS_POW_2(x);
+    return a;
+}
+
+__host__ __device__ __forceinline__
 void find_divisor(unsigned int denom,
                   unsigned int& mul_coeff, unsigned int& shift_coeff) {
-    unsigned int p = 31 + find_log_2(denom, true);
+    unsigned int p = 31 + find_log_2((int)denom, true);
     unsigned int m = ((1ull << p) + denom - 1)/denom;
     mul_coeff = m;
     shift_coeff = p - 32;
+}
+
+__host__ __forceinline__
+void find_divisor(unsigned long long denom,
+                  unsigned long long& mul_coeff, unsigned int& shift_coeff) {
+    unsigned int p = 63 + find_log_2((long long)denom, true);
+    typedef unsigned int uint128_t __attribute__((mode(TI)));
+    unsigned long long m = (((uint128_t)1 << p) + denom - 1)/denom;
+    mul_coeff = m;
+    shift_coeff = p - 64;
 }
 
 __host__ __device__ __forceinline__
@@ -51,93 +81,48 @@ unsigned int umulhi(unsigned int x, unsigned int y) {
 #endif  
 }
 
+__host__ __device__ __forceinline__
+unsigned int umulhi(unsigned long long x, unsigned long long y) {
+#if __CUDA_ARCH__ >= 100
+    return __umul64hi(x, y);
+#else
+    typedef unsigned int uint128_t __attribute__((mode(TI)));
+    return ((uint128_t)x * y) >> 64;
+#endif  
 }
 
+}
 
+template<typename U>
 struct reduced_divisor {
-    unsigned int mul_coeff;
+    U mul_coeff;
     unsigned int shift_coeff;
-    unsigned int y;
-    __host__ __device__ __forceinline__
-    reduced_divisor(unsigned int _y) : y(_y) {
+    U y;
+    __host__ 
+    reduced_divisor(U _y) : y(_y) {
         detail::find_divisor(y, mul_coeff, shift_coeff);
     }
     __host__ __device__ __forceinline__
-    unsigned int divide(unsigned int x) const {
+    U div(U x) const {
         return detail::umulhi(x, mul_coeff) >> shift_coeff;
     }
     __host__ __device__ __forceinline__
-    unsigned int mod(unsigned int x) const {
-        unsigned int quotient = divide(x);
+    U mod(U x) const {
+        U quotient = div(x);
         return x - (quotient * y);
     }
     __host__ __device__ __forceinline__
-    unsigned int get() const {
+    void divmod(U x, U& q, U& mod) {
+        q = div(x);
+        mod = x - (q * y);
+    }   
+    __host__ __device__ __forceinline__
+    U get() const {
         return y;
     }
 };
 
-}
+typedef reduced_divisor<unsigned int> reduced_divisor_32;
+typedef reduced_divisor<unsigned long long> reduced_divisor_64;
 
-__host__ __device__ __forceinline__
-unsigned int operator+(const unsigned int& a,
-                       const inplace::reduced_divisor& b) {
-    return a + b.get();
-}
-__host__ __device__ __forceinline__
-unsigned int operator+(const inplace::reduced_divisor& a,
-                       const unsigned int& b) {
-    return a.get() + b;
-}
-__host__ __device__ __forceinline__
-unsigned int operator-(const unsigned int& a,
-                       const inplace::reduced_divisor& b) {
-    return a - b.get();
-}
-__host__ __device__ __forceinline__
-unsigned int operator-(const inplace::reduced_divisor& a,
-                       const unsigned int& b) {
-    return a.get() - b;
-}
-
-__host__ __device__ __forceinline__
-int operator-(const int& a,
-              const inplace::reduced_divisor& b) {
-    return a - b.get();
-}
-__host__ __device__ __forceinline__
-int operator-(const inplace::reduced_divisor& a,
-              const int& b) {
-    return a.get() - b;
-}
-
-__host__ __device__ __forceinline__
-unsigned int operator*(const unsigned int& a,
-                       const inplace::reduced_divisor& b) {
-    return a * b.get();
-}
-__host__ __device__ __forceinline__
-unsigned int operator*(const inplace::reduced_divisor& a,
-                       const unsigned int& b) {
-    return a.get() * b;
-}
-__host__ __device__ __forceinline__
-unsigned int operator/(const unsigned int& n,
-                       const inplace::reduced_divisor& d) {
-    return d.divide(n);
-}
-__host__ __device__ __forceinline__
-unsigned int operator/(const inplace::reduced_divisor& n,
-                       const unsigned int& d) {
-    return n.get() / d;
-}
-__host__ __device__ __forceinline__
-unsigned int operator%(const unsigned int& n,
-                       const inplace::reduced_divisor& d) {
-    return d.mod(n);
-}
-__host__ __device__ __forceinline__
-unsigned int operator%(const inplace::reduced_divisor& n,
-                       const unsigned int& d) {
-    return n.get() % d;
 }
