@@ -46,7 +46,7 @@ struct prerotate_fn {
 
 struct postrotate_fn {
     reduced_divisor_32 m;
-    __host__ __device__ postrotate_fn(int _m) : m(_m) {}
+    __host__ postrotate_fn(int _m) : m(_m) {}
     __host__ __device__
     int operator()(int j) const {
         return m.mod(j);

@@ -82,7 +82,7 @@ unsigned int umulhi(unsigned int x, unsigned int y) {
 }
 
 __host__ __device__ __forceinline__
-unsigned int umulhi(unsigned long long x, unsigned long long y) {
+unsigned long long umulhi(unsigned long long x, unsigned long long y) {
 #if __CUDA_ARCH__ >= 100
     return __umul64hi(x, y);
 #else
@@ -98,7 +98,7 @@ struct reduced_divisor {
     U mul_coeff;
     unsigned int shift_coeff;
     U y;
-    __host__ 
+    __host__ __forceinline__
     reduced_divisor(U _y) : y(_y) {
         detail::find_divisor(y, mul_coeff, shift_coeff);
     }
