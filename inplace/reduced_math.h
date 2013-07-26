@@ -55,6 +55,11 @@ int find_log_2(long long x, bool round_up = false) {
 __host__ __device__ __forceinline__
 void find_divisor(unsigned int denom,
                   unsigned int& mul_coeff, unsigned int& shift_coeff) {
+    if (denom == 1) {
+        mul_coeff = 0;
+        shift_coeff = 0;
+        return;
+    }
     unsigned int p = 31 + find_log_2((int)denom, true);
     unsigned int m = ((1ull << p) + denom - 1)/denom;
     mul_coeff = m;
@@ -64,6 +69,10 @@ void find_divisor(unsigned int denom,
 __host__ __forceinline__
 void find_divisor(unsigned long long denom,
                   unsigned long long& mul_coeff, unsigned int& shift_coeff) {
+    if (denom == 1) {
+        mul_coeff = 0;
+        shift_coeff = 0;
+    }
     unsigned int p = 63 + find_log_2((long long)denom, true);
     typedef unsigned int uint128_t __attribute__((mode(TI)));
     unsigned long long m = (((uint128_t)1 << p) + denom - 1)/denom;
@@ -104,17 +113,20 @@ struct reduced_divisor {
     }
     __host__ __device__ __forceinline__
     U div(U x) const {
-        return detail::umulhi(x, mul_coeff) >> shift_coeff;
+        return (mul_coeff) ? detail::umulhi(x, mul_coeff) >> shift_coeff : x;
     }
     __host__ __device__ __forceinline__
     U mod(U x) const {
-        U quotient = div(x);
-        return x - (quotient * y);
+        return (mul_coeff) ? x - (div(x) * y) : 0;
     }
     __host__ __device__ __forceinline__
     void divmod(U x, U& q, U& mod) {
-        q = div(x);
-        mod = x - (q * y);
+        if (y == 1) {
+            q = x; mod = 0;
+        } else {
+            q = div(x);
+            mod = x - (q * y);
+        }
     }   
     __host__ __device__ __forceinline__
     U get() const {

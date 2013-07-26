@@ -30,8 +30,9 @@ struct golden_permute {
 
 
 int main() {
-    int m = 30; int n = 32;
-    //int m = 999; int n = 100000;
+    // int m = 30; int n = 32;
+    // //int m = 999; int n = 100000;
+    int m = 604; int n = 372;
     int c, q;
     inplace::extended_gcd(m, n, c, q);
     thrust::device_vector<int> data(m * n);
@@ -42,7 +43,7 @@ int main() {
     inplace::detail::postpermute(m, n, c,
                                  thrust::raw_pointer_cast(data.data()),
                                  thrust::raw_pointer_cast(tmp.data()));
-    print_array(data, inplace::row_major_index(m, n));
+    //print_array(data, inplace::row_major_index(m, n));
 
     assert(thrust::equal(
                data.begin(), data.end(),

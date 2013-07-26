@@ -98,7 +98,7 @@ int main() {
     // }
     //visual_test(32, 6);
     // time_test<double>(32, 6);
-    //time_test<double>(13985, 512);
+    time_test<double>(13985, 512);
     for(int i = 0; i < 1000; i++) {
        int m, n;
        generate_random_size(m, n);
