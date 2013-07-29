@@ -1,4 +1,3 @@
-#include "c2r.h"
 #include "schedule.h"
 #include "gcd.h"
 #include "temporary.h"
@@ -6,9 +5,6 @@
 #include "sm.h"
 #include "rotate.h"
 #include "permute.h"
-#include "smem_ops.h"
-#include "register_ops.h"
-#include "memory_ops.h"
 #include <algorithm>
 #include <typeinfo>
 #include <iostream>
@@ -16,8 +12,17 @@
 namespace inplace {
 namespace detail {
 
+struct shuffle;
+
+template<typename T>
+__global__ void smem_row_shuffle(int m, int n, T* d, shuffle s);
+
 template<typename SM, typename T, int WPT>
 __global__ void register_row_shuffle(int, int, T*, shuffle);
+
+template<typename T>
+__global__ void memory_row_shuffle(int m, int n, T* d, T* tmp, shuffle s);
+
 
 
 template<typename T, typename Schedule, typename SM>

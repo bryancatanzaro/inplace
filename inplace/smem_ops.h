@@ -28,6 +28,23 @@ struct shared_memory<double> {
     }
 };
 
+template<>
+struct shared_memory<int> {
+    __device__
+    operator int*() const {
+        extern __shared__ int s_int[];
+        return s_int;
+    }
+};
+
+template<>
+struct shared_memory<long long> {
+    __device__
+    operator long long*() const {
+        extern __shared__ long long s_long_long[];
+        return s_long_long;
+    }
+};
 
 
 template<typename T>
