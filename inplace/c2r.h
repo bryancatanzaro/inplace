@@ -6,14 +6,14 @@ namespace inplace {
 namespace detail {
 
 struct prerotator {
-    reduced_divisor_32 m;
-    int c, a, one_over_b;
+    reduced_divisor_32 m, b;
+    int c, a;
     __host__  
-    prerotator(int _m, int _n, int _c) : m(_m), c(_c), one_over_b(_c / _n) {}
+    prerotator(int _m, int _n, int _c) : m(_m), b(_n / _c), c(_c) {}
     
     __host__ __device__ 
     void set_j(const int& j) {
-        a = j * one_over_b;
+        a = b.div(j);
     }
     
     __host__ __device__ 
@@ -92,7 +92,7 @@ struct shuffle {
         // int fijmodc = fij % c.get();//fij - (fijdivc * c.get());
         unsigned int fijdivc, fijmodc;
         c.divmod(fij, fijdivc, fijmodc);
-        int term_1 = b.mod(k * ((int)fijdivc));
+        int term_1 = b.mod(k * b.mod(fijdivc));
         int term_2 = ((int)fijmodc) * (int)b.get();
         return term_1+term_2;
     }
