@@ -14,9 +14,13 @@ sources = ['enact.cu', 'introspect.cu', 'save_array.cu', 'permute.cu', 'rotate.c
 def schedule_parser(filename):
     schedule_type_extractor = re.compile(r'schedule\<(.*)\,(.*)\>')
     schedule_extractor = re.compile(r'reg\<(\d+),(.*)\>')
+    line_comment = re.compile(r'\/\/.*')
+    star_comment = re.compile(r'\/\*.*\*\/')
     f = open(filename, 'r')
     schedules =[]
     for line in f:
+        line = star_comment.sub('', line)
+        line = line_comment.sub('', line)
         match = schedule_type_extractor.search(line)
         if match:
             data_type = match.group(1).strip()

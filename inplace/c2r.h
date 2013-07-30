@@ -43,7 +43,7 @@ struct postpermuter {
 
 struct shuffle {
     int m, n, k;
-    reduced_divisor_64 b;
+    reduced_divisor_32 b;
     reduced_divisor_32 c;
     __host__
     shuffle(int _m, int _n, int _c, int _k) : m(_m), n(_n), k(_k),
@@ -92,7 +92,7 @@ struct shuffle {
         // int fijmodc = fij % c.get();//fij - (fijdivc * c.get());
         unsigned int fijdivc, fijmodc;
         c.divmod(fij, fijdivc, fijmodc);
-        int term_1 = (k * (long long)(fijdivc)) % b.get();
+        int term_1 = b.mod(k * ((int)fijdivc));
         int term_2 = ((int)fijmodc) * (int)b.get();
         return term_1+term_2;
     }
