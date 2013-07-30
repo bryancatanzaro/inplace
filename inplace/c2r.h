@@ -67,7 +67,7 @@ struct shuffle {
     __host__ __device__
     int f(const int& j) {
         int r = j + i * (n - 1);
-        if (i - c.mod(j) <= m - c.get()) {
+        if (i - (int)c.mod(j) <= m - (int)c.get()) {
             return r;
         } else {
             return r + m;
