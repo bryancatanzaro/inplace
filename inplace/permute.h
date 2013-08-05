@@ -4,7 +4,6 @@
 #include <thrust/iterator/counting_iterator.h>
 #include <iostream>
 #include <thrust/transform.h>
-#include "c2r.h"
 #include "gcd.h"
 #include "index.h"
 #include "introspect.h"

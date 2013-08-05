@@ -36,4 +36,4 @@ def test(m, n):
     print(cycles)
 
 
-test(10, 32)
+test(10,12)

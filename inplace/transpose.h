@@ -3,7 +3,7 @@
 #include "temporary.h"
 #include "introspect.h"
 #include "index.h"
-#include "c2r.h"
+#include "equations.h"
 
 namespace inplace {
 void transpose(bool row_major, float* data, int m, int n, float* tmp=0);

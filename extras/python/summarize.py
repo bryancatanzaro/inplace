@@ -1,7 +1,7 @@
 import numpy as np
 import re
 import sys
-
+import operator
 import matplotlib.pyplot as plt
 
 def parse_transposes(fn):
@@ -20,13 +20,15 @@ def parse_transposes(fn):
                     tps.append(float(t.group(1)))
     return sizes, tps
 
-def summarize(tps):
-    return np.histogram(tps, bins=50)
+def top_n(kv, n=5):
+    return sorted(kv, reverse=True, key=operator.itemgetter(0))[:n]
 
-  
 if __name__ == '__main__':
     sizes, tps = parse_transposes(sys.argv[1])
     print("Median throughput: %s GB/s" % np.median(tps))
+    print("Max throughputs:")
+    for tp, size in top_n(zip(tps, sizes)):
+        print("  %s GB/s, at dimension %s" % (tp, size))
     fig = plt.figure()
     ax = fig.add_subplot(111)
     n, bins, patches = ax.hist(tps, 50)

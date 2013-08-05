@@ -1,6 +1,6 @@
 #include "rotate.h"
 #include "util.h"
-#include "reduced_math.h"
+#include "equations.h"
 
 namespace inplace {
 namespace detail {
@@ -28,38 +28,8 @@ unsigned int gcd(unsigned int x, unsigned int y) {
     return x << cf2;
 }
 
-
-struct prerotate_fn {
-    typedef int result_type;
-    reduced_divisor_32 b;
-    __host__ prerotate_fn(int _b) : b(_b) {}
-    __host__ __device__
-    int operator()(int j) const {
-        return b.div(j);
-    }
-    __host__ __device__
-    bool fine() const {
-        return ((int)b.get() % 32) != 0;
-    }
-};
-
-
-struct postrotate_fn {
-    reduced_divisor_32 m;
-    __host__ postrotate_fn(int _m) : m(_m) {}
-    __host__ __device__
-    int operator()(int j) const {
-        return m.mod(j);
-    }
-    __host__ __device__
-    bool fine() const {
-        return true;
-    }
-};
-
-
 template<typename F, typename T>
-__global__ void coarse_col_rotate(F fn, reduced_divisor_32 m, int n, T* d) {
+__global__ void coarse_col_rotate(F fn, reduced_divisor m, int n, T* d) {
     int warp_id = threadIdx.x & 0x1f;
     int global_index = threadIdx.x + blockIdx.x * blockDim.x;
     int rotation_amount = fn(global_index - warp_id);
@@ -203,13 +173,13 @@ void full_rotate(F fn, int m, int n, T* data) {
 
 template<typename T>
 void prerotate(int c, int m, int n, T* data) {
-    full_rotate(prerotate_fn(n/c), m, n, data);
+    full_rotate(c2r::prerotator(n/c), m, n, data);
 }
 
 
 template<typename T>
 void postrotate(int m, int n, T* data) {
-    full_rotate(postrotate_fn(m), m, n, data);
+    full_rotate(c2r::postrotator(m), m, n, data);
 }
 
 

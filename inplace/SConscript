@@ -6,7 +6,7 @@ Import('env')
 
 
 gcd = env.Object('gcd', 'gcd.cpp')
-sequential = env.Object('sequential', 'sequential.cpp')
+#sequential = env.Object('sequential', 'sequential.cpp')
 
 
 sources = ['enact.cu', 'introspect.cu', 'save_array.cu', 'permute.cu', 'rotate.cu', 'smem_shuffle.cu', 'memory_shuffle.cu']
@@ -56,6 +56,6 @@ for sm_arch, datatype, wpts in schedule:
         instantiations.append(custom_env.Object(target='instantiation%s%s%s.o' % (sm_arch, datatype, wpt), source='instantiation.cu'))
 
         
-inplace = env.Library('inplace', instantiations + sources + [gcd, sequential])
+inplace = env.Library('inplace', instantiations + sources + [gcd])
 Return('inplace')
 

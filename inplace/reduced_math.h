@@ -59,12 +59,12 @@ unsigned int umulhi(unsigned int x, unsigned int y) {
 }
 
 template<typename U>
-struct reduced_divisor {
+struct reduced_divisor_impl {
     U mul_coeff;
     unsigned int shift_coeff;
     U y;
     __host__ __forceinline__
-    reduced_divisor(U _y) : y(_y) {
+    reduced_divisor_impl(U _y) : y(_y) {
         detail::find_divisor(y, mul_coeff, shift_coeff);
     }
     __host__ __device__ __forceinline__
@@ -90,6 +90,6 @@ struct reduced_divisor {
     }
 };
 
-typedef reduced_divisor<unsigned int> reduced_divisor_32;
+typedef reduced_divisor_impl<unsigned int> reduced_divisor;
 
 }

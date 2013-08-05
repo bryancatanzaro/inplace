@@ -5,23 +5,24 @@
 #include "sm.h"
 #include "rotate.h"
 #include "permute.h"
+#include "equations.h"
 #include <algorithm>
 #include <typeinfo>
 #include <iostream>
 
+
 namespace inplace {
 namespace detail {
 
-struct shuffle;
 
-template<typename T>
-__global__ void smem_row_shuffle(int m, int n, T* d, shuffle s);
+template<typename T, typename F>
+__global__ void smem_row_shuffle(int m, int n, T* d, F s);
 
-template<typename SM, typename T, int WPT>
-__global__ void register_row_shuffle(int, int, T*, shuffle);
+template<typename SM, typename T, typename F, int WPT>
+__global__ void register_row_shuffle(int m, int n, T* d, F s);
 
-template<typename T>
-__global__ void memory_row_shuffle(int m, int n, T* d, T* tmp, shuffle s);
+template<typename T, typename F>
+__global__ void memory_row_shuffle(int m, int n, T* d, T* tmp, F s);
 
 
 
@@ -30,96 +31,80 @@ struct shuffle_enactor {};
 
 template<typename T, typename SM, int blks>
 struct shuffle_enactor<T, smem<T, SM, blks>, SM> {
-    T* data;
-    int m, n;
-    shuffle s;
     bool enabled;
     static const int blk = smem<T, SM, blks>::blk;
     static const int lim = smem<T, SM, blks>::lim;
-    shuffle_enactor(T* _data, int _m, int _n, int _c, int _k,
-                    temporary_storage<T> _temp)
-        : data(_data), m(_m), n(_n), s(_m, _n, _c, _k) {
+    shuffle_enactor(int n) {
         enabled = (n <= lim);
     }
-    void operator()() {
-        int smem_bytes = sizeof(T) * n;
-        smem_row_shuffle<<<m, blk, smem_bytes>>>(m, n, data, s);
+    template<typename F>
+    void operator()(T* data, F s, temporary_storage<T> temp) {
+        int smem_bytes = sizeof(T) * s.n;
+        smem_row_shuffle<<<s.m, blk, smem_bytes>>>(s.m, s.n, data, s);
     }
 };
 
 template<typename T, typename SM, int w, int b>
 struct shuffle_enactor<T, reg<w, b>, SM> {
-    T* data;
-    int m, n;
-    shuffle s;
     bool enabled;
     static const int wpt = reg<w, b>::wpt;
     static const int blk = reg<w, b>::blk;
-    shuffle_enactor(T* _data, int _m, int _n, int _c, int _k,
-                    temporary_storage<T> _temp)
-        : data(_data), m(_m), n(_n), s(_m, _n, _c, _k) {
+    shuffle_enactor(int n) {
         enabled = (n <= reg<w, b>::lim);
     }
-    void operator()() {
-        register_row_shuffle<SM, T, wpt>
-            <<<m, blk>>>(m, n, data, s);
+    template<typename F>
+    void operator()(T* data, F s, temporary_storage<T> temp) {
+        register_row_shuffle<SM, T, F, wpt>
+            <<<s.m, blk>>>(s.m, s.n, data, s);
     }
 };
 
 
 template<typename T, typename SM>
 struct shuffle_enactor<T, memory, SM> {
-    T* data;
-    int m, n;
-    shuffle s;
     bool enabled;
-    temporary_storage<T> temp;
-    shuffle_enactor(T* _data, int _m, int _n, int _c, int _k,
-                    temporary_storage<T> _temp)
-        : data(_data), m(_m), n(_n), s(_m, _n, _c, _k), temp(_temp) {
+    shuffle_enactor(int n) {
         enabled = true;
     }
-    void operator()() {
-        memory_row_shuffle<T>
-            <<<n_ctas(), n_threads()>>>(m, n, data, static_cast<T*>(temp), s);
+    template<typename F>
+    void operator()(T* data, F s, temporary_storage<T> temp) {
+        memory_row_shuffle
+            <<<n_ctas(), n_threads()>>>(s.m, s.n, data, static_cast<T*>(temp), s);
     }
 };
 
-template<typename SM, typename T, typename Schedule, template<class, class, class> class Enactor>
+template<typename SM, typename T, typename F, typename Schedule, template<class, class, class> class Enactor>
 struct enact_schedule {
-    static void impl(T* data, int m, int n, int c, int k, temporary_storage<T> temp) {
+    static void impl(T* data, F s, temporary_storage<T> temp) {
         Enactor<T, typename Schedule::head, SM>
-            enactor(data, m, n, c, k, temp);
+            enactor(s.n);
         if (enactor.enabled) {
-            enactor();
+            enactor(data, s, temp);
         } else {
-            enact_schedule<SM, T, typename Schedule::tail, Enactor>
-                ::impl(data, m, n, c, k, temp);
+            enact_schedule<SM, T, F, typename Schedule::tail, Enactor>
+                ::impl(data, s, temp);
         }
     }
 };
 
-template<typename SM, typename T, template<class, class, class> class Enactor>
-struct enact_schedule<SM, T, memory, Enactor> {
-    static void impl(T* data, int m, int n, int c, int k, temporary_storage<T> temp) {
-        Enactor<T, memory, SM> enactor(data, m, n, c, k, temp);
-        if (enactor.enabled) {
-            enactor();
-        }
+template<typename SM, typename T, typename F, template<class, class, class> class Enactor>
+struct enact_schedule<SM, T, F, memory, Enactor> {
+    static void impl(T* data, F s, temporary_storage<T> temp) {
+        Enactor<T, memory, SM> enactor(s.n);
+        enactor(data, s, temp);
     }
 };
 
 
-template<typename T>
-void shuffle_fn(T* data, int m, int n, int c, int k, temporary_storage<T> temp) {
+template<typename T, typename F>
+void shuffle_fn(T* data, F s, temporary_storage<T> temp) {
     int arch = current_sm();
-
     if (arch >= 305) {
-        enact_schedule<sm_35, T, typename schedule<T, sm_35>::type, shuffle_enactor>
-            ::impl(data, m, n, c, k, temp);
+        enact_schedule<sm_35, T, F, typename schedule<T, sm_35>::type, shuffle_enactor>
+            ::impl(data, s, temp);
     } else if (arch >= 200) {
-        enact_schedule<sm_20, T, typename schedule<T, sm_20>::type, shuffle_enactor>
-            ::impl(data, m, n, c, k, temp);
+        enact_schedule<sm_20, T, F, typename schedule<T, sm_20>::type, shuffle_enactor>
+            ::impl(data, s, temp);
     }
 }
 
@@ -143,7 +128,7 @@ void transpose_fn(bool row_major, T* data, int m, int n, T* tmp) {
     if (c > 1) {
         detail::prerotate(c, m, n, data);
     }
-    detail::shuffle_fn(data, m, n, c, k, temp_storage);
+    detail::shuffle_fn(data, detail::c2r::shuffle(m, n, c, k), temp_storage);
     detail::postrotate(m, n, data);
     int* temp_int = (int*)(static_cast<T*>(temp_storage));
     detail::postpermute(m, n, c, data, temp_int);

@@ -1,12 +1,11 @@
 #pragma once
-#include "c2r.h"
 #include "index.h"
 
 namespace inplace {
 namespace detail {
 
-template<typename T>
-__global__ void memory_row_shuffle(int m, int n, T* d, T* tmp, shuffle s) {
+template<typename T, typename F>
+__global__ void memory_row_shuffle(int m, int n, T* d, T* tmp, F s) {
     for(int i = blockIdx.x; i < m; i += gridDim.x) {
         row_major_index rm(m, n);
         s.set_i(i);

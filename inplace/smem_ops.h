@@ -1,5 +1,4 @@
 #pragma once
-#include "c2r.h"
 #include "index.h"
 
 namespace inplace {
@@ -13,8 +12,8 @@ struct shared_memory{
     }
 };
 
-template<typename T>
-__global__ void smem_row_shuffle(int m, int n, T* d, shuffle s) {
+template<typename T, typename F>
+__global__ void smem_row_shuffle(int m, int n, T* d, F s) {
     T* shared_row = shared_memory<T>();
     for(int i = blockIdx.x; i < m; i += gridDim.x) {
         row_major_index rm(m, n);
