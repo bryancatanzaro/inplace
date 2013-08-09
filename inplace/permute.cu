@@ -83,10 +83,8 @@ __global__ void cycle_row_permute(F f, T* data, int* heads,
     }
 }
 
-
-template<typename T>
-void postpermute(int m, int n, int c, T* data, int* tmp) {
-    c2r::scatter_postpermuter f(m, n, c);
+template<typename T, typename F>
+void scatter_permute(F f, int m, int n, T* data, int* tmp) {
     std::vector<int> heads;
     std::vector<int> lens;
     scatter_cycles(f, heads, lens);
@@ -101,17 +99,22 @@ void postpermute(int m, int n, int c, T* data, int* tmp) {
     
     int n_blocks_x = div_up(n, n_threads_x);
     int n_blocks_y = div_up(heads.size(), n_threads_y);
-    cycle_row_permute<T, c2r::scatter_postpermuter, 4>
+    cycle_row_permute<T, F, 4>
         <<<dim3(n_blocks_x, n_blocks_y),
         dim3(n_threads_x, n_threads_y)>>>
         (f, data, d_heads, d_lens, heads.size());
-    
 }
 
 
-template void postpermute<float>(int, int, int, float*, int*);
-template void postpermute<double>(int, int, int, double*, int*);
-template void postpermute<int>(int, int, int, int*, int*);
+template void scatter_permute(c2r::scatter_postpermuter, int, int, float*, int*);
+template void scatter_permute(c2r::scatter_postpermuter, int, int, double*, int*);
+template void scatter_permute(c2r::scatter_postpermuter, int, int, int*, int*);
+template void scatter_permute(c2r::scatter_postpermuter, int, int, long long*, int*);
+
+template void scatter_permute(r2c::scatter_prepermuter, int, int, float*, int*);
+template void scatter_permute(r2c::scatter_prepermuter, int, int, double*, int*);
+template void scatter_permute(r2c::scatter_prepermuter, int, int, int*, int*);
+template void scatter_permute(r2c::scatter_prepermuter, int, int, long long*, int*);
 
 
 }

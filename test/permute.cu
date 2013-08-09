@@ -1,4 +1,5 @@
 #include "permute.h"
+#include "equations.h"
 #include <thrust/device_vector.h>
 #include <thrust/iterator/counting_iterator.h>
 #include <cassert>
@@ -40,9 +41,10 @@ int main() {
     thrust::copy(x, x+(m*n), data.begin());
     thrust::device_vector<int> tmp(m);
 
-    inplace::detail::postpermute(m, n, c,
-                                 thrust::raw_pointer_cast(data.data()),
-                                 thrust::raw_pointer_cast(tmp.data()));
+    inplace::detail::scatter_permute(inplace::detail::c2r::scatter_postpermuter(m, n, c),
+                                     m, n,
+                                     thrust::raw_pointer_cast(data.data()),
+                                     thrust::raw_pointer_cast(tmp.data()));
     //print_array(data, inplace::row_major_index(m, n));
 
     assert(thrust::equal(

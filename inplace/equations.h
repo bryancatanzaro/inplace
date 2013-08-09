@@ -81,11 +81,11 @@ struct postpermuter {
     int m, n, a;
     __host__
     postpermuter(int _m, int _n, int _c) : m(_m), n(_n), a(_m/_c) {}
-    __host__
+    __host__ __device__
     int operator()(int i) const {
         return (i * n - (i / a)) % m;
     }
-    __host__
+    __host__ __device__
     int len() const {
         return m;
     }

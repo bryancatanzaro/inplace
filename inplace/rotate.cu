@@ -158,7 +158,7 @@ __global__ void fine_col_rotate(F fn, int m, int n, T* d) {
 }
 
 template<typename F, typename T>
-void full_rotate(F fn, int m, int n, T* data) {
+void rotate(F fn, int m, int n, T* data) {
     int n_blocks = div_up(n, 32);
     dim3 block_dim(32, 32);
     if (fn.fine()) {
@@ -168,32 +168,25 @@ void full_rotate(F fn, int m, int n, T* data) {
         fn, m, n, data);
 }
 
+template void rotate(c2r::prerotator, int, int, float*);
+template void rotate(c2r::prerotator, int, int, double*);
+template void rotate(c2r::prerotator, int, int, int*);
+template void rotate(c2r::prerotator, int, int, long long*);
 
+template void rotate(c2r::postrotator, int, int, float*);
+template void rotate(c2r::postrotator, int, int, double*);
+template void rotate(c2r::postrotator, int, int, int*);
+template void rotate(c2r::postrotator, int, int, long long*);
 
+template void rotate(r2c::prerotator, int, int, float*);
+template void rotate(r2c::prerotator, int, int, double*);
+template void rotate(r2c::prerotator, int, int, int*);
+template void rotate(r2c::prerotator, int, int, long long*);
 
-template<typename T>
-void prerotate(int c, int m, int n, T* data) {
-    full_rotate(c2r::prerotator(n/c), m, n, data);
-}
-
-
-template<typename T>
-void postrotate(int m, int n, T* data) {
-    full_rotate(c2r::postrotator(m), m, n, data);
-}
-
-
-template void prerotate<float>(int, int, int, float*);
-template void prerotate<double>(int, int, int, double*);
-template void prerotate<int>(int, int, int, int*);
-template void prerotate<long long>(int, int, int, long long*);
-
-
-template void postrotate<float>(int, int, float*);
-template void postrotate<double>(int, int, double*);
-template void postrotate<int>(int, int, int*);
-template void postrotate<long long>(int, int, long long*);
-
+template void rotate(r2c::postrotator, int, int, float*);
+template void rotate(r2c::postrotator, int, int, double*);
+template void rotate(r2c::postrotator, int, int, int*);
+template void rotate(r2c::postrotator, int, int, long long*);
 
 
 }

@@ -1,5 +1,5 @@
 #include "rotate.h"
-
+#include "equations.h"
 #include <thrust/device_vector.h>
 #include <iostream>
 #include <cassert>
@@ -79,7 +79,8 @@ void test_rotate(int m, int n) {
     cudaEventRecord(start, 0);
     
     
-    inplace::detail::postrotate(m, n, thrust::raw_pointer_cast(x.data()));
+    inplace::detail::rotate(
+        inplace::detail::c2r::postrotator(m), m, n, thrust::raw_pointer_cast(x.data()));
     
     
     cudaEventRecord(stop, 0);

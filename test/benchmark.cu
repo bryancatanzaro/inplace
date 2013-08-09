@@ -16,7 +16,7 @@ void visual_test(int m, int n) {
     thrust::counting_iterator<int> c(0);
     thrust::transform(c, c+(m*n), x.begin(), thrust::identity<int>());
     print_array(x, row_major_index(m, n));
-    transpose(true, thrust::raw_pointer_cast(x.data()), m, n);
+    c2r::transpose(true, thrust::raw_pointer_cast(x.data()), m, n);
     std::cout << std::endl;
     //print_array(x, row_major_index(m, n));
     print_array(x, row_major_index(n, m));
@@ -47,9 +47,9 @@ void time_test(int m, int n) {
     cudaEventRecord(start, 0);
 
     
-    transpose(row_major,
-              thrust::raw_pointer_cast(x.data()),
-              m, n);
+    inplace::c2r::transpose(row_major,
+                            thrust::raw_pointer_cast(x.data()),
+                            m, n);
 
 
     cudaEventRecord(stop, 0);
