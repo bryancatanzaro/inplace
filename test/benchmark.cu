@@ -25,7 +25,7 @@ void visual_test(int m, int n) {
 
 template<typename T>
 void time_test(int m, int n) {
-    bool row_major = false;//rand() & 2;
+    bool row_major = true;//rand() & 2;
 
     std::cout << "Checking results for transpose of a " << m << " x " <<
         n << " matrix, in ";
@@ -98,10 +98,20 @@ int main() {
     // }
     //visual_test(32, 6);
     // time_test<double>(32, 6);
-    time_test<double>(13985, 512);
-    for(int i = 0; i < 1000; i++) {
-       int m, n;
-       generate_random_size(m, n);
-       time_test<double>(m, n);
+    // time_test<double>(13985, 512);
+    // for(int i = 0; i < 1000; i++) {
+    //    int m, n;
+    //    generate_random_size(m, n);
+    //    time_test<double>(m, n);
+    // }
+    int n_pts = 1000;
+    int l_bound = 1000;
+    int u_bound = 20000;
+    int delta = (u_bound - l_bound) / n_pts;
+    for(int m = l_bound; m < u_bound; m += delta) {
+        for(int n = l_bound; n < u_bound; n += delta) {
+            time_test<double>(m, n);
+        }
     }
+        
 }
