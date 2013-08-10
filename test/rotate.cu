@@ -3,22 +3,7 @@
 #include <thrust/device_vector.h>
 #include <iostream>
 #include <cassert>
-
-template<typename T, typename Fn>
-void print_array(const thrust::device_vector<T>& d, Fn index) {
-    int m = index.m;
-    int n = index.n;
-    thrust::host_vector<T> h = d;
-    for(int i = 0; i < m; i++) {
-        for(int j = 0; j < n; j++) {
-            T x = h[index(i, j)];
-            std::cout.width(5); std::cout << std::right;
-            std::cout << x << " ";
-        }
-        std::cout << std::endl;
-    }
-}
-
+#include "util.h"
 
 struct fine_rotate_gold {
     typedef int result_type;
@@ -38,14 +23,16 @@ struct fine_rotate_gold {
     }
 };
 
+template<typename F>
 struct overall_rotate_gold {
     typedef int result_type;
     int m, n;
-    __host__ __device__ overall_rotate_gold(int _m, int _n) : m(_m), n(_n) {}
+    F fn;
+    __host__ __device__ overall_rotate_gold(int _m, int _n, F _fn) : m(_m), n(_n), fn(_fn) {}
     __host__ __device__ int operator()(int idx) {
         int row = idx / n;
         int col = idx % n;
-        int rotate = col % m;
+        int rotate = fn(col);
         int src_row = row + rotate;
         if (src_row >= m) src_row -= m;
         return (src_row * n) + col;
@@ -80,7 +67,7 @@ void test_rotate(int m, int n) {
     
     
     inplace::detail::rotate(
-        inplace::detail::c2r::postrotator(m), m, n, thrust::raw_pointer_cast(x.data()));
+        inplace::detail::r2c::prerotator(m), m, n, thrust::raw_pointer_cast(x.data()));
     
     
     cudaEventRecord(stop, 0);
@@ -94,19 +81,23 @@ void test_rotate(int m, int n) {
     // thrust::device_vector<int> y(m*n);
     // thrust::counting_iterator<int> c(0);
     // thrust::transform(c, c+m*n, y.begin(), fine_rotate_gold(m, n));
-    //print_column(x, inplace::row_major_index(m, n), 96);    
+    // print_column(x, inplace::row_major_index(m, n), 96);    
     //print_array(x, inplace::row_major_index(m, n));
+
+    inplace::detail::r2c::prerotator fn(m);
     
     assert(thrust::equal(x.begin(), x.end(), thrust::make_transform_iterator(
                              thrust::counting_iterator<int>(0),
-                             overall_rotate_gold(m, n))));
+                             overall_rotate_gold
+                             <inplace::detail::r2c::prerotator>(m, n, fn))));
     
 }
 
 
 int main() {
-    //int m = 64;
-    //int n = 64;
+    // int m = 34;
+    // int n = 32;
+    // test_rotate(m, n);
     // int m = 32;
     // int n = 64;
     // int m = 33;

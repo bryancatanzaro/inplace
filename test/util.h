@@ -23,20 +23,15 @@ bool is_tx_col_major(const V& d, int m, int n) {
                       <typename V::value_type>(n, m));
 }
 
-template<typename V, typename Fn>
-void print_array(const V& d, Fn index) {
-    typedef typename V::value_type T;
+template<typename T, typename Fn>
+void print_array(const thrust::device_vector<T>& d, Fn index) {
     int m = index.m;
     int n = index.n;
+    thrust::host_vector<T> h = d;
     for(int i = 0; i < m; i++) {
         for(int j = 0; j < n; j++) {
-            T x = d[index(i, j)];
-            if (x < 100) {
-                std::cout << " ";
-            }
-            if (x < 10) {
-                std::cout << " ";
-            }
+            T x = h[index(i, j)];
+            std::cout.width(5); std::cout << std::right;
             std::cout << x << " ";
         }
         std::cout << std::endl;

@@ -25,7 +25,7 @@ void visual_test(int m, int n) {
 
 template<typename T>
 void time_test(int m, int n) {
-    bool row_major = true;//rand() & 2;
+    bool row_major = false;//rand() & 2;
 
     std::cout << "Checking results for transpose of a " << m << " x " <<
         n << " matrix, in ";
@@ -47,7 +47,7 @@ void time_test(int m, int n) {
     cudaEventRecord(start, 0);
 
     
-    inplace::c2r::transpose(row_major,
+    inplace::r2c::transpose(row_major,
                             thrust::raw_pointer_cast(x.data()),
                             m, n);
 

@@ -32,7 +32,7 @@ template<typename F, typename T>
 __global__ void coarse_col_rotate(F fn, reduced_divisor m, int n, T* d) {
     int warp_id = threadIdx.x & 0x1f;
     int global_index = threadIdx.x + blockIdx.x * blockDim.x;
-    int rotation_amount = fn(global_index - warp_id);
+    int rotation_amount = fn(fn.master(global_index, warp_id, 32));
     int col = global_index;
 
     __shared__ T smem[32 * 16];
@@ -92,7 +92,7 @@ __global__ void fine_col_rotate(F fn, int m, int n, T* d) {
     int col = threadIdx.x + blockIdx.x * blockDim.x;
     if (col < n) {
         int warp_id = threadIdx.x & 0x1f;
-        int coarse_rotation_amount = fn(col - warp_id);
+        int coarse_rotation_amount = fn(fn.master(col, warp_id, 32));
         int overall_rotation_amount = fn(col);
         int fine_rotation_amount = overall_rotation_amount - coarse_rotation_amount;
         if (fine_rotation_amount < 0) fine_rotation_amount += m;

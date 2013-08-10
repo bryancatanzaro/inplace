@@ -61,6 +61,10 @@ struct prerotator {
     bool fine() const {
         return ((int)b.get() % 32) != 0;
     }
+    __host__ __device__
+    int master(int j, int w_id, int w) const {
+        return j - w_id;
+    }
 };
 
 
@@ -74,6 +78,10 @@ struct postrotator {
     __host__ __device__
     bool fine() const {
         return true;
+    }
+    __host__ __device__
+    int master(int j, int w_id, int w) const {
+        return j - w_id;
     }
 };
 
@@ -123,11 +131,16 @@ struct prerotator {
     __host__ prerotator(int _m) : m(_m) {}
     __host__ __device__
     int operator()(int j) const {
-        return (int)m.get() - m.mod(j);
+        int jmodm = m.mod(j);
+        return (jmodm == 0) ? 0 : (int) m.get() - jmodm;
     }
     __host__ __device__
     bool fine() const {
         return true;
+    }
+    __host__ __device__
+    int master(int j, int w_id, int w) const {
+        return j + w - 1 - w_id;
     }
 };
 
@@ -156,11 +169,15 @@ struct postrotator {
     __host__ postrotator(int _b, int _m) : b(_b), m(_m) {}
     __host__ __device__
     int operator()(int j) const {
-        return m - b.div(j);
+        return (int)m - (int)b.div(j);
     }
     __host__ __device__
     bool fine() const {
         return ((int)b.get() % 32) != 0;
+    }
+    __host__ __device__
+    int master(int j, int w_id, int w) const {
+        return j + w - 1 - w_id;
     }
 };
 
