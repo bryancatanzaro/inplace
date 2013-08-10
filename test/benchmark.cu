@@ -16,7 +16,7 @@ void visual_test(int m, int n) {
     thrust::counting_iterator<int> c(0);
     thrust::transform(c, c+(m*n), x.begin(), thrust::identity<int>());
     print_array(x, row_major_index(m, n));
-    transpose(true, thrust::raw_pointer_cast(x.data()), m, n);
+    c2r::transpose(true, thrust::raw_pointer_cast(x.data()), m, n);
     std::cout << std::endl;
     //print_array(x, row_major_index(m, n));
     print_array(x, row_major_index(n, m));
@@ -25,7 +25,7 @@ void visual_test(int m, int n) {
 
 template<typename T>
 void time_test(int m, int n) {
-    bool row_major = true;//rand() & 2;
+    bool row_major = false;//rand() & 2;
 
     std::cout << "Checking results for transpose of a " << m << " x " <<
         n << " matrix, in ";
@@ -47,9 +47,9 @@ void time_test(int m, int n) {
     cudaEventRecord(start, 0);
 
     
-    transpose(row_major,
-              thrust::raw_pointer_cast(x.data()),
-              m, n);
+    inplace::r2c::transpose(row_major,
+                            thrust::raw_pointer_cast(x.data()),
+                            m, n);
 
 
     cudaEventRecord(stop, 0);
@@ -99,9 +99,9 @@ int main() {
     //visual_test(32, 6);
     // time_test<double>(32, 6);
     time_test<double>(13985, 512);
-    // for(int i = 0; i < 1000; i++) {
-    //    int m, n;
-    //    generate_random_size(m, n);
-    //    time_test<double>(m, n);
-    // }
+    for(int i = 0; i < 1000; i++) {
+       int m, n;
+       generate_random_size(m, n);
+       time_test<double>(m, n);
+    }
 }

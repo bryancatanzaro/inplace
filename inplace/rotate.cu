@@ -1,6 +1,6 @@
 #include "rotate.h"
 #include "util.h"
-#include "reduced_math.h"
+#include "equations.h"
 
 namespace inplace {
 namespace detail {
@@ -28,41 +28,11 @@ unsigned int gcd(unsigned int x, unsigned int y) {
     return x << cf2;
 }
 
-
-struct prerotate_fn {
-    typedef int result_type;
-    reduced_divisor b;
-    __host__ __device__ prerotate_fn(int _b) : b(_b) {}
-    __host__ __device__
-    int operator()(int j) const {
-        return j / b;
-    }
-    __host__ __device__
-    bool fine() const {
-        return (b % 32) != 0;
-    }
-};
-
-
-struct postrotate_fn {
-    reduced_divisor m;
-    __host__ __device__ postrotate_fn(int _m) : m(_m) {}
-    __host__ __device__
-    int operator()(int j) const {
-        return j % m;
-    }
-    __host__ __device__
-    bool fine() const {
-        return true;
-    }
-};
-
-
 template<typename F, typename T>
 __global__ void coarse_col_rotate(F fn, reduced_divisor m, int n, T* d) {
     int warp_id = threadIdx.x & 0x1f;
     int global_index = threadIdx.x + blockIdx.x * blockDim.x;
-    int rotation_amount = fn(global_index - warp_id);
+    int rotation_amount = fn(fn.master(global_index, warp_id, 32));
     int col = global_index;
 
     __shared__ T smem[32 * 16];
@@ -70,8 +40,8 @@ __global__ void coarse_col_rotate(F fn, reduced_divisor m, int n, T* d) {
     if ((col < n) && (rotation_amount > 0)) {
         row_major_index rm(m, n);
         int c = gcd(rotation_amount, m.get());
-        int l = m / c;
-        int inc = m - rotation_amount;
+        int l = m.get() / c;
+        int inc = m.get() - rotation_amount;
         int smem_write_idx = threadIdx.y * 32 + threadIdx.x;
         int max_col = (l > 16) ? 15 : l - 1;
         int smem_read_col = (threadIdx.y == 0) ? max_col : (threadIdx.y - 1);
@@ -79,7 +49,7 @@ __global__ void coarse_col_rotate(F fn, reduced_divisor m, int n, T* d) {
         
         for(int b = 0; b < c; b++) {
             int x = threadIdx.y;
-            int pos = (b + x * inc) % m;            
+            int pos = m.mod(b + x * inc);            
             smem[smem_write_idx] = d[rm(pos, col)];
             __syncthreads();
             T prior = smem[smem_read_idx];
@@ -88,7 +58,7 @@ __global__ void coarse_col_rotate(F fn, reduced_divisor m, int n, T* d) {
             int n_rounds = l / 16;
             for(int i = 1; i < n_rounds; i++) {
                 x += blockDim.y;
-                int pos = (b + x * inc) % m;            
+                int pos = m.mod(b + x * inc);            
                 if (x < l) smem[smem_write_idx] = d[rm(pos, col)];
                 __syncthreads();
                 T incoming = smem[smem_read_idx];
@@ -99,7 +69,7 @@ __global__ void coarse_col_rotate(F fn, reduced_divisor m, int n, T* d) {
             }
             //Last round/cleanup
             x += blockDim.y;
-            pos = (b + x * inc) % m;
+            pos = m.mod(b + x * inc);
             if (x <= l) smem[smem_write_idx] = d[rm(pos, col)];
             __syncthreads();
             int remainder_length = (l % 16);
@@ -122,7 +92,7 @@ __global__ void fine_col_rotate(F fn, int m, int n, T* d) {
     int col = threadIdx.x + blockIdx.x * blockDim.x;
     if (col < n) {
         int warp_id = threadIdx.x & 0x1f;
-        int coarse_rotation_amount = fn(col - warp_id);
+        int coarse_rotation_amount = fn(fn.master(col, warp_id, 32));
         int overall_rotation_amount = fn(col);
         int fine_rotation_amount = overall_rotation_amount - coarse_rotation_amount;
         if (fine_rotation_amount < 0) fine_rotation_amount += m;
@@ -188,7 +158,7 @@ __global__ void fine_col_rotate(F fn, int m, int n, T* d) {
 }
 
 template<typename F, typename T>
-void full_rotate(F fn, int m, int n, T* data) {
+void rotate(F fn, int m, int n, T* data) {
     int n_blocks = div_up(n, 32);
     dim3 block_dim(32, 32);
     if (fn.fine()) {
@@ -198,32 +168,25 @@ void full_rotate(F fn, int m, int n, T* data) {
         fn, m, n, data);
 }
 
+template void rotate(c2r::prerotator, int, int, float*);
+template void rotate(c2r::prerotator, int, int, double*);
+template void rotate(c2r::prerotator, int, int, int*);
+template void rotate(c2r::prerotator, int, int, long long*);
 
+template void rotate(c2r::postrotator, int, int, float*);
+template void rotate(c2r::postrotator, int, int, double*);
+template void rotate(c2r::postrotator, int, int, int*);
+template void rotate(c2r::postrotator, int, int, long long*);
 
+template void rotate(r2c::prerotator, int, int, float*);
+template void rotate(r2c::prerotator, int, int, double*);
+template void rotate(r2c::prerotator, int, int, int*);
+template void rotate(r2c::prerotator, int, int, long long*);
 
-template<typename T>
-void prerotate(int c, int m, int n, T* data) {
-    full_rotate(prerotate_fn(n/c), m, n, data);
-}
-
-
-template<typename T>
-void postrotate(int m, int n, T* data) {
-    full_rotate(postrotate_fn(m), m, n, data);
-}
-
-
-template void prerotate<float>(int, int, int, float*);
-template void prerotate<double>(int, int, int, double*);
-template void prerotate<int>(int, int, int, int*);
-template void prerotate<long long>(int, int, int, long long*);
-
-
-template void postrotate<float>(int, int, float*);
-template void postrotate<double>(int, int, double*);
-template void postrotate<int>(int, int, int*);
-template void postrotate<long long>(int, int, long long*);
-
+template void rotate(r2c::postrotator, int, int, float*);
+template void rotate(r2c::postrotator, int, int, double*);
+template void rotate(r2c::postrotator, int, int, int*);
+template void rotate(r2c::postrotator, int, int, long long*);
 
 
 }

@@ -1,7 +1,7 @@
 #include <thrust/host_vector.h>
 #include "gcd.h"
 #include "index.h"
-#include "c2r.h"
+#include "equations.h"
 #include <algorithm>
 
 namespace inplace {
@@ -51,10 +51,10 @@ void transpose_fn(bool row_major, T* data, int m, int n, T* tmp) {
         k = t;
     }
     if (c > 1) {
-        col_shuffle(m, n, data, tmp, inplace::detail::prerotator(m, n, c));
+        col_shuffle(m, n, data, tmp, inplace::detail::c2r::prerotator(m, n, c));
     }
-    row_shuffle(m, n, data, tmp, inplace::detail::shuffle(m, n, c, k));
-    col_shuffle(m, n, data, tmp, inplace::detail::postpermuter(m, n, c));
+    row_shuffle(m, n, data, tmp, inplace::detail::c2r::shuffle(m, n, c, k));
+    col_shuffle(m, n, data, tmp, inplace::detail::c2r::postpermuter(m, n, c));
 }
 
 }

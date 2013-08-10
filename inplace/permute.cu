@@ -1,30 +1,9 @@
+#include "equations.h"
 #include "permute.h"
 #include <cstdio>
+
 namespace inplace {
 namespace detail {
-
-struct scatter_permutes {
-    typedef int result_type;
-    int m; int n; int c; int a; int b; int q;
-    __host__
-    scatter_permutes(int _m, int _n, int _c) : m(_m), n(_n), c(_c) {
-        int d;
-        extended_gcd(n/c, m/c, d, q);
-        a = m / c;
-        b = n / c;
-    }
-    __host__ __device__
-    int operator()(int i) const {
-        int k = ((c - 1) * i) % c;
-        int l = ((c - 1 + i) / c);
-        int r = k * a + ((l * q) % a);
-        return r;
-    }
-    __host__ __device__
-    int len() const {
-        return m;
-    }
-};
     
 template<typename Fn>
 void scatter_cycles(Fn f, std::vector<int>& heads, std::vector<int>& lens) {
@@ -54,9 +33,9 @@ void scatter_cycles(Fn f, std::vector<int>& heads, std::vector<int>& lens) {
 }
 
 
-template<typename T, int U>
+template<typename T, typename F, int U>
 __device__ __forceinline__ void unroll_cycle_row_permute(
-    scatter_permutes f, row_major_index rm, T* data, int i, int j, int l) {
+    F f, row_major_index rm, T* data, int i, int j, int l) {
     
     T src = data[rm(i, j)];
     T loaded[U+1];
@@ -79,63 +58,17 @@ __device__ __forceinline__ void unroll_cycle_row_permute(
         loaded[0] = loaded[U];
     }
     T tmp = loaded[0];
-    // if (threadIdx.x == 0) {
-    //     printf("Block: (%d, %d), Thread: (%d, %d), len: %d, U: %d\n",
-    //            blockIdx.x, blockIdx.y, threadIdx.x, threadIdx.y,
-    //            l, U);
-    // }
     for(int k = 0; k < l % U; k++) {
         i = f(i);
         T new_tmp = data[rm(i, j)];
         data[rm(i, j)] = tmp;
         tmp = new_tmp;
     }
-
     
-    
-    // i = f(start);
-    // T* src_ptr = data + rm(start, j);
-    // T* dest_ptr = data + rm(i, j);
-    // T src = *src_ptr;
-    // do {
-    //     T dest = *dest_ptr;
-    //     *dest_ptr = src;
-    //     src = dest;
-    //     i = f(i);
-    //     dest_ptr = data + rm(i, j);
-    // } while(i != start);
-    // *dest_ptr = src;
-    
-    // T src[U];
-    // int inc = gridDim.x * blockDim.x;
-    // int index = start;
-    // T* src_ptr = data + rm(index, j);
-    // #pragma unroll
-    // for(int i = 0; i < U; i++) {
-    //     src[i] = *src_ptr;
-    //     src_ptr += inc;
-    // }
-    // do {
-    //     index = f(index);
-    //     src_ptr = data + rm(index, j);
-    //     T dest[U];
-    //     T* load_ptr = src_ptr;
-    //     #pragma unroll
-    //     for(int i = 0; i < U; i++) {
-    //         dest[i] = *load_ptr;
-    //         load_ptr += inc;
-    //     }
-    //     #pragma unroll
-    //     for(int i = 0; i < U; i++) {
-    //         *src_ptr = src[i];
-    //         src[i] = dest[i];
-    //         src_ptr += inc;
-    //     }
-    // } while (index != start);
 }
 
-template<typename T, int U>
-__global__ void cycle_row_permute(scatter_permutes f, T* data, int* heads,
+template<typename T, typename F, int U>
+__global__ void cycle_row_permute(F f, T* data, int* heads,
                                   int* lens, int n_heads) {
     int j = blockIdx.x * blockDim.x + threadIdx.x;
     int h = blockIdx.y * blockDim.y + threadIdx.y;
@@ -146,14 +79,12 @@ __global__ void cycle_row_permute(scatter_permutes f, T* data, int* heads,
     if ((j < n) && (h < n_heads)) {
         int i = heads[h];
         int l = lens[h];
-        unroll_cycle_row_permute<T, U>(f, rm, data, i, j, l);
+        unroll_cycle_row_permute<T, F, U>(f, rm, data, i, j, l);
     }
 }
 
-
-template<typename T>
-void postpermute(int m, int n, int c, T* data, int* tmp) {
-    scatter_permutes f(m, n, c);
+template<typename T, typename F>
+void scatter_permute(F f, int m, int n, T* data, int* tmp) {
     std::vector<int> heads;
     std::vector<int> lens;
     scatter_cycles(f, heads, lens);
@@ -163,27 +94,27 @@ void postpermute(int m, int n, int c, T* data, int* tmp) {
                cudaMemcpyHostToDevice);
     cudaMemcpy(d_lens, lens.data(), sizeof(int)*lens.size(),
                cudaMemcpyHostToDevice);
-    // std::ostream_iterator<int> os(std::cout, " ");
-    // std::cout << "Heads: ";
-    // std::copy(heads.begin(), heads.end(), os); std::cout << std::endl;
-    // std::cout << "Lens: ";
-    // std::copy(lens.begin(), lens.end(), os); std::cout << std::endl;
-
     int n_threads_x = 256;
     int n_threads_y = 1024/n_threads_x;
     
     int n_blocks_x = div_up(n, n_threads_x);
     int n_blocks_y = div_up(heads.size(), n_threads_y);
-    cycle_row_permute<T, 4><<<dim3(n_blocks_x, n_blocks_y),
+    cycle_row_permute<T, F, 4>
+        <<<dim3(n_blocks_x, n_blocks_y),
         dim3(n_threads_x, n_threads_y)>>>
         (f, data, d_heads, d_lens, heads.size());
-    
 }
 
 
-template void postpermute<float>(int, int, int, float*, int*);
-template void postpermute<double>(int, int, int, double*, int*);
-template void postpermute<int>(int, int, int, int*, int*);
+template void scatter_permute(c2r::scatter_postpermuter, int, int, float*, int*);
+template void scatter_permute(c2r::scatter_postpermuter, int, int, double*, int*);
+template void scatter_permute(c2r::scatter_postpermuter, int, int, int*, int*);
+template void scatter_permute(c2r::scatter_postpermuter, int, int, long long*, int*);
+
+template void scatter_permute(r2c::scatter_prepermuter, int, int, float*, int*);
+template void scatter_permute(r2c::scatter_prepermuter, int, int, double*, int*);
+template void scatter_permute(r2c::scatter_prepermuter, int, int, int*, int*);
+template void scatter_permute(r2c::scatter_prepermuter, int, int, long long*, int*);
 
 
 }

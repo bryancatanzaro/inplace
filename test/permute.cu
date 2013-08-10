@@ -1,4 +1,5 @@
 #include "permute.h"
+#include "equations.h"
 #include <thrust/device_vector.h>
 #include <thrust/iterator/counting_iterator.h>
 #include <cassert>
@@ -30,8 +31,9 @@ struct golden_permute {
 
 
 int main() {
-    int m = 30; int n = 32;
-    //int m = 999; int n = 100000;
+    // int m = 30; int n = 32;
+    // //int m = 999; int n = 100000;
+    int m = 604; int n = 372;
     int c, q;
     inplace::extended_gcd(m, n, c, q);
     thrust::device_vector<int> data(m * n);
@@ -39,10 +41,11 @@ int main() {
     thrust::copy(x, x+(m*n), data.begin());
     thrust::device_vector<int> tmp(m);
 
-    inplace::detail::postpermute(m, n, c,
-                                 thrust::raw_pointer_cast(data.data()),
-                                 thrust::raw_pointer_cast(tmp.data()));
-    print_array(data, inplace::row_major_index(m, n));
+    inplace::detail::scatter_permute(inplace::detail::c2r::scatter_postpermuter(m, n, c),
+                                     m, n,
+                                     thrust::raw_pointer_cast(data.data()),
+                                     thrust::raw_pointer_cast(tmp.data()));
+    //print_array(data, inplace::row_major_index(m, n));
 
     assert(thrust::equal(
                data.begin(), data.end(),

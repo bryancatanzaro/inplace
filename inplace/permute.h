@@ -4,7 +4,6 @@
 #include <thrust/iterator/counting_iterator.h>
 #include <iostream>
 #include <thrust/transform.h>
-#include "c2r.h"
 #include "gcd.h"
 #include "index.h"
 #include "introspect.h"
@@ -13,8 +12,8 @@
 namespace inplace {
 namespace detail {
 
-template<typename T>
-void postpermute(int m, int n, int c, T* data, int* tmp);
+template<typename T, typename F>
+void scatter_permute(F f, int m, int n, T* data, int* tmp);
 
 }
 }

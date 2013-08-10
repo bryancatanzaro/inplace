@@ -1,24 +1,9 @@
 #include "rotate.h"
-
+#include "equations.h"
 #include <thrust/device_vector.h>
 #include <iostream>
 #include <cassert>
-
-template<typename T, typename Fn>
-void print_array(const thrust::device_vector<T>& d, Fn index) {
-    int m = index.m;
-    int n = index.n;
-    thrust::host_vector<T> h = d;
-    for(int i = 0; i < m; i++) {
-        for(int j = 0; j < n; j++) {
-            T x = h[index(i, j)];
-            std::cout.width(5); std::cout << std::right;
-            std::cout << x << " ";
-        }
-        std::cout << std::endl;
-    }
-}
-
+#include "util.h"
 
 struct fine_rotate_gold {
     typedef int result_type;
@@ -38,14 +23,16 @@ struct fine_rotate_gold {
     }
 };
 
+template<typename F>
 struct overall_rotate_gold {
     typedef int result_type;
     int m, n;
-    __host__ __device__ overall_rotate_gold(int _m, int _n) : m(_m), n(_n) {}
+    F fn;
+    __host__ __device__ overall_rotate_gold(int _m, int _n, F _fn) : m(_m), n(_n), fn(_fn) {}
     __host__ __device__ int operator()(int idx) {
         int row = idx / n;
         int col = idx % n;
-        int rotate = col % m;
+        int rotate = fn(col);
         int src_row = row + rotate;
         if (src_row >= m) src_row -= m;
         return (src_row * n) + col;
@@ -61,54 +48,64 @@ void print_column(const C& c, const I& idx, int col) {
     std::cout << std::endl;
 }
 
+void test_rotate(int m, int n) {
+    typedef long long T;
+    thrust::device_vector<T> x(m * n);
+    thrust::copy(thrust::counting_iterator<int>(0),
+                 thrust::counting_iterator<int>(0) + m * n,
+                 x.begin());
+    //print_column(x, inplace::row_major_index(m, n), 96);
+    //print_array(x, inplace::row_major_index(m, n));
+    std::cout << "m: " << m << " n: " << n << std::endl;
+    
+    
+    cudaEvent_t start,stop;
+    float time=0;
+    cudaEventCreate(&start);
+    cudaEventCreate(&stop);
+    cudaEventRecord(start, 0);
+    
+    
+    inplace::detail::rotate(
+        inplace::detail::r2c::prerotator(m), m, n, thrust::raw_pointer_cast(x.data()));
+    
+    
+    cudaEventRecord(stop, 0);
+    cudaEventSynchronize(stop);
+    cudaEventElapsedTime(&time, start, stop);
+    
+    std::cout << "  Time: " << time << " ms" << std::endl;
+    float gbs = (float)(m * n * sizeof(T) * 2) / (time * 1000000);
+    std::cout << "  Throughput: " << gbs << " GB/s" << std::endl;
+    std::cout << std::endl;
+    // thrust::device_vector<int> y(m*n);
+    // thrust::counting_iterator<int> c(0);
+    // thrust::transform(c, c+m*n, y.begin(), fine_rotate_gold(m, n));
+    // print_column(x, inplace::row_major_index(m, n), 96);    
+    //print_array(x, inplace::row_major_index(m, n));
+
+    inplace::detail::r2c::prerotator fn(m);
+    
+    assert(thrust::equal(x.begin(), x.end(), thrust::make_transform_iterator(
+                             thrust::counting_iterator<int>(0),
+                             overall_rotate_gold
+                             <inplace::detail::r2c::prerotator>(m, n, fn))));
+    
+}
+
+
 int main() {
-    //int m = 64;
-    //int n = 64;
+    // int m = 34;
+    // int n = 32;
+    // test_rotate(m, n);
     // int m = 32;
     // int n = 64;
     // int m = 33;
     // int n = 16;
     for(int m = 32; m < 100; m++) {
         for(int n = 32; n < 100; n++) {
-            //int m = 33; int n = 97;
-            typedef long long T;
-            thrust::device_vector<T> x(m * n);
-            thrust::copy(thrust::counting_iterator<int>(0),
-                         thrust::counting_iterator<int>(0) + m * n,
-                         x.begin());
-            //print_column(x, inplace::row_major_index(m, n), 96);
-            //print_array(x, inplace::row_major_index(m, n));
-            std::cout << "m: " << m << " n: " << n << std::endl;
-
-    
-            cudaEvent_t start,stop;
-            float time=0;
-            cudaEventCreate(&start);
-            cudaEventCreate(&stop);
-            cudaEventRecord(start, 0);
-
-    
-            inplace::detail::postrotate(m, n, thrust::raw_pointer_cast(x.data()));
-   
-    
-            cudaEventRecord(stop, 0);
-            cudaEventSynchronize(stop);
-            cudaEventElapsedTime(&time, start, stop);
-    
-            std::cout << "  Time: " << time << " ms" << std::endl;
-            float gbs = (float)(m * n * sizeof(T) * 2) / (time * 1000000);
-            std::cout << "  Throughput: " << gbs << " GB/s" << std::endl;
-            std::cout << std::endl;
-            // thrust::device_vector<int> y(m*n);
-            // thrust::counting_iterator<int> c(0);
-            // thrust::transform(c, c+m*n, y.begin(), fine_rotate_gold(m, n));
-            //print_column(x, inplace::row_major_index(m, n), 96);    
-            //print_array(x, inplace::row_major_index(m, n));
-    
-            assert(thrust::equal(x.begin(), x.end(), thrust::make_transform_iterator(
-                                     thrust::counting_iterator<int>(0),
-                                     overall_rotate_gold(m, n))));
-
+            test_rotate(m, n);
         }
     }
+    test_rotate(604,372);
 }

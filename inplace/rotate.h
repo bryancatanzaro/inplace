@@ -11,11 +11,8 @@
 namespace inplace {
 namespace detail {
 
-template<typename T>
-void prerotate(int c, int m, int n, T* data);
-
-template<typename T>
-void postrotate(int m, int n, T* data);
+template<typename F, typename T>
+void rotate(F f, int m, int n, T* data);
 
 }
 }
