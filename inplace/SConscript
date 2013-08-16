@@ -53,7 +53,14 @@ for sm_arch, datatype, wpts in schedule:
         custom_env.Append(NVCCFLAGS='-DINSTANTIATED_TYPE=%s ' % datatype)
         custom_env.Append(NVCCFLAGS='-DWPT=%s ' % wpt)
         custom_env.Append(NVCCFLAGS='-DSM=%s ' % sm_arch)
-        instantiations.append(custom_env.Object(target='instantiation%s%s%s.o' % (sm_arch, datatype, wpt), source='instantiation.cu'))
+        c2r = custom_env.Clone()
+        c2r.Append(NVCCFLAGS='-DDIRECTION=c2r ')
+        instantiations.append(c2r.Object(target='instantiation%s%s%sc2r.o' % (sm_arch, datatype, wpt), source='instantiation.cu'))
+        r2c = custom_env.Clone()
+        r2c.Append(NVCCFLAGS='-DDIRECTION=r2c ')
+        instantiations.append(r2c.Object(target='instantiation%s%s%sr2c.o' % (sm_arch, datatype, wpt), source='instantiation.cu'))
+
+
 env.Append(NVCCFLAGS=['-Xptxas', '-v'])
 
         

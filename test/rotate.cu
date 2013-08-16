@@ -1,5 +1,6 @@
 #include "rotate.h"
 #include "equations.h"
+#include "gcd.h"
 #include <thrust/device_vector.h>
 #include <iostream>
 #include <cassert>
@@ -49,12 +50,18 @@ void print_column(const C& c, const I& idx, int col) {
 }
 
 void test_rotate(int m, int n) {
+
+    int c, k;
+    inplace::extended_gcd(m, n, c, k);
+    int b = n / c;
+
+    
     typedef long long T;
     thrust::device_vector<T> x(m * n);
     thrust::copy(thrust::counting_iterator<int>(0),
                  thrust::counting_iterator<int>(0) + m * n,
                  x.begin());
-    //print_column(x, inplace::row_major_index(m, n), 96);
+    // print_column(x, inplace::row_major_index(m, n), n-1);
     //print_array(x, inplace::row_major_index(m, n));
     std::cout << "m: " << m << " n: " << n << std::endl;
     
@@ -65,9 +72,9 @@ void test_rotate(int m, int n) {
     cudaEventCreate(&stop);
     cudaEventRecord(start, 0);
     
+    inplace::detail::r2c::postrotator fn(b, m);
     
-    inplace::detail::rotate(
-        inplace::detail::r2c::prerotator(m), m, n, thrust::raw_pointer_cast(x.data()));
+    inplace::detail::rotate(fn, m, n, thrust::raw_pointer_cast(x.data()));
     
     
     cudaEventRecord(stop, 0);
@@ -81,22 +88,21 @@ void test_rotate(int m, int n) {
     // thrust::device_vector<int> y(m*n);
     // thrust::counting_iterator<int> c(0);
     // thrust::transform(c, c+m*n, y.begin(), fine_rotate_gold(m, n));
-    // print_column(x, inplace::row_major_index(m, n), 96);    
+    // print_column(x, inplace::row_major_index(m, n), n-1);    
     //print_array(x, inplace::row_major_index(m, n));
 
-    inplace::detail::r2c::prerotator fn(m);
     
     assert(thrust::equal(x.begin(), x.end(), thrust::make_transform_iterator(
                              thrust::counting_iterator<int>(0),
                              overall_rotate_gold
-                             <inplace::detail::r2c::prerotator>(m, n, fn))));
-    
+                             <inplace::detail::r2c::postrotator>(m, n, fn))));
+    std::cout << "-----------------PASSES----------------------" << std::endl;
 }
 
 
 int main() {
-    // int m = 34;
-    // int n = 32;
+    // int m = 33;
+    // int n = 33;
     // test_rotate(m, n);
     // int m = 32;
     // int n = 64;
@@ -107,5 +113,5 @@ int main() {
             test_rotate(m, n);
         }
     }
-    test_rotate(604,372);
+    // test_rotate(604,372);
 }

@@ -165,11 +165,21 @@ struct shuffle {
 
 struct postrotator {
     reduced_divisor b;
+    typedef int result_type;
     int m;
     __host__ postrotator(int _b, int _m) : b(_b), m(_m) {}
     __host__ __device__
     int operator()(int j) const {
-        return (int)m - (int)b.div(j);
+        int bdivj = (int)b.div(j);
+        if (bdivj == 0) {
+            return 0;
+        } else {
+            if (bdivj < m) {
+                return m - bdivj;
+            } else {
+                return m + m - bdivj;
+            }
+        }
     }
     __host__ __device__
     bool fine() const {
