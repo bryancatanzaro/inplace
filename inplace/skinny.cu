@@ -5,6 +5,12 @@
 #include "smem.h"
 #include <cassert>
 
+#include <iostream>
+#include <thrust/host_vector.h>
+#include <thrust/device_vector.h>
+#include <thrust/device_ptr.h>
+
+
 namespace inplace {
 namespace detail {
 
@@ -112,16 +118,16 @@ template<typename T, typename F>
 void skinny_row_op(F s, int m, int n, T* d, T* tmp) {
     for(int i = 0; i < m; i++) {
         long_row_shuffle<T, F, 4><<<(n-1)/256+1,256>>>(m, n, i, d, tmp, s);
+        
         cudaMemcpy(d + n * i, tmp, sizeof(T) * n, cudaMemcpyDeviceToDevice);
     }
 }
 
 template<typename T, typename F>
 void skinny_col_op(F s, int m, int n, T* d) {
-    int n_threads = 1024 / m;
-    n_threads = ((n_threads - 1) / 32 + 1) * 32;
-    
-    short_column_permute<<<dim3((n-1)/n_threads+1,1), dim3(n_threads, m),
+    int n_threads = 32; //Optimize this later
+    int n_blocks = (n - 1) / n_threads + 1;
+    short_column_permute<<<dim3(n_blocks,1), dim3(n_threads, m),
         sizeof(T) * m * n_threads>>>(m, n, d, s);
 }
 

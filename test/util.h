@@ -1,5 +1,6 @@
 #pragma once
 #include "index.h"
+#include <thrust/device_vector.h>
 
 template<typename V, typename F>
 bool is_ordered(const V& d,
