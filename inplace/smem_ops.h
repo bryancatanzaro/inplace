@@ -1,16 +1,9 @@
 #pragma once
 #include "index.h"
+#include "smem.h"
 
 namespace inplace {
 namespace detail {
-
-template<class T>
-struct shared_memory{
-    __device__ inline operator T*() const {
-        extern __shared__ int __smem[];
-        return (T*)__smem;
-    }
-};
 
 template<typename T, typename F>
 __global__ void smem_row_shuffle(int m, int n, T* d, F s) {
