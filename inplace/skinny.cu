@@ -9,7 +9,7 @@
 #include <thrust/host_vector.h>
 #include <thrust/device_vector.h>
 #include <thrust/device_ptr.h>
-
+#include <cstdio>
 
 namespace inplace {
 namespace detail {
@@ -103,31 +103,40 @@ __global__ void short_column_permute(int m, int n, T* d, F s) {
     T* smem = shared_memory<T>();
     row_major_index rm(m, n);
     row_major_index blk(blockDim.y, blockDim.x);
-    int j = threadIdx.x + blockIdx.x * blockDim.x;
     int i = threadIdx.y; // One block tall by REQUIREMENT
-    if ((i < m) && (j < n)) {
-        smem[blk(i, threadIdx.x)] = d[rm(i, j)];
-    }
-    __syncthreads();
-    if ((i < m) && (j < n)) {
-        d[rm(i, j)] = smem[blk(s(i, j), threadIdx.x)];
+    int grid_size = blockDim.x * gridDim.x;
+    
+    if (i < m) {
+
+        for(int j = threadIdx.x + blockIdx.x * blockDim.x;
+            j < n; j+= grid_size) {
+            
+            smem[blk(i, threadIdx.x)] = d[rm(i, j)];
+            __syncthreads();
+            d[rm(i, j)] = smem[blk(s(i, j), threadIdx.x)];
+ 
+        }   
     }
 }
 
 template<typename T, typename F>
 void skinny_row_op(F s, int m, int n, T* d, T* tmp) {
     for(int i = 0; i < m; i++) {
-        long_row_shuffle<T, F, 4><<<(n-1)/256+1,256>>>(m, n, i, d, tmp, s);
-        
+        long_row_shuffle<T, F, 4><<<(n-1)/(256*4)+1,256>>>(m, n, i, d, tmp, s);
         cudaMemcpy(d + n * i, tmp, sizeof(T) * n, cudaMemcpyDeviceToDevice);
+
     }
 }
 
 template<typename T, typename F>
 void skinny_col_op(F s, int m, int n, T* d) {
     int n_threads = 32; //Optimize this later
-    int n_blocks = (n - 1) / n_threads + 1;
-    short_column_permute<<<dim3(n_blocks,1), dim3(n_threads, m),
+    int n_blocks = 13*8;
+    dim3 grid_dim(n_blocks);
+    dim3 block_dim(n_threads, m);
+    std::cout << "Grid dim: " << grid_dim.x << " " << grid_dim.y << " " << std::endl;
+    std::cout << "Block dim: " << block_dim.x << " " << block_dim.y << " " << std::endl;
+    short_column_permute<<<grid_dim, block_dim,
         sizeof(T) * m * n_threads>>>(m, n, d, s);
 }
 
