@@ -49,6 +49,7 @@ struct shuffle {
     }
 };
 
+
 struct prerotator {
     typedef int result_type;
     reduced_divisor b;

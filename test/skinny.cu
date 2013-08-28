@@ -1,5 +1,7 @@
 #include "util.h"
 #include "skinny.h"
+#include "save_array.h"
+
 
 
 
@@ -15,8 +17,18 @@ void test_transpose(int m, int n) {
     thrust::transform(thrust::counting_iterator<int>(0),
                       thrust::counting_iterator<int>(0) + m * n,
                       x.begin(),
+                      inplace::tx_row_major_order<int>(n, m));
+    inplace::save_array("golden.dat", thrust::raw_pointer_cast(x.data()), m, n);
+
+
+    
+    thrust::transform(thrust::counting_iterator<int>(0),
+                      thrust::counting_iterator<int>(0) + m * n,
+                      x.begin(),
                       inplace::row_major_order<int>(m, n));
 
+    
+    
     cudaEvent_t start,stop;
     float time=0;
     cudaEventCreate(&start);
@@ -36,13 +48,17 @@ void test_transpose(int m, int n) {
     std::cout << "  Time: " << time << " ms" << std::endl;
     float gbs = (float)(2 * m * n * sizeof(T)) / (time * 1000000);
     std::cout << "  Throughput: " << gbs << " GB/s" << std::endl;
+    
+    inplace::save_array("output.dat", thrust::raw_pointer_cast(x.data()), m, n);
+    
 
+    
     
     bool correct = is_tx_row_major(x, m, n);
     if (correct) {
         std::cout << "PASSES" << std::endl << std::endl;
     } else {
-        std::cout << "FAILS" << std::endl << std::endl;
+        std::cout << "FAILS" << std::endl << std::endl;    
         exit(2);
     }
 
@@ -56,6 +72,6 @@ int main() {
     //     }
     // }
 
-    test_transpose(17, 1e6);
-    
+    test_transpose(31, 1e6);
+
 }

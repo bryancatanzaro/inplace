@@ -11,6 +11,8 @@
 #include <thrust/device_ptr.h>
 #include <cstdio>
 
+#include "save_array.h"
+
 namespace inplace {
 namespace detail {
 
@@ -23,6 +25,47 @@ struct fused_preop {
     __host__ __device__
     int operator()(const int& i, const int& j) {
         return (int)m.mod(i + (int)b.div(j));
+    }
+};
+
+//This shuffler exists for cases where m, n are large enough to cause overflow
+struct long_shuffle {
+    int m, n, k;
+    reduced_divisor_64 b;
+    reduced_divisor c;
+    __host__
+    long_shuffle(int _m, int _n, int _c, int _k) : m(_m), n(_n), k(_k),
+                                                   b(_n/_c), c(_c) {}
+    int i;
+    __host__ __device__ 
+    void set_i(const int& _i) {
+        i = _i;
+    }
+    __host__ __device__
+    int f(const int& j) {
+        int r = j + i * (n - 1);
+        //The (int) casts here prevent unsigned promotion
+        //and the subsequent underflow: c implicitly casts
+        //int - unsigned int to
+        //unsigned int - unsigned int
+        //rather than to
+        //int - int
+        //Which leads to underflow if the result is negative.
+        if (i - (int)c.mod(j) <= m - (int)c.get()) {
+            return r;
+        } else {
+            return r + m;
+        }
+    }
+    
+    __host__ __device__
+    int operator()(const int& j) {
+        int fij = f(j);
+        unsigned int fijdivc, fijmodc;
+        c.divmod(fij, fijdivc, fijmodc);
+        int term_1 = b.mod((long long)k * (long long)fijdivc);
+        int term_2 = ((int)fijmodc) * (int)b.get();
+        return term_1+term_2;
     }
 };
 
@@ -107,14 +150,14 @@ __global__ void short_column_permute(int m, int n, T* d, F s) {
     int grid_size = blockDim.x * gridDim.x;
     
     if (i < m) {
-
         for(int j = threadIdx.x + blockIdx.x * blockDim.x;
             j < n; j+= grid_size) {
             
             smem[blk(i, threadIdx.x)] = d[rm(i, j)];
             __syncthreads();
             d[rm(i, j)] = smem[blk(s(i, j), threadIdx.x)];
- 
+            __syncthreads();
+
         }   
     }
 }
@@ -134,8 +177,8 @@ void skinny_col_op(F s, int m, int n, T* d) {
     int n_blocks = 13*8;
     dim3 grid_dim(n_blocks);
     dim3 block_dim(n_threads, m);
-    std::cout << "Grid dim: " << grid_dim.x << " " << grid_dim.y << " " << std::endl;
-    std::cout << "Block dim: " << block_dim.x << " " << block_dim.y << " " << std::endl;
+    // std::cout << "Grid dim: " << grid_dim.x << " " << grid_dim.y << " " << std::endl;
+    // std::cout << "Block dim: " << block_dim.x << " " << block_dim.y << " " << std::endl;
     short_column_permute<<<grid_dim, block_dim,
         sizeof(T) * m * n_threads>>>(m, n, d, s);
 }
@@ -154,12 +197,25 @@ void skinny_transpose(T* data, int m, int n, T* tmp) {
     } else {
         k = t;
     }
+    // std::cout << "Starting" << std::endl;
+    // save_array("start.dat", data, m, n);
+    // std::cout << "Prerotating" << std::endl;
 
     if (c > 1) {
         skinny_col_op(fused_preop(m, n/c), m, n, data);
     }
-    skinny_row_op(shuffle(m, n, c, k), m, n, data, tmp);
+    
+    // save_array("prerotated.dat", data, m, n);
+    // std::cout << "Shuffling" << std::endl;
+    
+    skinny_row_op(long_shuffle(m, n, c, k), m, n, data, tmp);
+
+    // save_array("shuffled.dat", data, m, n);
+    // std::cout << "Postpermuting" << std::endl;
+
     skinny_col_op(fused_postop(m, n, c), m, n, data);
+    // std::cout << "Done!" << std::endl;
+    // save_array("postpermuted.dat", data, m, n);
 }
 
 
