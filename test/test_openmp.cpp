@@ -7,10 +7,10 @@
 #include <algorithm>
 #include "util.h"
 
-#include "sequential.h"
+#include "openmp.h"
 
 namespace inplace {
-namespace sequential {
+namespace openmp {
 
 template<typename T>
 void test(int m, int n, bool row_major=true) {
@@ -26,7 +26,8 @@ void test(int m, int n, bool row_major=true) {
     thrust::counting_iterator<int> c(0);
     thrust::transform(c, c+(m*n), x.begin(), thrust::identity<T>());
     //Preallocate temporary storage.
-    thrust::host_vector<T> t(std::max(m,n));
+    int max_threads = omp_get_max_threads();
+    thrust::host_vector<T> t(std::max(m,n) * max_threads);
     
     
     transpose(row_major,
@@ -55,8 +56,8 @@ void test(int m, int n, bool row_major=true) {
 int main() {
     for(int m = 1; m < 101; m++) {
         for(int n = 1; n < 101; n++) {
-            inplace::sequential::test<double>(m, n, true);
-            inplace::sequential::test<double>(m, n, false);
+            inplace::openmp::test<double>(m, n, true);
+            inplace::openmp::test<double>(m, n, false);
         }
     }
 
@@ -65,7 +66,7 @@ int main() {
         int m = (rand() & (max_dim - 1)) + 1;
         int n = (rand() & (max_dim - 1)) + 1;
         bool row_major = rand() & 2;
-        inplace::sequential::test<double>(m, n, row_major);
+        inplace::openmp::test<double>(m, n, row_major);
     }
     return 0;
 }

@@ -6,7 +6,7 @@ Import('env')
 
 
 gcd = env.Object('gcd', 'gcd.cpp')
-#sequential = env.Object('sequential', 'sequential.cpp')
+openmp = env.Object('openmp', 'openmp.cpp')
 
 
 sources = ['enact.cu', 'introspect.cu', 'save_array.cu', 'permute.cu', 'rotate.cu', 'smem_shuffle.cu', 'memory_shuffle.cu', 'skinny.cu']
@@ -64,6 +64,6 @@ for sm_arch, datatype, wpts in schedule:
 env.Append(NVCCFLAGS=['-Xptxas', '-v'])
 
         
-inplace = env.Library('inplace', instantiations + sources + [gcd])
+inplace = env.Library('inplace', instantiations + sources + [gcd, openmp])
 Return('inplace')
 
