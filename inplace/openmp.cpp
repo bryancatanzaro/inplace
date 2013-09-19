@@ -3,52 +3,61 @@
 #include "index.h"
 #include <algorithm>
 #include <omp.h>
+#include "reduced_math.h"
 
 namespace inplace {
 namespace openmp {
 namespace detail {
 
 struct prerotator {
-    int m, b;
-    prerotator() {}
+    reduced_divisor m, b;
+    prerotator() : m(0), b(0) {}
     prerotator(int _m, int _b) : m(_m), b(_b) {}
     int x;
     void set_j(const int& j) {
-        x = j / b;
+        x = b.div(j);
     }
     int operator()(const int& i) {
-        return (i + x) % m;
+        return m.mod(i + x);
     }
 };
 
 struct postpermuter {
-    int m, n, a, j;
-    postpermuter() {}
+    reduced_divisor m;
+    int n;
+    reduced_divisor a;
+    int j;
+    postpermuter() : m(0), a(0) {}
     postpermuter(int _m, int _n, int _a) : m(_m), n(_n), a(_a) {}
     void set_j(const int& _j) {
         j = _j;
     }
     int operator()(const int& i) {
-        return (i*n + j - (i/a)) % m;
+        return m.mod((i*n + j - a.div(i)));
     }
 };
 
-
 struct shuffle {
-    int m, n, c, k, b;
-    shuffle() {}
-    shuffle(int _m, int _n, int _c, int _k) : m(_m), n(_n), c(_c), k(_k) {
-        b = n / c;
-    }
+    int m, n, k;
+    reduced_divisor b;
+    reduced_divisor c;
+    shuffle() : b(0), c(0) {}
+    shuffle(int _m, int _n, int _c, int _k) : m(_m), n(_n), k(_k),
+                                              b(_n/_c), c(_c) {}
     int i;
     void set_i(const int& _i) {
         i = _i;
     }
-    //This returns long long to avoid integer overflow in intermediate
-    //computation
-    long long f(const int& j) {
-        long long r = j + i * (n - 1);
-        if (i < (m + 1 - c + (j % c))) {
+    int f(const int& j) {
+        int r = j + i * (n - 1);
+        //The (int) casts here prevent unsigned promotion
+        //and the subsequent underflow: c implicitly casts
+        //int - unsigned int to
+        //unsigned int - unsigned int
+        //rather than to
+        //int - int
+        //Which leads to underflow if the result is negative.
+        if (i - (int)c.mod(j) <= m - (int)c.get()) {
             return r;
         } else {
             return r + m;
@@ -56,13 +65,15 @@ struct shuffle {
     }
     
     int operator()(const int& j) {
-        long long fij = f(j);
-        int term1 = (k *(fij/c)) % b;
-        int term2 = (fij % c) * b;
-        return term1 + term2;
+        int fij = f(j);
+        unsigned int fijdivc, fijmodc;
+        c.divmod(fij, fijdivc, fijmodc);
+        //The extra mod in here prevents overflowing 32-bit int
+        int term_1 = b.mod(k * b.mod(fijdivc));
+        int term_2 = ((int)fijmodc) * (int)b.get();
+        return term_1+term_2;
     }
 };
-
 
 
 template<typename T, typename F>

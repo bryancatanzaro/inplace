@@ -25,13 +25,15 @@ def top_n(kv, n=5):
 
 if __name__ == '__main__':
     sizes, tps = parse_transposes(sys.argv[1])
+    np.savez(sys.argv[1], sizes=sizes, tps=tps) 
     print("Median throughput: %s GB/s" % np.median(tps))
     print("Max throughputs:")
     for tp, size in top_n(zip(tps, sizes)):
         print("  %s GB/s, at dimension %s" % (tp, size))
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    n, bins, patches = ax.hist(tps, 50)
+    n, bins, patches = ax.hist(tps, 50, label=sys.argv[1])
     ax.set_xlabel('GB/s')
-    ax.set_title(sys.argv[1])
+    ax.set_title("Skinny Matrix Transpose Throughput")
+    ax.legend()
     plt.show()

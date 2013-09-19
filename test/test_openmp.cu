@@ -8,6 +8,7 @@
 #include "util.h"
 
 #include "openmp.h"
+#include "timer.h"
 
 namespace inplace {
 namespace openmp {
@@ -28,13 +29,18 @@ void test(int m, int n, bool row_major=true) {
     //Preallocate temporary storage.
     int max_threads = omp_get_max_threads();
     thrust::host_vector<T> t(std::max(m,n) * max_threads);
-    
+
+    inplace::timer the_timer;
+    the_timer.start();
     
     transpose(row_major,
               thrust::raw_pointer_cast(x.data()),
               m, n,
               thrust::raw_pointer_cast(t.data()));
-
+    
+    float time = the_timer.stop();
+    float gbs = (float)(2 * m * n * sizeof(double)) / (time * 1000000);
+    std::cout << "  Throughput: " << gbs << " GB/s" << std::endl;
 
     bool correct;
     if (row_major) {
@@ -54,14 +60,14 @@ void test(int m, int n, bool row_major=true) {
 }
 
 int main() {
-    for(int m = 1; m < 101; m++) {
-        for(int n = 1; n < 101; n++) {
-            inplace::openmp::test<double>(m, n, true);
-            inplace::openmp::test<double>(m, n, false);
-        }
-    }
+    // for(int m = 1; m < 101; m++) {
+    //     for(int n = 1; n < 101; n++) {
+    //         inplace::openmp::test<double>(m, n, true);
+    //         inplace::openmp::test<double>(m, n, false);
+    //     }
+    // }
 
-    int max_dim = 10000;    
+    int max_dim = 10000;
     for(int i = 0; i < 1000; i++) {
         int m = (rand() & (max_dim - 1)) + 1;
         int n = (rand() & (max_dim - 1)) + 1;

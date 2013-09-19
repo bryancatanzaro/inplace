@@ -1,7 +1,7 @@
 #include <mkl_trans.h>
 #include <vector>
 
-#include "../index.h"
+#include "../../inplace/index.h"
 #include <iostream>
 using namespace inplace;
 
@@ -9,8 +9,8 @@ using namespace inplace;
 
 template<typename V, typename Fn>
 void print_array(const V& d, Fn index) {
-    int m = index.m_m;
-    int n = index.m_n;
+    int m = index.m;
+    int n = index.n;
     typedef typename V::value_type T;
     for(int i = 0; i < m; i++) {
         for(int j = 0; j < n; j++) {
@@ -62,27 +62,12 @@ void mkl_transpose(int m, int n) {
     
 }
 
-void generate_random_size(int& m, int &n) {
-    size_t e = 29440;
-    while(true) {
-        long long lm = rand() % e;
-        long long ln = rand() % e;
-        if (lm * ln > 0) {
-            m = (int)lm;
-            n = (int)ln;
-            return;
-        }
-    }
-}
-
-
 
 int main() {
-    for(int i = 0; i < 10; i++) {
-        int m, n;
-        generate_random_size(m, n);
+    int max_dim = 10000;
+    for(int i = 0; i < 1000; i++) {
+        int m = (rand() & (max_dim - 1)) + 1;
+        int n = (rand() & (max_dim - 1)) + 1;
         mkl_transpose(m, n);
-    }
-
-    
+    }    
 }
