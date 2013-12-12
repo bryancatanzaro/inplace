@@ -96,64 +96,67 @@ __global__ void fine_col_rotate(F fn, int m, int n, T* d) {
         int overall_rotation_amount = fn(col);
         int fine_rotation_amount = overall_rotation_amount - coarse_rotation_amount;
         if (fine_rotation_amount < 0) fine_rotation_amount += m;
-
-        int row = threadIdx.y;
-        int idx = row * n + col;
-        T* read_ptr = d + idx;
+        //If the whole warp is rotating by 0, early exit
+        int warp_vote = __ballot(fine_rotation_amount > 0);
+        if (warp_vote > 0) {
+            int row = threadIdx.y;
+            int idx = row * n + col;
+            T* read_ptr = d + idx;
         
-        int smem_idx = threadIdx.y * 32 + threadIdx.x;
+            int smem_idx = threadIdx.y * 32 + threadIdx.x;
 
-        T first = -2;
-        if (row < m) first = *read_ptr;
+            T first = -2;
+            if (row < m) first = *read_ptr;
 
-        bool first_phase = (threadIdx.y >= fine_rotation_amount);
-        int smem_row = threadIdx.y - fine_rotation_amount;
-        if (!first_phase) smem_row += 32;
+            bool first_phase = (threadIdx.y >= fine_rotation_amount);
+            int smem_row = threadIdx.y - fine_rotation_amount;
+            if (!first_phase) smem_row += 32;
 
-        int smem_write_idx = smem_row * 32 + threadIdx.x;
+            int smem_write_idx = smem_row * 32 + threadIdx.x;
 
-        if (first_phase) smem[smem_write_idx] = first;
+            if (first_phase) smem[smem_write_idx] = first;
 
-        T* write_ptr = read_ptr;
-        int ptr_inc = 32 * n;
-        read_ptr += ptr_inc;
-        //Loop over blocks that are guaranteed not to fall off the edge
-        for(int i = 0; i < (m / 32) - 1; i++) {
-            T tmp = *read_ptr;
-            if (!first_phase) smem[smem_write_idx] = tmp;
+            T* write_ptr = read_ptr;
+            int ptr_inc = 32 * n;
+            read_ptr += ptr_inc;
+            //Loop over blocks that are guaranteed not to fall off the edge
+            for(int i = 0; i < (m / 32) - 1; i++) {
+                T tmp = *read_ptr;
+                if (!first_phase) smem[smem_write_idx] = tmp;
+                __syncthreads();
+                *write_ptr = smem[smem_idx];
+                __syncthreads();
+                if (first_phase) smem[smem_write_idx] = tmp;
+                write_ptr = read_ptr;
+                read_ptr += ptr_inc;
+            }
+
+            //Final block (read_ptr may have fallen off the edge)
+            int remainder = m % 32;
+            T tmp = -3;
+            if (threadIdx.y < remainder) tmp = *read_ptr;
+            int tmp_dest_row = 32 - fine_rotation_amount + threadIdx.y;
+            if ((tmp_dest_row >= 0) && (tmp_dest_row < 32))
+                smem[tmp_dest_row * 32 + threadIdx.x] = tmp;
+            __syncthreads();
+            int first_dest_row = 32 + remainder - fine_rotation_amount + threadIdx.y;
+            if ((first_dest_row >= 0) && (first_dest_row < 32))
+                smem[first_dest_row * 32 + threadIdx.x] = first;
+        
             __syncthreads();
             *write_ptr = smem[smem_idx];
-            __syncthreads();
-            if (first_phase) smem[smem_write_idx] = tmp;
             write_ptr = read_ptr;
-            read_ptr += ptr_inc;
+            __syncthreads();
+            //Final incomplete block
+            tmp_dest_row -= 32; first_dest_row -= 32;
+            if ((tmp_dest_row >= 0) && (tmp_dest_row < 32))
+                smem[tmp_dest_row * 32 + threadIdx.x] = tmp;
+            __syncthreads();
+            if ((first_dest_row >= 0) && (first_dest_row < 32))
+                smem[first_dest_row * 32 + threadIdx.x] = first;
+            __syncthreads();
+            if (threadIdx.y < remainder) *write_ptr = smem[smem_idx];
         }
-
-        //Final block (read_ptr may have fallen off the edge)
-        int remainder = m % 32;
-        T tmp = -3;
-        if (threadIdx.y < remainder) tmp = *read_ptr;
-        int tmp_dest_row = 32 - fine_rotation_amount + threadIdx.y;
-        if ((tmp_dest_row >= 0) && (tmp_dest_row < 32))
-            smem[tmp_dest_row * 32 + threadIdx.x] = tmp;
-        __syncthreads();
-        int first_dest_row = 32 + remainder - fine_rotation_amount + threadIdx.y;
-        if ((first_dest_row >= 0) && (first_dest_row < 32))
-            smem[first_dest_row * 32 + threadIdx.x] = first;
-        
-        __syncthreads();
-        *write_ptr = smem[smem_idx];
-        write_ptr = read_ptr;
-        __syncthreads();
-        //Final incomplete block
-        tmp_dest_row -= 32; first_dest_row -= 32;
-        if ((tmp_dest_row >= 0) && (tmp_dest_row < 32))
-            smem[tmp_dest_row * 32 + threadIdx.x] = tmp;
-        __syncthreads();
-        if ((first_dest_row >= 0) && (first_dest_row < 32))
-            smem[first_dest_row * 32 + threadIdx.x] = first;
-        __syncthreads();
-        if (threadIdx.y < remainder) *write_ptr = smem[smem_idx];
     }
 }
 
