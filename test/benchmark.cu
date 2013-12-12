@@ -7,6 +7,7 @@
 #include <thrust/functional.h>
 #include <cstdlib>
 #include "util.h"
+#include <unistd.h>
 
 using namespace inplace;
 
@@ -46,10 +47,17 @@ void time_test(int m, int n) {
     cudaEventCreate(&stop);
     cudaEventRecord(start, 0);
 
-    
-    inplace::r2c::transpose(row_major,
-                            thrust::raw_pointer_cast(x.data()),
-                            m, n);
+
+    // //Simple heuristic
+    // if (m >= n) {
+        inplace::c2r::transpose(row_major,
+                                thrust::raw_pointer_cast(x.data()),
+                                m, n);
+    // } else {
+        // inplace::r2c::transpose(row_major,
+        //                         thrust::raw_pointer_cast(x.data()),
+        //                         m, n);
+    // }
 
 
     cudaEventRecord(stop, 0);
@@ -75,18 +83,14 @@ void time_test(int m, int n) {
 }
 
 void generate_random_size(int& m, int &n) {
-    size_t memory_size = gpu_memory_size();
-    size_t ints_size = memory_size / sizeof(int);
-    size_t e = 29440;//(size_t)sqrt(double(ints_size));
+    int ub = 25000;
+    int lb = 1000;
+    int span = ub - lb;
     while(true) {
-        long long lm = 32 + rand() % e;
-        long long ln = 32 + rand() % e;
-        size_t extra = n_ctas() * max(lm, ln);
-        if ((lm * ln > 0) && ((lm * (ln + extra)) < ints_size)) {
-            m = (int)lm;
-            n = (int)ln;
-            return;
-        }
+        long long lm = lb + rand() % span;
+        long long ln = lb + rand() % span;
+        m = (int)lm;
+        n = (int)ln;
     }
 }
 
@@ -99,19 +103,21 @@ int main() {
     //visual_test(32, 6);
     // time_test<double>(32, 6);
     // time_test<double>(13985, 512);
-    // for(int i = 0; i < 1000; i++) {
-    //    int m, n;
-    //    generate_random_size(m, n);
-    //    time_test<double>(m, n);
-    // }
-    int n_pts = 1000;
-    int l_bound = 1000;
-    int u_bound = 20000;
-    int delta = (u_bound - l_bound) / n_pts;
-    for(int m = l_bound; m < u_bound; m += delta) {
-        for(int n = l_bound; n < u_bound; n += delta) {
-            time_test<double>(m, n);
-        }
+    //time_test<double>(7200, 1800);
+    for(int i = 0; i < 10000; i++) {
+       int m, n;
+       generate_random_size(m, n);
+       time_test<double>(m, n);
     }
+    // int n_pts = 501;
+    // int l_bound = 1000;
+    // int u_bound = 25000;
+    // float delta = (float)(u_bound - l_bound) / (float)n_pts;
+    // for(int m = 21304; m < 23607; m += (int)delta) {
+    //     for(int n = l_bound; n < u_bound; n += (int)delta) {
+    //         time_test<double>(m, n);
+    //         //sleep(1);
+    //     }
+    // }
         
 }
