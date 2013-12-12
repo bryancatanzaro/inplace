@@ -3,7 +3,7 @@
 #include <thrust/iterator/counting_iterator.h>
 #include <thrust/iterator/transform_iterator.h>
 #include <thrust/functional.h>
-#include <cstdlib>
+#include "util/randint.h"
 #include <algorithm>
 #include "util.h"
 
@@ -57,6 +57,8 @@ void test(int m, int n, bool row_major=true) {
 }
 
 }
+
+
 }
 
 int main() {
@@ -66,11 +68,11 @@ int main() {
     //         inplace::openmp::test<double>(m, n, false);
     //     }
     // }
-
+    int min_dim = 1000;
     int max_dim = 10000;
     for(int i = 0; i < 1000; i++) {
-        int m = (rand() & (max_dim - 1)) + 1;
-        int n = (rand() & (max_dim - 1)) + 1;
+        int m = inplace::detail::randint(min_dim, max_dim);
+        int n = inplace::detail::randint(min_dim, max_dim);
         bool row_major = rand() & 2;
         inplace::openmp::test<double>(m, n, row_major);
     }

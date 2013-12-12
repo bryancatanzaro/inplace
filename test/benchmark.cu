@@ -104,14 +104,15 @@ int main() {
     //    generate_random_size(m, n);
     //    time_test<double>(m, n);
     // }
-    int n_pts = 1000;
-    int l_bound = 1000;
-    int u_bound = 20000;
-    int delta = (u_bound - l_bound) / n_pts;
-    for(int m = l_bound; m < u_bound; m += delta) {
-        for(int n = l_bound; n < u_bound; n += delta) {
-            time_test<double>(m, n);
-        }
-    }
+    time_test<double>(13986, 512);
+    // int n_pts = 1000;
+    // int l_bound = 1000;
+    // int u_bound = 20000;
+    // int delta = (u_bound - l_bound) / n_pts;
+    // for(int m = l_bound; m < u_bound; m += delta) {
+    //     for(int n = l_bound; n < u_bound; n += delta) {
+    //         time_test<double>(m, n);
+    //     }
+    // }
         
 }
