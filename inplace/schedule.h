@@ -37,8 +37,9 @@ struct schedule{};
 
 template<>
 struct schedule<float, sm_35> {
-    //typedef cons<smem<float, sm_35, 8>, cons<reg<5, 256>, cons<reg<5, 384>, cons<reg<5, 512>, cons<reg<20, 256>, cons<reg<20, 384>, cons<reg<20, 512>, cons<reg<37, 256>, cons<reg<37, 384>, cons<reg<37, 512>, cons<reg<77, 256>, cons<reg<77, 384>, cons<reg<77, 512>, cons<reg<100, 256>, cons<reg<100, 384>, cons<reg<100, 512>, memory> > > > > > > > > > > > > > > > type;
-    typedef cons<smem<float, sm_35, 8>, cons<reg<5, 256>, memory> > type;
+    
+    typedef cons<smem<float, sm_35, 8>, cons<smem<float, sm_35, 6>, cons<smem<float, sm_35, 4>, cons<smem<float, sm_35, 2>, cons<smem<float, sm_35, 1>, cons<reg<5, 256>, cons<reg<5, 384>, cons<reg<5, 512>, cons<reg<12, 256>, cons<reg<12, 384>, cons<reg<12, 512>, cons<reg<20, 256>, cons<reg<20, 384>, cons<reg<20, 512>, cons<reg<30, 256>, cons<reg<30, 384>, cons<reg<30, 512>, cons<reg<40, 256>, cons<reg<40, 384>, cons<reg<40, 512>, cons<reg<54, 256>, cons<reg<54, 384>, cons<reg<54, 512>,  memory> > > > > > > > > > > > > > > > > > > > > > > type;
+    //typedef cons<smem<float, sm_35, 8>, cons<reg<5, 256>, memory> > type;
 };
 
 template<>

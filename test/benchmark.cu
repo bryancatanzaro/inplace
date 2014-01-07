@@ -26,7 +26,7 @@ void visual_test(int m, int n) {
 
 template<typename T>
 void time_test(int m, int n) {
-    bool row_major = true;//rand() & 2;
+    bool row_major = rand() & 2;
 
     std::cout << "Checking results for transpose of a " << m << " x " <<
         n << " matrix, in ";
@@ -48,16 +48,16 @@ void time_test(int m, int n) {
     cudaEventRecord(start, 0);
 
 
-    // //Simple heuristic
-    // if (m >= n) {
-        inplace::c2r::transpose(row_major,
+    //Simple heuristic
+    if (m > n) {
+    	inplace::c2r::transpose(row_major,
                                 thrust::raw_pointer_cast(x.data()),
                                 m, n);
-    // } else {
-        // inplace::r2c::transpose(row_major,
-        //                         thrust::raw_pointer_cast(x.data()),
-        //                         m, n);
-    // }
+    } else {
+        inplace::r2c::transpose(row_major,
+                               thrust::raw_pointer_cast(x.data()),
+                               m, n);
+    }
 
 
     cudaEventRecord(stop, 0);
@@ -78,20 +78,16 @@ void time_test(int m, int n) {
         std::cout << "PASSES" << std::endl << std::endl;
     } else {
         std::cout << "FAILS" << std::endl << std::endl;
-        exit(2);
+        //exit(2);
     }
 }
 
 void generate_random_size(int& m, int &n) {
-    int ub = 25000;
+    int ub = 20000;
     int lb = 1000;
     int span = ub - lb;
-    while(true) {
-        long long lm = lb + rand() % span;
-        long long ln = lb + rand() % span;
-        m = (int)lm;
-        n = (int)ln;
-    }
+    m = lb + rand() % span;
+    n = lb + rand() % span;
 }
 
 int main() {
@@ -105,19 +101,19 @@ int main() {
     // time_test<double>(13985, 512);
     //time_test<double>(7200, 1800);
     for(int i = 0; i < 10000; i++) {
-       int m, n;
-       generate_random_size(m, n);
-       time_test<double>(m, n);
+      int m, n;
+      generate_random_size(m, n);
+      time_test<double>(m, n);
     }
-    // int n_pts = 501;
-    // int l_bound = 1000;
-    // int u_bound = 25000;
-    // float delta = (float)(u_bound - l_bound) / (float)n_pts;
-    // for(int m = 21304; m < 23607; m += (int)delta) {
-    //     for(int n = l_bound; n < u_bound; n += (int)delta) {
-    //         time_test<double>(m, n);
+    //int n_pts = 501;
+    //int l_bound = 1000;
+    //int u_bound = 25000;
+    //float delta = (float)(u_bound - l_bound) / (float)n_pts;
+    //for(int m = l_bound; m < u_bound; m += (int)delta) {
+    //    for(int n = l_bound; n < u_bound; n += (int)delta) {
+    //        time_test<double>(m, n);
     //         //sleep(1);
-    //     }
-    // }
+    //    }
+    //}
         
 }
