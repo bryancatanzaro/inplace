@@ -97,7 +97,7 @@ __global__ void fine_col_rotate(F fn, int m, int n, T* d) {
         int fine_rotation_amount = overall_rotation_amount - coarse_rotation_amount;
         if (fine_rotation_amount < 0) fine_rotation_amount += m;
         //If the whole warp is rotating by 0, early exit
-        int warp_vote = __ballot(fine_rotation_amount > 0);
+        unsigned int warp_vote = __ballot(fine_rotation_amount > 0);
         if (warp_vote > 0) {
             int row = threadIdx.y;
             int idx = row * n + col;

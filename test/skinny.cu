@@ -1,13 +1,13 @@
 #include "util.h"
 #include "skinny.h"
 #include "save_array.h"
-
+#include <cstdlib>
 
 
 
 void test_transpose(int m, int n) {
 
-    typedef int T;
+    typedef double T;
     thrust::device_vector<T> x(m * n);
     thrust::device_vector<T> t(n);
 
@@ -18,7 +18,7 @@ void test_transpose(int m, int n) {
                       thrust::counting_iterator<int>(0) + m * n,
                       x.begin(),
                       inplace::tx_row_major_order<int>(n, m));
-    inplace::save_array("golden.dat", thrust::raw_pointer_cast(x.data()), m, n);
+    //inplace::save_array("golden.dat", thrust::raw_pointer_cast(x.data()), m, n);
 
 
     
@@ -49,7 +49,7 @@ void test_transpose(int m, int n) {
     float gbs = (float)(2 * m * n * sizeof(T)) / (time * 1000000);
     std::cout << "  Throughput: " << gbs << " GB/s" << std::endl;
     
-    inplace::save_array("output.dat", thrust::raw_pointer_cast(x.data()), m, n);
+    //inplace::save_array("output.dat", thrust::raw_pointer_cast(x.data()), m, n);
     
 
     
@@ -64,14 +64,24 @@ void test_transpose(int m, int n) {
 
 }
 
+int bounded_rand(int min, int max) {
+    int range = max - min;
+    return (rand() % range) + min;
+}
+
 int main() {
 
+    for(int i = 0; i < 10000; i++) {
+        int m = bounded_rand(2, 32);
+        int n = bounded_rand(10000, 10e6);
+        test_transpose(m, n);
+    }
     // for(int m = 1; m <= 32; m++) {
     //     for(int n = 1; n < 100; n++) {
     //         test_transpose(m, n);
     //     }
     // }
 
-    test_transpose(31, 1e6);
+    //test_transpose(30, 10e6);
 
 }
