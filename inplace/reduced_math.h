@@ -6,8 +6,6 @@
 //These classes provide for reduced complexity division and modulus
 //on integers, for the case where the same divisor or modulus will
 //be used repeatedly.  
-#include "util/uint128.h"
-
 
 namespace inplace {
 
@@ -77,7 +75,7 @@ void find_divisor(unsigned long long denom,
         return;
     }
     unsigned int p = 63 + find_log_2((long long)denom, true);
-    unsigned long long m = (((uint128(1) << p) + denom - 1)/denom).to_base_type();
+    unsigned long long m = (((__uint128_t(1) << p) + denom - 1)/denom);
     mul_coeff = m;
     shift_coeff = p - 64;
 }
