@@ -66,21 +66,9 @@ void find_divisor(unsigned int denom,
     shift_coeff = p - 32;
 }
 
-__host__  __forceinline__
+
 void find_divisor(unsigned long long denom,
-                  unsigned long long& mul_coeff, unsigned int& shift_coeff) {
-    if (denom == 1) {
-        mul_coeff = 0;
-        shift_coeff = 0;
-        return;
-    }
-    unsigned int p = 63 + find_log_2((long long)denom, true);
-    unsigned long long m = (((__uint128_t(1) << p) + denom - 1)/denom);
-    mul_coeff = m;
-    shift_coeff = p - 64;
-}
-
-
+                  unsigned long& mul_coeff, unsigned int& shift_coeff);
 
 __host__ __device__ __forceinline__
 unsigned int umulhi(unsigned int x, unsigned int y) {
@@ -93,13 +81,14 @@ unsigned int umulhi(unsigned int x, unsigned int y) {
 }
 
 
+unsigned long long cpu_umulhi(unsigned long long x, unsigned long long y);
+
 __host__ __device__ __forceinline__
 unsigned long long umulhi(unsigned long long x, unsigned long long y) {
 #if __CUDA_ARCH__ >= 100
     return __umul64hi(x, y);
 #else
-    uint128 z = (uint128)x * (uint128)y;
-    return (z >> 64).to_base_type();
+    return cpu_umulhi(x, y);
 #endif  
 }
 
