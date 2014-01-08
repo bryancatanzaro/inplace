@@ -9,7 +9,6 @@ int clz(int x) {
 }
 
 // Count leading zeros - start from most significant bit.
-__host__ __device__ __forceinline__
 int clz(long long x) {
     for(int i = 63; i >= 0; --i)
         if((1ll<< i) & x) return 63 - i;
