@@ -38,7 +38,7 @@ unsigned long long umulhi(unsigned long long x, unsigned long long y) {
 #if __CUDA_ARCH__ >= 100
     return __umul64hi(x, y);
 #else
-    return cpu_umulhi(x, y);
+    return host_umulhi(x, y);
 #endif  
 }
 
