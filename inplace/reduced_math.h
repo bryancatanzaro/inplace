@@ -68,7 +68,7 @@ void find_divisor(unsigned int denom,
 
 
 void find_divisor(unsigned long long denom,
-                  unsigned long& mul_coeff, unsigned int& shift_coeff);
+                  unsigned long long& mul_coeff, unsigned int& shift_coeff);
 
 __host__ __device__ __forceinline__
 unsigned int umulhi(unsigned int x, unsigned int y) {
