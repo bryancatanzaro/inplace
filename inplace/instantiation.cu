@@ -21,7 +21,25 @@
 namespace inplace {
 namespace detail {
 
+//Work around nvcc/clang bug on OS X
+#ifndef __clang__
+
 template __global__ void register_row_shuffle<SM, INSTANTIATED_TYPE, DIRECTION::shuffle, WPT>(int, int, INSTANTIATED_TYPE*, DIRECTION::shuffle);
+
+#else
+namespace {
+
+template<typename A, typename B, typename C, int D>
+void* magic() {
+    return (void*)&register_row_shuffle<A, B, C, D>;
+}
+
+template void* magic<SM, INSTANTIATED_TYPE, DIRECTION::shuffle, WPT>();
+
+}
+
+#endif
+          
 
 }
 }
