@@ -177,8 +177,6 @@ void skinny_col_op(F s, int m, int n, T* d) {
     int n_blocks = 13*8;
     dim3 grid_dim(n_blocks);
     dim3 block_dim(n_threads, m);
-    // std::cout << "Grid dim: " << grid_dim.x << " " << grid_dim.y << " " << std::endl;
-    // std::cout << "Block dim: " << block_dim.x << " " << block_dim.y << " " << std::endl;
     short_column_permute<<<grid_dim, block_dim,
         sizeof(T) * m * n_threads>>>(m, n, d, s);
 }
@@ -197,25 +195,15 @@ void skinny_transpose(T* data, int m, int n, T* tmp) {
     } else {
         k = t;
     }
-    // std::cout << "Starting" << std::endl;
-    // save_array("start.dat", data, m, n);
-    // std::cout << "Prerotating" << std::endl;
 
     if (c > 1) {
         skinny_col_op(fused_preop(m, n/c), m, n, data);
     }
-    
-    // save_array("prerotated.dat", data, m, n);
-    // std::cout << "Shuffling" << std::endl;
-    
+        
     skinny_row_op(long_shuffle(m, n, c, k), m, n, data, tmp);
 
-    // save_array("shuffled.dat", data, m, n);
-    // std::cout << "Postpermuting" << std::endl;
-
     skinny_col_op(fused_postop(m, n, c), m, n, data);
-    // std::cout << "Done!" << std::endl;
-    // save_array("postpermuted.dat", data, m, n);
+
 }
 
 
@@ -225,6 +213,37 @@ template void skinny_transpose(int* data, int m, int n, int* tmp);
 template void skinny_transpose(long long* data, int m, int n, long long* tmp);
 
 }
+
+namespace r2c {
+
+template<typename T>
+void skinny_transpose(T* data, int m, int n, T* tmp) {
+
+    assert(m <= 32);
+    int c, t, q;
+    extended_gcd(n, m, c, t);
+    if (c > 1) {
+        extended_gcd(n/c, m/c, t, q);
+    } else {
+        q = t;
+    }
+
+    skinny_col_op(fused_preop(m/c, c, m, q), m, n, data);
+       
+    skinny_row_op(shuffle(m, n, c, 0), m, n, data, tmp);
+
+    if (c > 1) {
+        skinny_col_op(fused_postop(m, n/c), m, n, data);
+    }
+}
+
+template void skinny_transpose(float* data, int m, int n, float* tmp);
+template void skinny_transpose(double* data, int m, int n, double* tmp);
+template void skinny_transpose(int* data, int m, int n, int* tmp);
+template void skinny_transpose(long long* data, int m, int n, long long* tmp);
+
+}
+
 
 
 }

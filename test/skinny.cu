@@ -9,7 +9,9 @@ void test_transpose(int m, int n) {
 
     typedef double T;
     thrust::device_vector<T> x(m * n);
-    thrust::device_vector<T> t(n);
+    int larger = max(m, n);
+    
+    thrust::device_vector<T> t(larger);
 
     std::cout << "Checking results for transpose of a " << m << " x " <<
         n << " matrix" << std::endl;
@@ -35,13 +37,18 @@ void test_transpose(int m, int n) {
     cudaEventCreate(&stop);
     cudaEventRecord(start, 0);
 
+    if (m < 32) {
         
-    inplace::detail::c2r::skinny_transpose(
-        thrust::raw_pointer_cast(x.data()),
-        m, n,
-        thrust::raw_pointer_cast(t.data()));
-
-
+        inplace::detail::c2r::skinny_transpose(
+            thrust::raw_pointer_cast(x.data()),
+            m, n,
+            thrust::raw_pointer_cast(t.data()));
+    } else {
+        inplace::detail::r2c::skinny_transpose(
+            thrust::raw_pointer_cast(x.data()),
+            n, m,
+            thrust::raw_pointer_cast(t.data()));
+    }
     cudaEventRecord(stop, 0);
     cudaEventSynchronize(stop);
     cudaEventElapsedTime(&time, start, stop);
@@ -70,18 +77,17 @@ int bounded_rand(int min, int max) {
 }
 
 int main() {
-
+    //Test R2C direction
+    for(int i = 0; i < 10000; i++) {
+        int n = bounded_rand(2, 32);
+        int m = bounded_rand(10000, 10e6);
+        test_transpose(m, n);
+    }
+    //Test C2R direction
     for(int i = 0; i < 10000; i++) {
         int m = bounded_rand(2, 32);
         int n = bounded_rand(10000, 10e6);
         test_transpose(m, n);
     }
-    // for(int m = 1; m <= 32; m++) {
-    //     for(int n = 1; n < 100; n++) {
-    //         test_transpose(m, n);
-    //     }
-    // }
-
-    //test_transpose(30, 10e6);
 
 }
