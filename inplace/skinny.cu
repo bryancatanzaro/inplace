@@ -185,7 +185,8 @@ void skinny_col_op(F s, int m, int n, T* d) {
 namespace c2r {
 
 template<typename T>
-void skinny_transpose(T* data, int m, int n, T* tmp) {
+void skinny_transpose(T* data, int m, int n) {
+    //std::cout << "Doing Skinny C2R transpose of " << m << ", " << n << std::endl;
 
     assert(m <= 32);
     int c, t, k;
@@ -199,25 +200,27 @@ void skinny_transpose(T* data, int m, int n, T* tmp) {
     if (c > 1) {
         skinny_col_op(fused_preop(m, n/c), m, n, data);
     }
-        
+    T* tmp;
+    cudaMalloc(&tmp, sizeof(T) * n);
     skinny_row_op(long_shuffle(m, n, c, k), m, n, data, tmp);
-
+    cudaFree(tmp);
     skinny_col_op(fused_postop(m, n, c), m, n, data);
 
 }
 
 
-template void skinny_transpose(float* data, int m, int n, float* tmp);
-template void skinny_transpose(double* data, int m, int n, double* tmp);
-template void skinny_transpose(int* data, int m, int n, int* tmp);
-template void skinny_transpose(long long* data, int m, int n, long long* tmp);
+template void skinny_transpose(float* data, int m, int n);
+template void skinny_transpose(double* data, int m, int n);
+template void skinny_transpose(int* data, int m, int n);
+template void skinny_transpose(long long* data, int m, int n);
 
 }
 
 namespace r2c {
 
 template<typename T>
-void skinny_transpose(T* data, int m, int n, T* tmp) {
+void skinny_transpose(T* data, int m, int n) {
+    //std::cout << "Doing Skinny R2C transpose of " << m << ", " << n << std::endl;
 
     assert(m <= 32);
     int c, t, q;
@@ -229,18 +232,19 @@ void skinny_transpose(T* data, int m, int n, T* tmp) {
     }
 
     skinny_col_op(fused_preop(m/c, c, m, q), m, n, data);
-       
+    T* tmp;
+    cudaMalloc(&tmp, sizeof(T) * n);
     skinny_row_op(shuffle(m, n, c, 0), m, n, data, tmp);
-
+    cudaFree(tmp);
     if (c > 1) {
         skinny_col_op(fused_postop(m, n/c), m, n, data);
     }
 }
 
-template void skinny_transpose(float* data, int m, int n, float* tmp);
-template void skinny_transpose(double* data, int m, int n, double* tmp);
-template void skinny_transpose(int* data, int m, int n, int* tmp);
-template void skinny_transpose(long long* data, int m, int n, long long* tmp);
+template void skinny_transpose(float* data, int m, int n);
+template void skinny_transpose(double* data, int m, int n);
+template void skinny_transpose(int* data, int m, int n);
+template void skinny_transpose(long long* data, int m, int n);
 
 }
 
