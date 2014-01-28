@@ -173,8 +173,10 @@ void skinny_row_op(F s, int m, int n, T* d, T* tmp) {
 
 template<typename T, typename F>
 void skinny_col_op(F s, int m, int n, T* d) {
-    int n_threads = 32; //Optimize this later
-    int n_blocks = 13*8;
+    int n_threads = 32;
+    // XXX Potential optimization here: figure out how many blocks/sm
+    // we should launch
+    int n_blocks = n_sms()*8;
     dim3 grid_dim(n_blocks);
     dim3 block_dim(n_threads, m);
     short_column_permute<<<grid_dim, block_dim,

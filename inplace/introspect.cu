@@ -15,6 +15,10 @@ int n_threads() {
 }
 
 
+int n_sms() {
+    return cached_properties.properties.multiProcessorCount;
+}
+
 int n_ctas() {
     int n_sms = cached_properties.properties.multiProcessorCount;
     int n_threads_per_sm =
