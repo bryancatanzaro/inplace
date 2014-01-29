@@ -9,5 +9,5 @@ if nvcc_exists:
     sources = glob.glob('*.cu')
 
     for source in sources:
-        test_lib_env.Program(source)
+        test_env.Program(source)
 

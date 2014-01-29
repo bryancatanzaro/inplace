@@ -1,3 +1,4 @@
+#include "introspect.h"
 #include "index.h"
 #include "gcd.h"
 #include "reduced_math.h"
