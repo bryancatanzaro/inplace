@@ -8,6 +8,14 @@ core
 cuda_profile*
 *.log
 *.a
+*DS_Store
+siteconf.py
+build
+comparisons
+.sconf_temp
+errors.txt
 test/benchmark
 test/permute
 test/rotate
+test/skinny
+test/test_openmp
