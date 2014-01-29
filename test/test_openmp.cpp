@@ -1,17 +1,35 @@
-#include <iostream>
+#define THRUST_DEVICE_SYSTEM THRUST_DEVICE_SYSTEM_OMP
+#define __forceinline__ 
 #include <thrust/host_vector.h>
 #include <thrust/iterator/counting_iterator.h>
 #include <thrust/iterator/transform_iterator.h>
 #include <thrust/functional.h>
 #include "util/randint.h"
+#include <iostream>
 #include <algorithm>
 #include "util.h"
 
 #include "openmp.h"
-#include "timer.h"
+
+#include <sys/time.h>
 
 namespace inplace {
 namespace openmp {
+
+struct timer {
+    struct timeval start, stop;
+    void begin() {
+        gettimeofday(&start, NULL);
+    }
+    float end() {
+        gettimeofday(&stop, NULL);
+        float result = (stop.tv_sec - start.tv_sec) * 1000.0f +
+            (stop.tv_usec - start.tv_usec) * 1.0e-3f;
+        return result;
+    }
+};
+   
+
 
 template<typename T>
 void test(int m, int n, bool row_major=true) {
@@ -30,15 +48,15 @@ void test(int m, int n, bool row_major=true) {
     int max_threads = omp_get_max_threads();
     thrust::host_vector<T> t(std::max(m,n) * max_threads);
 
-    inplace::timer the_timer;
-    the_timer.start();
+    timer the_timer;
+    the_timer.begin();
     
     transpose(row_major,
               thrust::raw_pointer_cast(x.data()),
               m, n,
               thrust::raw_pointer_cast(t.data()));
     
-    float time = the_timer.stop();
+    float time = the_timer.end();
     float gbs = (float)(2 * m * n * sizeof(double)) / (time * 1000000);
     std::cout << "  Throughput: " << gbs << " GB/s" << std::endl;
 

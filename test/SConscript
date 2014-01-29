@@ -1,7 +1,13 @@
 import glob
 
 Import('test_env')
-sources = glob.glob('*.cu') + glob.glob('*.cpp')
+test_env.Program('test_openmp.cpp')
 
-for source in sources:
-    test_env.Program(source)
+nvcc_exists = test_env.Detect('nvcc')
+if nvcc_exists:
+
+    sources = glob.glob('*.cu')
+
+    for source in sources:
+        test_lib_env.Program(source)
+
