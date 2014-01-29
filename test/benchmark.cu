@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include "util.h"
 #include <unistd.h>
+#include "util/randint.h"
 
 using namespace inplace;
 
@@ -25,8 +26,7 @@ void visual_test(int m, int n) {
 
 
 template<typename T>
-void time_test(int m, int n) {
-    bool row_major = rand() & 2;
+void time_test(bool row_major, int m, int n) {
 
     std::cout << "Checking results for transpose of a " << m << " x " <<
         n << " matrix, in ";
@@ -39,8 +39,6 @@ void time_test(int m, int n) {
     thrust::device_vector<T> x(m*n);
     thrust::counting_iterator<int> c(0);
     thrust::transform(c, c+(m*n), x.begin(), thrust::identity<T>());
-    //Preallocate temporary storage.
-    thrust::device_vector<T> t(max(m,n)*n_ctas());
     cudaEvent_t start,stop;
     float time=0;
     cudaEventCreate(&start);
@@ -48,16 +46,9 @@ void time_test(int m, int n) {
     cudaEventRecord(start, 0);
 
 
-    //Simple heuristic
-    if (m > n) {
-    	inplace::c2r::transpose(row_major,
-                                thrust::raw_pointer_cast(x.data()),
-                                m, n);
-    } else {
-        inplace::r2c::transpose(row_major,
-                               thrust::raw_pointer_cast(x.data()),
-                               m, n);
-    }
+    inplace::transpose(row_major,
+                       thrust::raw_pointer_cast(x.data()),
+                       m, n);
 
 
     cudaEventRecord(stop, 0);
@@ -78,42 +69,22 @@ void time_test(int m, int n) {
         std::cout << "PASSES" << std::endl << std::endl;
     } else {
         std::cout << "FAILS" << std::endl << std::endl;
-        //exit(2);
+        exit(2);
     }
 }
 
 void generate_random_size(int& m, int &n) {
     int ub = 20000;
     int lb = 1000;
-    int span = ub - lb;
-    m = lb + rand() % span;
-    n = lb + rand() % span;
+    m = inplace::detail::randint(lb, ub);
+    n = inplace::detail::randint(lb, ub);
 }
 
 int main() {
-    // for(int m = 32; m < 1000; m++) {
-    //     for(int n = 1; n < 1000; n++) {
-    //         time_test<double>(m, n);
-    //     }
-    // }
-    //visual_test(32, 6);
-    // time_test<double>(32, 6);
-    // time_test<double>(13985, 512);
-    //time_test<double>(7200, 1800);
     for(int i = 0; i < 10000; i++) {
-      int m, n;
-      generate_random_size(m, n);
-      time_test<double>(m, n);
+        int m, n;
+        generate_random_size(m, n);
+        bool row_major = rand() & 0x1;
+        time_test<double>(row_major, m, n);
     }
-    //int n_pts = 501;
-    //int l_bound = 1000;
-    //int u_bound = 25000;
-    //float delta = (float)(u_bound - l_bound) / (float)n_pts;
-    //for(int m = l_bound; m < u_bound; m += (int)delta) {
-    //    for(int n = l_bound; n < u_bound; n += (int)delta) {
-    //        time_test<double>(m, n);
-    //         //sleep(1);
-    //    }
-    //}
-        
 }
