@@ -1,3 +1,5 @@
+#include <stdexcept>
+
 namespace inplace {
 namespace detail {
 
@@ -33,6 +35,9 @@ int find_log_2(long long x, bool round_up = false) {
 
 void find_divisor(unsigned int denom,
                   unsigned int& mul_coeff, unsigned int& shift_coeff) {
+    if (denom == 0) {
+        throw std::invalid_argument("Trying to find reduced divisor for 0");
+    }
     if (denom == 1) {
         mul_coeff = 0;
         shift_coeff = 0;
@@ -47,6 +52,9 @@ void find_divisor(unsigned int denom,
 
 void find_divisor(unsigned long long denom,
                   unsigned long long& mul_coeff, unsigned int& shift_coeff) {
+    if (denom == 0) {
+        throw std::invalid_argument("Trying to find reduced divisor for 0");
+    }
     if (denom == 1) {
         mul_coeff = 0;
         shift_coeff = 0;

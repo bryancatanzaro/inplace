@@ -11,7 +11,7 @@ namespace detail {
 
 struct prerotator {
     reduced_divisor m, b;
-    prerotator() : m(0), b(0) {}
+    prerotator() : m(1), b(1) {}
     prerotator(int _m, int _b) : m(_m), b(_b) {}
     int x;
     void set_j(const int& j) {
@@ -27,7 +27,7 @@ struct postpermuter {
     int n;
     reduced_divisor a;
     int j;
-    postpermuter() : m(0), a(0) {}
+    postpermuter() : m(1), a(1) {}
     postpermuter(int _m, int _n, int _a) : m(_m), n(_n), a(_a) {}
     void set_j(const int& _j) {
         j = _j;
@@ -41,7 +41,7 @@ struct shuffle {
     int m, n, k;
     reduced_divisor b;
     reduced_divisor c;
-    shuffle() : b(0), c(0) {}
+    shuffle() : b(1), c(1) {}
     shuffle(int _m, int _n, int _c, int _k) : m(_m), n(_n), k(_k),
                                               b(_n/_c), c(_c) {}
     int i;
