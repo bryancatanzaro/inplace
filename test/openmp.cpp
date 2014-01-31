@@ -91,7 +91,7 @@ int main() {
     for(int i = 0; i < 1000; i++) {
         int m = inplace::detail::randint(min_dim, max_dim);
         int n = inplace::detail::randint(min_dim, max_dim);
-        bool row_major = rand() & 2;
+        bool row_major = rand() & 1;
         inplace::openmp::test<double>(m, n, row_major);
     }
     return 0;

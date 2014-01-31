@@ -5,8 +5,7 @@ import re
 Import('env')
 
 objects = []
-host_sources = glob.glob('*.cpp')
-
+host_sources = ['gcd.cpp', 'openmp.cpp', 'reduced_math.cpp'] 
 device_sources = ['enact.cu', 'introspect.cu', 'save_array.cu', 'permute.cu', 'rotate.cu', 'smem_shuffle.cu', 'memory_shuffle.cu', 'skinny.cu', 'timer.cu']
 
 def schedule_parser(filename):

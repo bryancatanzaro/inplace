@@ -1,7 +1,7 @@
 import glob
 
 Import('test_env')
-test_env.Program('test_openmp.cpp')
+test_env.Program('openmp.cpp')
 
 nvcc_exists = test_env.Detect('nvcc')
 if nvcc_exists:

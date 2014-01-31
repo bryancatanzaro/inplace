@@ -74,6 +74,9 @@ SetOption('num_jobs', n_jobs)
 env.Append(CCFLAGS=['-fopenmp'])
 env.Append(LIBS=['gomp'])
 
+#Add cudart
+env.Append(LIBS=['cudart'])
+
 #Add stdc++
 env.Append(LIBS=['stdc++'])
 
@@ -81,7 +84,7 @@ Export('env')
 
 #Build library
 inplace = SConscript(os.path.join('inplace', 'SConscript'),
-                     variant_dir='build')
+                     variant_dir='build', duplicate=1)
 
 #test_env adds inplace
 test_env = env.Clone()
