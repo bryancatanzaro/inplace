@@ -6,6 +6,7 @@
 #include "permute.h"
 #include "equations.h"
 #include "skinny.h"
+#include "util.h"
 #include <algorithm>
 
 
@@ -96,6 +97,40 @@ struct enact_schedule<SM, T, F, memory, Enactor> {
     }
 };
 
+template<typename F, typename Schedule>
+struct enact_schedule<sm_35, double, F, Schedule, shuffle_enactor> {
+    static void impl(double* data, int m, int n, F s) {
+
+        if (n < 3072) {
+            int smem_bytes = sizeof(double) * n;
+            smem_row_shuffle<<<m, 256, smem_bytes>>>(m, n, data, s);
+            check_error("smem shuffle");
+        } else if (n < 4100) {
+            register_row_shuffle<sm_35, double, F, 16>
+                <<<m, 512>>>(m, n, data, s);
+            check_error("register 16 shuffle");
+                        
+        } else if (n < 6918) {
+            register_row_shuffle<sm_35, double, F, 18>
+                <<<m, 512>>>(m, n, data, s);
+            check_error("register 18 shuffle");
+
+        } else if (n < 30208) {
+            register_row_shuffle<sm_35, double, F, 59>
+                <<<m, 512>>>(m, n, data, s);
+            check_error("register 60 shuffle");
+
+        } else {
+            double* temp;
+            cudaMalloc(&temp, sizeof(double) * n * n_ctas());
+            memory_row_shuffle
+                <<<n_ctas(), n_threads()>>>(m, n, data, temp, s);
+            cudaFree(temp);
+            check_error("memory shuffle");
+                        
+        }
+    }
+};
 
 template<typename T, typename F>
 void shuffle_fn(T* data, int m, int n, F s) {
