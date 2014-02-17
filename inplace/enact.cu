@@ -132,6 +132,37 @@ struct enact_schedule<sm_35, double, F, Schedule, shuffle_enactor> {
     }
 };
 
+template<typename F, typename Schedule>
+struct enact_schedule<sm_35, float, F, Schedule, shuffle_enactor> {
+    static void impl(float* data, int m, int n, F s) {
+
+        if (n < 6144) {
+            int smem_bytes = sizeof(float) * n;
+            smem_row_shuffle<<<m, 256, smem_bytes>>>(m, n, data, s);
+            check_error("smem shuffle");
+        } else if (n < 11326) {
+            register_row_shuffle<sm_35, float, F, 31>
+                <<<m, 512>>>(m, n, data, s);
+            check_error("register 31 shuffle");
+                        
+        } else if (n < 30720) {
+            register_row_shuffle<sm_35, float, F, 60>
+                <<<m, 512>>>(m, n, data, s);
+            check_error("register 60 shuffle");
+
+        } else {
+            float* temp;
+            cudaMalloc(&temp, sizeof(float) * n * n_ctas());
+            memory_row_shuffle
+                <<<n_ctas(), n_threads()>>>(m, n, data, temp, s);
+            cudaFree(temp);
+            check_error("memory shuffle");
+                        
+        }
+    }
+};
+
+
 template<typename T, typename F>
 void shuffle_fn(T* data, int m, int n, F s) {
     int arch = current_sm();
