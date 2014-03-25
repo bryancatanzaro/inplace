@@ -15,6 +15,10 @@ the CUDA implementation is declared in `<inplace/transpose.h>`, and
 carries the following signatures:
 
 ```c++
+namespace inplace {
+
 void transpose(bool row_major, float* data, int m, int n);
 void transpose(bool row_major, double* data, int m, int n);
+
+}
 ```
