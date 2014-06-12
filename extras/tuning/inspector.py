@@ -14,16 +14,16 @@ ma_data = np.zeros(shape=(variants, samples - 1000 + 1))
 for var in range(variants):
     ma_data[var, :] = moving_average(data[var, :], 1000)
 
-plt.plot(ma_data[:,6918:].transpose())
+plt.plot(ma_data[:,10000:].transpose())
 plt.show()
     
 # diff_average = moving_average(diff_sq)
 # plt.plot(moving_average(data[6,:], 1000))
-# plt.show()
-import pdb
-pdb.set_trace()
+# # plt.show()
+# import pdb
+# pdb.set_trace()
 switch = ma_data[9] - ma_data[0]
-for x in range(len(switch)):
-    if (switch[x] > 0):
-        print(x)
-        break
+for x in range(11326, len(switch)):
+     if (switch[x] > 0):
+         print(x)
+         break

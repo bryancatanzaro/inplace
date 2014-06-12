@@ -8,7 +8,7 @@ except:
     exec open(os.path.join('config', "build-env.py"))
     env = Environment()
 
-
+    
 siteconf = {}
 siteconf['THRUST_DIR'] = None
 siteconf['CXX'] = None
@@ -64,7 +64,13 @@ def check_header(header, name, var):
 
 #Check for Thrust
 check_header('thrust/version.h', 'Thrust', 'THRUST_DIR')
-    
+
+if conf.CheckLib('cudart'):
+    #Add cudart
+    env.Append(LIBS=['cudart'])
+
+conf.Finish()
+
 #Parallelize the build maximally
 import multiprocessing
 n_jobs = multiprocessing.cpu_count()
@@ -74,8 +80,6 @@ SetOption('num_jobs', n_jobs)
 env.Append(CCFLAGS=['-fopenmp'])
 env.Append(LIBS=['gomp'])
 
-#Add cudart
-env.Append(LIBS=['cudart'])
 
 #Add stdc++
 env.Append(LIBS=['stdc++'])
@@ -88,7 +92,7 @@ inplace = SConscript(os.path.join('inplace', 'SConscript'),
 
 #test_env adds inplace
 test_env = env.Clone()
-test_env.Append(CPPPATH=os.path.join(os.getcwd(), 'inplace'))
+test_env.Append(CPPPATH=[os.path.join(os.getcwd(), 'inplace')])
 test_env.Append(LIBS=inplace)
 
 Export('test_env')

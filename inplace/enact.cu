@@ -79,7 +79,6 @@ void sm_35_enact(float* data, int m, int n, F s) {
     }
 }
 
-
 template<typename T, typename F>
 void shuffle_fn(T* data, int m, int n, F s) {
     int arch = current_sm();

@@ -52,6 +52,9 @@ def get_cuda_paths():
 
   return (bin_path,lib_path,inc_path)
 
+def cuda_exists(bin_path):
+    return os.path.exists(bin_path)
+
 
 def getTools():
   result = []
@@ -180,7 +183,7 @@ def Environment():
                         allowed_values = ('release', 'debug')))
 
   # add a variable to handle compute capability
-  vars.Add(EnumVariable('arch', 'Compute capability code generation', 'sm_20',
+  vars.Add(EnumVariable('arch', 'Compute capability code generation', 'sm_35',
                         allowed_values = ('sm_10', 'sm_11', 'sm_12', 'sm_13', 'sm_20', 'sm_21', 'sm_30', 'sm_35')))
 
   # add a variable to handle warnings
@@ -220,16 +223,15 @@ def Environment():
    
   # get CUDA paths
   (cuda_exe_path,cuda_lib_path,cuda_inc_path) = get_cuda_paths()
-  env.Append(LIBPATH = [cuda_lib_path])
-  env.Append(CPPPATH = [cuda_inc_path])
 
-  env.Replace(CUDA_PATHS = (cuda_lib_path, cuda_inc_path))
+  cuda_found = cuda_exists(cuda_exe_path)
+  if cuda_found:
+   
+    env.Append(LIBPATH = [cuda_lib_path])
+    env.Append(CPPPATH = [cuda_inc_path])
 
-  # link against backend-specific runtimes
-  # XXX we shouldn't have to link against cudart unless we're using the
-  #     cuda runtime, but cudafe inserts some dependencies when compiling .cu files
-  # XXX ideally this gets handled in nvcc.py if possible
-  #env.Append(LIBS = 'cudart')
+    env.Replace(CUDA_PATHS = (cuda_lib_path, cuda_inc_path))
+    
 
   if env['backend'] == 'ocelot':
     if os.name == 'posix':
