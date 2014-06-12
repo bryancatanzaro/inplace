@@ -1,12 +1,11 @@
-#include "schedule.h"
 #include "gcd.h"
 #include "introspect.h"
-#include "sm.h"
 #include "rotate.h"
 #include "permute.h"
 #include "equations.h"
 #include "skinny.h"
 #include "util.h"
+#include "register_ops.h"
 #include <algorithm>
 
 
@@ -17,131 +16,76 @@ namespace detail {
 template<typename T, typename F>
 __global__ void smem_row_shuffle(int m, int n, T* d, F s);
 
-template<typename SM, typename T, typename F, int WPT>
-__global__ void register_row_shuffle(int m, int n, T* d, F s);
-
 template<typename T, typename F>
 __global__ void memory_row_shuffle(int m, int n, T* d, T* tmp, F s);
 
-
-
-template<typename T, typename Schedule, typename SM>
-struct shuffle_enactor {};
-
-template<typename T, typename SM, int blks>
-struct shuffle_enactor<T, smem<T, SM, blks>, SM> {
-    bool enabled;
-    static const int blk = smem<T, SM, blks>::blk;
-    static const int lim = smem<T, SM, blks>::lim;
-    shuffle_enactor(int n) {
-        enabled = (n <= lim);
-    }
-    template<typename F>
-    void operator()(T* data, int m, int n, F s) {
-        int smem_bytes = sizeof(T) * n;
-        smem_row_shuffle<<<m, blk, smem_bytes>>>(m, n, data, s);
-    }
-};
-
-template<typename T, typename SM, int w, int b>
-struct shuffle_enactor<T, reg<w, b>, SM> {
-    bool enabled;
-    static const int wpt = reg<w, b>::wpt;
-    static const int blk = reg<w, b>::blk;
-    shuffle_enactor(int n) {
-        enabled = (n <= reg<w, b>::lim);
-    }
-    template<typename F>
-    void operator()(T* data, int m, int n, F s) {
-        register_row_shuffle<SM, T, F, wpt>
-            <<<m, blk>>>(m, n, data, s);
-    }
-};
-
-
-template<typename T, typename SM>
-struct shuffle_enactor<T, memory, SM> {
-    bool enabled;
-    shuffle_enactor(int n) {
-        enabled = true;
-    }
-    template<typename F>
-    void operator()(T* data, int m, int n, F s) {
-        T* temp;
-        cudaMalloc(&temp, sizeof(T) * n * n_ctas());
+template<typename F>
+void sm_35_enact(double* data, int m, int n, F s) {
+    if (n < 3072) {
+        int smem_bytes = sizeof(double) * n;
+        smem_row_shuffle<<<m, 256, smem_bytes>>>(m, n, data, s);
+        check_error("smem shuffle");
+    } else if (n < 4100) {
+        register_row_shuffle<double, F, 16>
+            <<<m, 512>>>(m, n, data, s);
+        check_error("register 16 shuffle");
+        
+    } else if (n < 6918) {
+        register_row_shuffle<double, F, 18>
+            <<<m, 512>>>(m, n, data, s);
+        check_error("register 18 shuffle");
+        
+    } else if (n < 30208) {
+        register_row_shuffle<double, F, 59>
+            <<<m, 512>>>(m, n, data, s);
+        check_error("register 60 shuffle");
+        
+    } else {
+        double* temp;
+        cudaMalloc(&temp, sizeof(double) * n * n_ctas());
         memory_row_shuffle
             <<<n_ctas(), n_threads()>>>(m, n, data, temp, s);
         cudaFree(temp);
+        check_error("memory shuffle");
+        
     }
-};
+}
 
-template<typename SM, typename T, typename F, typename Schedule, template<class, class, class> class Enactor>
-struct enact_schedule {
-    static void impl(T* data, int m, int n, F s) {
-        Enactor<T, typename Schedule::head, SM>
-            enactor(n);
-        if (enactor.enabled) {
-            enactor(data, m, n, s);
-        } else {
-            enact_schedule<SM, T, F, typename Schedule::tail, Enactor>
-                ::impl(data, m, n, s);
-        }
+template<typename F>
+void sm_35_enact(float* data, int m, int n, F s) {
+    
+    if (n < 6144) {
+        int smem_bytes = sizeof(float) * n;
+        smem_row_shuffle<<<m, 256, smem_bytes>>>(m, n, data, s);
+        check_error("smem shuffle");
+    } else if (n < 11326) {
+        register_row_shuffle<float, F, 31>
+            <<<m, 512>>>(m, n, data, s);
+        check_error("register 31 shuffle");
+        
+    } else if (n < 30720) {
+        register_row_shuffle<float, F, 60>
+            <<<m, 512>>>(m, n, data, s);
+        check_error("register 60 shuffle");
+        
+    } else {
+        float* temp;
+        cudaMalloc(&temp, sizeof(float) * n * n_ctas());
+        memory_row_shuffle
+            <<<n_ctas(), n_threads()>>>(m, n, data, temp, s);
+        cudaFree(temp);
+        check_error("memory shuffle");
+        
     }
-};
+}
 
-template<typename SM, typename T, typename F, template<class, class, class> class Enactor>
-struct enact_schedule<SM, T, F, memory, Enactor> {
-    static void impl(T* data, int m, int n, F s) {
-        Enactor<T, memory, SM> enactor(n);
-        enactor(data, m, n, s);
-    }
-};
-
-template<typename F, typename Schedule>
-struct enact_schedule<sm_35, double, F, Schedule, shuffle_enactor> {
-    static void impl(double* data, int m, int n, F s) {
-
-        if (n < 3072) {
-            int smem_bytes = sizeof(double) * n;
-            smem_row_shuffle<<<m, 256, smem_bytes>>>(m, n, data, s);
-            check_error("smem shuffle");
-        } else if (n < 4100) {
-            register_row_shuffle<sm_35, double, F, 16>
-                <<<m, 512>>>(m, n, data, s);
-            check_error("register 16 shuffle");
-                        
-        } else if (n < 6918) {
-            register_row_shuffle<sm_35, double, F, 18>
-                <<<m, 512>>>(m, n, data, s);
-            check_error("register 18 shuffle");
-
-        } else if (n < 30208) {
-            register_row_shuffle<sm_35, double, F, 59>
-                <<<m, 512>>>(m, n, data, s);
-            check_error("register 60 shuffle");
-
-        } else {
-            double* temp;
-            cudaMalloc(&temp, sizeof(double) * n * n_ctas());
-            memory_row_shuffle
-                <<<n_ctas(), n_threads()>>>(m, n, data, temp, s);
-            cudaFree(temp);
-            check_error("memory shuffle");
-                        
-        }
-    }
-};
 
 template<typename T, typename F>
 void shuffle_fn(T* data, int m, int n, F s) {
     int arch = current_sm();
     if (arch >= 305) {
-        enact_schedule<sm_35, T, F, typename schedule<T, sm_35>::type, shuffle_enactor>
-            ::impl(data, m, n, s);
-    } else if (arch >= 200) {
-        enact_schedule<sm_20, T, F, typename schedule<T, sm_20>::type, shuffle_enactor>
-            ::impl(data, m, n, s);
-    }
+        sm_35_enact(data, m, n, s);
+    } 
 }
 
 }
@@ -225,6 +169,8 @@ template<typename T>
 void transpose_fn(bool row_major, T* data, int m, int n) {
     bool small_m = m < 32;
     bool small_n = n < 32;
+    //Heuristic to choose the fastest implementation
+    //based on size of matrix and data layout
     if (!small_m && small_n) {
         std::swap(m, n);
         if (!row_major) {

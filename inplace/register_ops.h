@@ -63,7 +63,7 @@ __device__ __forceinline__ void write_row(const int& i, const row_major_index& r
 
 
 
-template<typename SM, typename T, typename F, int R>
+template<typename T, typename F, int R>
 __global__ void register_row_shuffle(int m, int n, T* d, F s) {
     row_major_index rm(m, n);
     array<T, R> thread_storage;

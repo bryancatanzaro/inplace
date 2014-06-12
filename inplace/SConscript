@@ -8,61 +8,9 @@ objects = []
 host_sources = ['gcd.cpp', 'openmp.cpp', 'reduced_math.cpp'] 
 device_sources = ['enact.cu', 'introspect.cu', 'save_array.cu', 'permute.cu', 'rotate.cu', 'smem_shuffle.cu', 'memory_shuffle.cu', 'skinny.cu', 'timer.cu']
 
-def schedule_parser(filename):
-    schedule_type_extractor = re.compile(r'schedule\<(.*)\,(.*)\>')
-    schedule_extractor = re.compile(r'reg\<(\d+),(.*)\>')
-    line_comment = re.compile(r'\/\/.*')
-    star_comment = re.compile(r'\/\*.*\*\/')
-    f = open(filename, 'r')
-    schedules =[]
-    for line in f:
-        line = star_comment.sub('', line)
-        line = line_comment.sub('', line)
-        match = schedule_type_extractor.search(line)
-        if match:
-            data_type = match.group(1).strip()
-            sm_arch = match.group(2).strip()
-        
-        def schedule_extract(l):
-            match = schedule_extractor.search(l)
-            if match:
-                return [match.group(1)] + schedule_extract(match.group(2))
-            else:
-                return []
-        
-        schedule = schedule_extract(line)
-        if schedule:
-            unique_schedules = set(schedule)
-            schedules.append((sm_arch, data_type, unique_schedules))
-    return schedules
 nvcc_exists = env.Detect('nvcc')
 if nvcc_exists:
-    schedule = schedule_parser(
-        os.path.join(os.path.pardir, 'inplace', 'schedule.h'))
-    assert(schedule is not None)
-
-    instantiations = []
-
-    for sm_arch, datatype, wpts in schedule:
-        
-        for wpt in wpts:
-            custom_env = env.Clone()
-            custom_env.Replace(NVCCFLAGS='-arch=%s ' % sm_arch)
-            custom_env.Append(NVCCFLAGS='-DINSTANTIATED_TYPE=%s ' % datatype)
-            custom_env.Append(NVCCFLAGS='-DWPT=%s ' % wpt)
-            custom_env.Append(NVCCFLAGS='-DSM=%s ' % sm_arch)
-            c2r = custom_env.Clone()
-            c2r.Append(NVCCFLAGS='-DDIRECTION=c2r ')
-            instantiations.append(c2r.Object(target='instantiation%s%s%sc2r.o' % (sm_arch, datatype, wpt), source='instantiation.cu'))
-            r2c = custom_env.Clone()
-            r2c.Append(NVCCFLAGS='-DDIRECTION=r2c ')
-            instantiations.append(r2c.Object(target='instantiation%s%s%sr2c.o' % (sm_arch, datatype, wpt), source='instantiation.cu'))
-            
-            
-            env.Append(NVCCFLAGS=['-Xptxas', '-v'])
-
-
-    inplace = env.Library('inplace', instantiations + device_sources + host_sources)
+    inplace = env.Library('inplace', device_sources + host_sources)
 else:
     inplace = env.Library('inplace', host_sources)
     
