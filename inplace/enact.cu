@@ -79,12 +79,66 @@ void sm_35_enact(float* data, int m, int n, F s) {
     }
 }
 
+template<typename F>
+void sm_52_enact(double* data, int m, int n, F s) {
+    if (n < 6144) {
+        int smem_bytes = sizeof(double) * n;
+        smem_row_shuffle<<<m, 256, smem_bytes>>>(m, n, data, s);
+        check_error("smem shuffle");
+    } else if (n < 6918) {
+        register_row_shuffle<double, F, 18>
+            <<<m, 512>>>(m, n, data, s);
+        check_error("register 18 shuffle");
+        
+    } else if (n < 29696) {
+        register_row_shuffle<double, F, 58>
+            <<<m, 512>>>(m, n, data, s);
+        check_error("register 58 shuffle");
+        
+    } else {
+        double* temp;
+        cudaMalloc(&temp, sizeof(double) * n * n_ctas());
+        memory_row_shuffle
+            <<<n_ctas(), n_threads()>>>(m, n, data, temp, s);
+        cudaFree(temp);
+        check_error("memory shuffle");
+        
+    }
+}
+
+template<typename F>
+void sm_52_enact(float* data, int m, int n, F s) {
+    
+    if (n < 12288) {
+        int smem_bytes = sizeof(float) * n;
+        smem_row_shuffle<<<m, 256, smem_bytes>>>(m, n, data, s);
+        check_error("smem shuffle");
+    } else if (n < 30720) {
+        register_row_shuffle<float, F, 60>
+            <<<m, 512>>>(m, n, data, s);
+        check_error("register 60 shuffle");
+        
+    } else {
+        float* temp;
+        cudaMalloc(&temp, sizeof(float) * n * n_ctas());
+        memory_row_shuffle
+            <<<n_ctas(), n_threads()>>>(m, n, data, temp, s);
+        cudaFree(temp);
+        check_error("memory shuffle");
+        
+    }
+}
+
 template<typename T, typename F>
 void shuffle_fn(T* data, int m, int n, F s) {
     int arch = current_sm();
-    if (arch >= 305) {
+    if (arch >= 502) {
+        sm_52_enact(data, m, n, s);
+    } else if (arch >= 305) {
         sm_35_enact(data, m, n, s);
-    } 
+    } else {
+        throw std::invalid_argument("Requires sm_35 or greater");
+    }
 }
 
 }
