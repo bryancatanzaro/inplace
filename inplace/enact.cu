@@ -91,7 +91,7 @@ void sm_52_enact(double* data, int m, int n, F s) {
         check_error("register 18 shuffle");
         
     } else if (n < 29696) {
-        register_row_shuffle<double, F, 58>
+        register_row_shuffle<double, F, 57>
             <<<m, 512>>>(m, n, data, s);
         check_error("register 58 shuffle");
         
